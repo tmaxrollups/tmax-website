@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="/favicon.ico" rel="icon" type="image/x-icon"/>
+<title>TMAX Roll Ups | Custom Shades, Screens, Doors &amp; Shutters</title>
+<meta content="Custom shades, screens, roll-up garage doors, shutters and commercial systems for homes and businesses, including garage doors up to 18.5 ft wide." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700;800&amp;family=Work+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+/* ═════════════════════════════════════════════════════════════════════
+   TMAX ROLL UPS — SHARED DESIGN SYSTEM
+   All pages link to this single stylesheet for consistency.
+   ═════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --tmax-gold: #d5aa51;
+  --tmax-gold-dark: #bf9749;
+  --tmax-brown: #59461f;
+  --tmax-black: #000;
+  --tmax-white: #fff;
+  --tmax-bg-soft: #FAF8F3;
+  --tmax-bg-tint: #FBF7EE;
+  --tmax-border: #D4CFC0;
+  --tmax-body: #1a1a1a;
+  --tmax-text: #2d2d2d;
+  --tmax-muted: #5a5a5a;
+  --tmax-focus: #2563eb;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; font-family: 'Work Sans', sans-serif; font-size: 16px; line-height: 1.55; color: var(--tmax-text); background: var(--tmax-bg-soft); }
+h1, h2, h3, h4, h5, h6 { font-family: 'Raleway', sans-serif; color: var(--tmax-body); letter-spacing: -0.01em; margin: 0 0 0.5em 0; font-weight: 700; line-height: 1.2; }
+p { margin: 0 0 1em 0; }
+p:last-child { margin-bottom: 0; }
+a { color: var(--tmax-brown); text-underline-offset: 2px; }
+a:hover { color: var(--tmax-gold-dark); }
+img { max-width: 100%; height: auto; display: block; }
+button, .btn { cursor: pointer; font-family: 'Raleway', sans-serif; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--tmax-focus); outline-offset: 3px; border-radius: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.container-narrow { max-width: 840px; margin: 0 auto; padding: 0 24px; }
+
+/* Buttons */
+.btn-primary { display: inline-flex; align-items: center; justify-content: center; background: var(--tmax-gold); color: #000; border: 2px solid var(--tmax-gold-dark); padding: 16px 32px; border-radius: 4px; text-decoration: none; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-family: 'Raleway', sans-serif; min-height: 52px; transition: background 0.15s, color 0.15s; }
+.btn-primary:hover { background: var(--tmax-gold-dark); color: #fff; }
+.btn-secondary { display: inline-flex; align-items: center; justify-content: center; background: #fff; color: var(--tmax-brown); border: 2px solid var(--tmax-border); padding: 16px 28px; border-radius: 4px; text-decoration: none; font-size: 15px; font-weight: 600; font-family: 'Raleway', sans-serif; min-height: 52px; }
+.btn-secondary:hover { border-color: var(--tmax-gold); color: var(--tmax-gold-dark); }
+.btn-ghost-dark { display: inline-flex; align-items: center; justify-content: center; background: transparent; color: #fff; border: 2px solid #555; padding: 16px 28px; border-radius: 4px; text-decoration: none; font-size: 15px; font-weight: 600; font-family: 'Raleway', sans-serif; min-height: 52px; }
+.btn-ghost-dark:hover { border-color: var(--tmax-gold); color: var(--tmax-gold); }
+
+/* Header */
+.site-header { background: #000; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 0 rgba(255,255,255,0.05); }
+.header-inner { max-width: 1240px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 24px; position: relative; }
+.site-logo img { height: 44px; width: auto; display: block; }
+@media (max-width: 640px) { .header-inner { padding: 10px 16px; } .site-logo img { height: 36px; } }
+.site-nav { display: flex; align-items: center; gap: 20px; }
+.site-nav a { color: #fff; text-decoration: none; font-family: 'Raleway', sans-serif; font-weight: 500; font-size: 14px; transition: color 0.15s; }
+.site-nav a:hover, .site-nav a.active { color: var(--tmax-gold); }
+.site-nav .btn-primary { padding: 8px 16px; min-height: 40px; font-size: 12px; }
+.menu-toggle { display: none; background: transparent; border: 2px solid var(--tmax-gold); color: var(--tmax-gold); padding: 8px 14px; font-size: 13px; font-weight: 700; font-family: 'Raleway', sans-serif; border-radius: 4px; cursor: pointer; min-height: 44px; }
+@media (max-width: 1180px) {
+  .site-nav { display: none; flex-direction: column; align-items: stretch; gap: 16px; position: absolute; top: 100%; left: 0; right: 0; background: #000; padding: 20px 24px; border-top: 1px solid #2a2a2a; }
+  .site-nav.open { display: flex; }
+  .menu-toggle { display: inline-flex; align-items: center; }
+}
+
+/* Hero */
+.hero { background: #000; position: relative; min-height: 400px; display: flex; align-items: center; overflow: hidden; padding: 64px 0; }
+.hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.82; }
+.hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.34) 48%, rgba(0,0,0,0.08) 78%); }
+.hero-content { position: relative; max-width: 1200px; width: 100%; margin: 0 auto; padding: 0 24px; z-index: 2; }
+.hero-eyebrow { display: inline-block; background: rgba(213, 170, 81, 0.18); color: var(--tmax-gold); border: 1px solid rgba(213, 170, 81, 0.35); padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 22px; }
+.hero h1 { font-size: 60px; color: #fff; max-width: 720px; margin: 0 0 18px 0; line-height: 1.05; }
+.hero h1 em { color: var(--tmax-gold); font-style: normal; }
+.hero-desc { font-size: 19px; color: #e5e5e5; max-width: 560px; line-height: 1.55; margin: 0 0 28px 0; }
+.hero-meta { margin: 14px 0 0; font-size: 0.95rem; letter-spacing: 0.01em; }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+@media (max-width: 720px) { .hero h1 { font-size: 38px; } .hero-desc { font-size: 17px; } .hero { min-height: 440px; padding: 56px 0; } }
+
+/* Page header (smaller hero for content pages) */
+.page-header { background: #000; color: #fff; padding: 80px 0 64px; border-bottom: 4px solid var(--tmax-gold); position: relative; overflow: hidden; }
+.page-header-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.22; }
+.page-header-content { position: relative; z-index: 2; text-align: center; }
+.page-header .hero-eyebrow { margin-bottom: 16px; }
+.page-header h1 { font-size: 52px; color: #fff; margin: 0 0 14px 0; line-height: 1.1; }
+.page-header h1 em { color: var(--tmax-gold); font-style: normal; }
+.page-header-desc { font-size: 19px; color: #e5e5e5; max-width: 640px; margin: 0 auto; line-height: 1.55; }
+@media (max-width: 720px) { .page-header { padding: 56px 0 44px; } .page-header h1 { font-size: 36px; } .page-header-desc { font-size: 17px; } }
+
+/* Sections */
+.section { padding: 60px 0; }
+.section.section-tight { padding: 48px 0; }
+.section.section-alt { background: var(--tmax-bg-soft); }
+.section.section-white { background: var(--tmax-white); }
+.section.section-dark { background: #000; color: #fff; }
+.section.section-dark h2, .section.section-dark h3 { color: #fff; }
+.section-header { text-align: center; max-width: 720px; margin: 0 auto 32px auto; }
+.section-eyebrow { font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tmax-gold-dark); margin: 0 0 10px 0; }
+.section-title { font-size: 36px; margin: 0 0 14px 0; }
+.section-desc { font-size: 17px; color: var(--tmax-text); line-height: 1.65; margin: 0; }
+
+/* Two-column */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.two-col.reverse > :first-child { order: 2; }
+.two-col img { display: block; width: 100%; max-height: 440px; object-fit: cover; border-radius: 8px; border: 1px solid var(--tmax-border); }
+.two-col h2 { font-size: 32px; margin: 0 0 18px 0; }
+.two-col p { font-size: 17px; line-height: 1.7; color: var(--tmax-text); }
+.two-col .section-eyebrow { text-align: left; }
+@media (max-width: 860px) { .two-col, .two-col.reverse { grid-template-columns: 1fr; gap: 32px; } .two-col.reverse > :first-child { order: 0; } }
+
+/* Intro section */
+.intro-section { padding: 64px 0; background: var(--tmax-white); }
+.intro-two-col { display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px; align-items: center; max-width: 1100px; margin: 0 auto; }
+.intro-img-wrap { position: relative; }
+.intro-img-wrap img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px; border: 1px solid var(--tmax-border); }
+.intro-text h2 { font-family: 'Raleway', sans-serif; font-size: 36px; font-weight: 700; line-height: 1.2; margin: 0 0 20px 0; color: var(--tmax-body); }
+.intro-text p { font-size: 17px; line-height: 1.7; color: var(--tmax-text); margin: 0 0 16px 0; }
+.intro-text p:last-child { margin-bottom: 0; }
+@media (max-width: 860px) {
+  .intro-two-col { grid-template-columns: 1fr; gap: 28px; }
+  .intro-text h2 { font-size: 28px; }
+  .intro-text p { font-size: 16px; }
+}
+.intro-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 28px 0; padding: 22px; background: var(--tmax-bg-tint); border-radius: 6px; border: 1px solid var(--tmax-border); }
+.intro-stat-num { font-family: 'Raleway', sans-serif; font-size: 34px; font-weight: 800; color: var(--tmax-brown); line-height: 1; margin-bottom: 4px; }
+.intro-stat-label { font-size: 13px; color: var(--tmax-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+@media (max-width: 860px) { .intro-section { padding: 48px 0; } .intro-stats { padding: 16px; gap: 12px; } .intro-stat-num { font-size: 26px; } }
+
+/* Product grid */
+.products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.product-card { background: #fff; border: 1px solid var(--tmax-border); border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; }
+.product-card:hover { border-color: var(--tmax-gold); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(89,70,31,0.08); }
+.product-card-image { aspect-ratio: 4/3; overflow: hidden; background: var(--tmax-bg-tint); }
+.product-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.product-card:hover .product-card-image img { transform: scale(1.04); }
+.product-card-body { padding: 22px 24px 26px; flex-grow: 1; display: flex; flex-direction: column; }
+.product-card h3 { font-size: 20px; margin: 0 0 8px 0; color: var(--tmax-body); }
+.product-card p { font-size: 14px; color: var(--tmax-text); line-height: 1.5; margin: 0 0 16px 0; flex-grow: 1; }
+.product-card-link { font-family: 'Raleway', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--tmax-gold-dark); text-decoration: none; }
+.product-card:hover .product-card-link { color: var(--tmax-brown); }
+@media (max-width: 860px) { .products-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (max-width: 540px) { .products-grid { grid-template-columns: 1fr; } }
+
+/* Feature/Info cards */
+.features-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; max-width: 1180px; margin-left: auto; margin-right: auto; }
+.feature-card { background: var(--tmax-bg-tint); border: 1px solid var(--tmax-border); border-radius: 6px; padding: 20px 18px; text-align: center; transition: border-color 0.15s, transform 0.15s; }
+.feature-card:hover { border-color: var(--tmax-gold); transform: translateY(-2px); }
+.feature-icon { width: 44px; height: 44px; margin: 0 auto 12px; background: var(--tmax-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; }
+.feature-icon svg { width: 22px; height: 22px; }
+.feature-name { font-size: 15px; font-weight: 700; margin: 0 0 6px 0; color: var(--tmax-body); line-height: 1.3; }
+.feature-text { font-size: 13px; color: var(--tmax-text); line-height: 1.5; margin: 0; }
+@media (max-width: 860px) { .features-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .features-grid { grid-template-columns: 1fr; } }
+
+/* Info cards (lighter than feature cards, for content pages) */
+.info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.info-card { background: #fff; border: 1px solid var(--tmax-border); border-top: 4px solid var(--tmax-gold); border-radius: 8px; padding: 28px 26px; }
+.info-card h3 { font-size: 19px; margin: 0 0 10px 0; color: var(--tmax-body); }
+.info-card p { font-size: 15px; line-height: 1.55; margin: 0; color: var(--tmax-text); }
+@media (max-width: 860px) { .info-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .info-grid { grid-template-columns: 1fr; } }
+
+/* Warranty callout */
+.warranty-callout { background: var(--tmax-bg-tint); border: 1px solid var(--tmax-border); border-left: 4px solid var(--tmax-gold); border-radius: 6px; padding: 18px 24px; display: flex; align-items: center; gap: 18px; margin-top: 36px; }
+.warranty-badge { width: 44px; height: 44px; background: var(--tmax-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #000; font-family: 'Raleway', sans-serif; font-size: 22px; font-weight: 800; flex-shrink: 0; }
+.warranty-text { font-size: 16px; color: var(--tmax-text); }
+.warranty-text strong { color: var(--tmax-body); font-weight: 700; }
+
+/* Gallery */
+.gallery { position: relative; width: 100%; max-width: 900px; margin: 0 auto; aspect-ratio: 2 / 1; overflow: hidden; border-radius: 8px; border: 1px solid var(--tmax-border); background: #0a0a0a; }
+.gal-cell { position: absolute; inset: 0; opacity: 0; transition: opacity 700ms ease; pointer-events: none; }
+.gal-cell.active { opacity: 1; pointer-events: auto; }
+.gal-cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gal-cell.featured { /* featured styling not used in carousel mode */ }
+.gal-caption { display: none; }
+.carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: none; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 24px; line-height: 1; z-index: 2; transition: background 0.15s; display: flex; align-items: center; justify-content: center; font-family: 'Raleway', sans-serif; }
+.carousel-btn:hover, .carousel-btn:focus-visible { background: rgba(0,0,0,0.8); outline: none; }
+.carousel-btn:focus-visible { box-shadow: 0 0 0 3px var(--tmax-gold); }
+.carousel-prev { left: 14px; }
+.carousel-next { right: 14px; }
+.carousel-dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 2; padding: 6px 10px; background: rgba(0,0,0,0.35); border-radius: 100px; }
+.carousel-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.5); border: none; cursor: pointer; padding: 0; transition: background 0.15s, transform 0.15s; }
+.carousel-dot:hover { background: rgba(255,255,255,0.85); }
+.carousel-dot.active { background: var(--tmax-gold); transform: scale(1.15); }
+@media (max-width: 640px) { .carousel-btn { width: 38px; height: 38px; font-size: 22px; } .carousel-prev { left: 8px; } .carousel-next { right: 8px; } }
+
+/* Testimonials */
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.testimonial-card { background: #fff; border: 1px solid var(--tmax-border); border-left: 4px solid var(--tmax-gold); border-radius: 6px; padding: 28px 26px; }
+.testimonial-quote { font-size: 15px; color: var(--tmax-text); line-height: 1.65; margin: 0 0 18px 0; font-style: italic; }
+.testimonial-author { font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 14px; color: var(--tmax-brown); text-transform: uppercase; letter-spacing: 0.06em; font-style: normal; }
+@media (max-width: 860px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+/* Dealer CTA */
+.dealer-cta { background: #000; border-top: 3px solid var(--tmax-gold); border-bottom: 3px solid var(--tmax-gold); padding: 44px 0; text-align: center; }
+.dealer-cta h2 { color: #fff; font-size: 32px; margin: 0 0 14px 0; }
+.dealer-cta p { color: #ccc; font-size: 17px; max-width: 580px; margin: 0 auto 28px auto; }
+
+/* Forms */
+.consult-section { background: var(--tmax-bg-tint); padding: 60px 0; }
+.consult-form { max-width: 720px; margin: 0 auto; background: #fff; border: 1px solid var(--tmax-border); border-top: 4px solid var(--tmax-gold); border-radius: 8px; padding: 40px; }
+.consult-row { margin-bottom: 18px; }
+.consult-row.row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.consult-row label { display: block; font-size: 14px; font-weight: 700; color: var(--tmax-body); margin-bottom: 6px; }
+.consult-row input, .consult-row textarea, .consult-row select { width: 100%; padding: 12px 14px; border: 2px solid #ccc; border-radius: 4px; font-family: inherit; font-size: 16px; min-height: 48px; color: var(--tmax-body); }
+.consult-row input:focus, .consult-row textarea:focus, .consult-row select:focus { outline: 3px solid var(--tmax-focus); outline-offset: 1px; border-color: var(--tmax-gold-dark); }
+.consult-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; margin-top: 4px; }
+.consult-checkboxes label { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; margin: 0; cursor: pointer; }
+.consult-checkboxes input[type="checkbox"] { width: 20px; height: 20px; min-height: 20px; margin: 0; accent-color: var(--tmax-gold-dark); }
+.consult-submit { background: var(--tmax-gold); color: #000; border: 2px solid var(--tmax-gold-dark); padding: 16px 28px; border-radius: 4px; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer; width: 100%; font-family: 'Raleway', sans-serif; min-height: 52px; margin-top: 8px; }
+.consult-submit:hover { background: var(--tmax-gold-dark); color: #fff; }
+@media (max-width: 540px) { .consult-form { padding: 28px 20px; } .consult-row.row-2col { grid-template-columns: 1fr; } .consult-checkboxes { grid-template-columns: 1fr; } }
+
+/* Contact block */
+.contact-block { background: #fff; border: 1px solid var(--tmax-border); border-top: 4px solid var(--tmax-gold); border-radius: 8px; padding: 36px 32px; }
+.contact-item { margin-bottom: 22px; }
+.contact-item:last-child { margin-bottom: 0; }
+.contact-item-label { font-family: 'Raleway', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tmax-gold-dark); margin-bottom: 6px; display: block; }
+.contact-item-value { font-size: 18px; color: var(--tmax-body); font-weight: 500; }
+.contact-item-value a { color: var(--tmax-body); text-decoration: none; }
+.contact-item-value a:hover { color: var(--tmax-gold-dark); text-decoration: underline; }
+
+/* Hours list */
+.hours-list { list-style: none; padding: 0; margin: 0; }
+.hours-list li { display: flex; justify-content: space-between; padding: 8px 0; font-size: 15px; border-bottom: 1px dashed var(--tmax-border); }
+.hours-list li:last-child { border-bottom: 0; }
+.hours-list .day { color: var(--tmax-muted); }
+.hours-list .time { color: var(--tmax-body); font-weight: 600; }
+
+/* Resource list */
+.resource-list { list-style: none; padding: 0; margin: 0; }
+.resource-list li { background: #fff; border: 1px solid var(--tmax-border); border-radius: 6px; padding: 20px 24px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; gap: 20px; transition: border-color 0.15s; }
+.resource-list li:hover { border-color: var(--tmax-gold); }
+.resource-list .resource-title { font-family: 'Raleway', sans-serif; font-weight: 600; color: var(--tmax-body); font-size: 16px; }
+.resource-list .resource-meta { font-size: 13px; color: var(--tmax-muted); margin-top: 2px; }
+.resource-list a { color: var(--tmax-gold-dark); text-decoration: none; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; font-family: 'Raleway', sans-serif; flex-shrink: 0; }
+.resource-list a:hover { color: var(--tmax-brown); }
+
+/* Parts list (for accessories page) */
+.parts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.part-card { background: #fff; border: 1px solid var(--tmax-border); border-radius: 8px; padding: 24px 26px; display: flex; gap: 22px; align-items: flex-start; }
+.part-image { width: 96px; height: 96px; background: var(--tmax-bg-tint); border-radius: 6px; border: 1px solid var(--tmax-border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--tmax-gold-dark); }
+.part-image svg { width: 44px; height: 44px; }
+.part-body { flex-grow: 1; }
+.part-sku { font-family: 'Courier New', monospace; font-size: 12px; color: var(--tmax-gold-dark); font-weight: 700; letter-spacing: 0.05em; }
+.part-card h3 { font-size: 18px; margin: 4px 0 8px 0; }
+.part-card p { font-size: 14px; color: var(--tmax-text); line-height: 1.5; margin: 0; }
+@media (max-width: 720px) { .parts-grid { grid-template-columns: 1fr; } }
+
+/* Footer */
+.site-footer { background: #000; color: #ccc; padding: 60px 0 28px; border-top: 4px solid var(--tmax-gold); }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 40px; margin-bottom: 40px; }
+.footer-col h4 { font-size: 14px; font-weight: 700; color: var(--tmax-gold); text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 16px 0; }
+.footer-col ul { list-style: none; padding: 0; margin: 0; }
+.footer-col li { margin-bottom: 8px; }
+.footer-col a { color: #ccc; text-decoration: none; font-size: 15px; transition: color 0.15s; }
+.footer-col a:hover { color: var(--tmax-gold); }
+.footer-logo img { width: 170px; max-width: 100%; height: auto; margin-bottom: 16px; object-fit: contain; }
+.footer-tagline { color: #999; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; }
+.footer-social { display: flex; gap: 12px; }
+.footer-social a { width: 40px; height: 40px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ccc; transition: border-color 0.15s, color 0.15s; }
+.footer-social a:hover { border-color: var(--tmax-gold); color: var(--tmax-gold); }
+.footer-social svg { width: 16px; height: 16px; }
+.footer-contact-item { font-size: 15px; color: #ccc; margin-bottom: 10px; line-height: 1.5; }
+.footer-contact-item strong { display: block; color: var(--tmax-gold); font-family: 'Raleway', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+.footer-bottom { border-top: 1px solid #2a2a2a; padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 13px; color: #888; }
+@media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+@media (max-width: 540px) { .footer-grid { grid-template-columns: 1fr; } }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+  .feature-card:hover, .product-card:hover { transform: none; }
+}
+
+
+.media-video { width:100%; max-height:680px; display:block; object-fit:cover; background:#000; border-radius:10px; border:1px solid var(--tmax-border); }
+.media-video.portrait { aspect-ratio:9/16; max-width:420px; margin:0 auto; }
+.media-showcase { display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr); gap:48px; align-items:center; }
+.media-note { color:var(--tmax-muted); font-size:14px; margin-top:10px; }
+@media (max-width:800px){ .media-showcase{grid-template-columns:1fr;gap:28px;} .media-video.portrait{max-width:360px;} }
+
+@media (max-width: 720px) { .hero-bg { background-position: 58% 50% !important; } }
+
+/* v7 hero refinement */
+.page-header h1, .hero h1 { max-width: 980px; }
+.page-header .page-header-desc { display:none; }
+@media (min-width: 900px) { .page-header h1 { white-space: nowrap; font-size: clamp(38px,4vw,56px); } }
+@media (max-width: 720px) { .hero-bg { background-size: cover; } .page-header { min-height: 220px !important; padding: 34px 0 !important; } }
+
+
+/* Homepage structure: mirrors the proven live-site flow while keeping the modern layout */
+.direct-source-band { background:#111; color:#fff; padding:42px 0; border-top:1px solid #272727; border-bottom:3px solid var(--tmax-gold); }
+.direct-source-inner { display:flex; align-items:center; justify-content:space-between; gap:36px; }
+.direct-source-inner h2 { color:#fff; font-size:30px; margin-bottom:10px; }
+.direct-source-inner p:not(.section-eyebrow) { color:#d7d7d7; max-width:760px; margin:0; }
+.works-grid { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(280px,.7fr); gap:28px; align-items:stretch; }
+.works-grid .gallery { max-width:none !important; height:100%; min-height:420px; aspect-ratio:auto; }
+.works-video-card { background:#fff; border:1px solid var(--tmax-border); border-radius:8px; overflow:hidden; display:flex; flex-direction:column; }
+.works-video-card video { width:100%; aspect-ratio:9/16; max-height:420px; object-fit:cover; background:#000; }
+.works-video-copy { padding:22px; }
+.works-video-copy h3 { font-size:21px; margin-bottom:10px; }
+.works-video-copy p { font-size:14px; line-height:1.6; }
+.works-video-copy a { font-weight:700; text-decoration:none; }
+@media (max-width:860px) { .direct-source-inner { flex-direction:column; align-items:flex-start; } .works-grid { grid-template-columns:1fr; } .works-grid .gallery { min-height:360px; aspect-ratio:2/1; } .works-video-card { display:grid; grid-template-columns:minmax(180px,.75fr) 1.25fr; } .works-video-card video { max-height:360px; } }
+@media (max-width:580px) { .works-grid .gallery { min-height:260px; } .works-video-card { display:block; } .works-video-card video { max-height:520px; } }
+
+/* Homepage cycling product hero */
+.hero-slider { position: relative; min-height: 500px; padding: 0; }
+.hero-slider .hero-slide { position: absolute; inset: 0; display: flex; align-items: center; padding: 64px 0 82px; opacity: 0; visibility: hidden; transition: opacity .65s ease, visibility .65s ease; }
+.hero-slider .hero-slide.active { opacity: 1; visibility: visible; z-index: 1; }
+.hero-slider .hero-bg { opacity: .94; }
+.hero-slider .hero-bg::after { background: linear-gradient(90deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.31) 47%, rgba(0,0,0,.04) 78%); }
+.hero-slider .hero-content { position: relative; z-index: 2; }
+.hero-slider .hero-desc { max-width: 650px; }
+.hero-slider-controls { position: absolute; z-index: 4; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 13px; }
+.hero-dots { display: flex; gap: 9px; }
+.hero-dot { width: 10px; height: 10px; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.85); background: rgba(255,255,255,.25); cursor: pointer; }
+.hero-dot.active { background: #fff; transform: scale(1.2); }
+.hero-arrow { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(255,255,255,.55); background: rgba(0,0,0,.28); color: #fff; font-size: 27px; line-height: 1; cursor: pointer; }
+.hero-arrow:hover, .hero-arrow:focus-visible { background: rgba(0,0,0,.55); }
+@media (max-width: 720px) { .hero-slider { min-height: 540px; } .hero-slider .hero-slide { padding: 54px 0 88px; } .hero-slider .hero-bg { background-position: center center !important; } .hero-slider .hero-bg::after { background: linear-gradient(90deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,.35) 70%, rgba(0,0,0,.18) 100%); } .hero-slider .hero-meta { max-width: 300px; } }
+@media (prefers-reduced-motion: reduce) { .hero-slider .hero-slide { transition: none; } }
+</style>
+<style>
+/* v14 header alignment and readability */
+.page-header .container { width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto; }
+.page-header-content { width: 100%; max-width: 980px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.page-header .page-header-desc { display: block !important; max-width: 760px; margin: 0 auto; color: #f2f2f2; font-size: 18px; line-height: 1.5; }
+.page-header-actions { justify-content: center; margin-top: 22px; }
+.hero .hero-content { width: 100%; }
+.hero .hero-desc { max-width: 720px; color: #f4f4f4; }
+@media (max-width: 720px) {
+  .page-header-content { max-width: 100%; padding: 0 4px; }
+  .page-header .page-header-desc { font-size: 16px; max-width: 92%; }
+  .hero .hero-desc { font-size: 16px; max-width: 94%; }
+}
+</style>
+</head>
+<body>
+<!-- ═════════════════════════════════════════════════════════════════════
+     HEADER
+     ═════════════════════════════════════════════════════════════════════ -->
+<header class="site-header">
+<div class="header-inner">
+<a aria-label="TMAX Roll Ups home" class="site-logo" href="/">
+<img alt="TMAX Roll Ups" decoding="async" fetchpriority="high" height="595" loading="eager" src="/images/logo.png" width="1807"/>
+</a>
+<button aria-controls="primary-nav" aria-expanded="false" class="menu-toggle">Menu</button>
+<nav aria-label="Primary" class="site-nav" id="primary-nav"><a class="active" href="/">Home</a><a href="/garage-doors/">Garage Doors</a><a href="/exterior-shades/">Exterior Shades</a><a href="/interior-shades/">Interior Shades</a><a href="/shutters/">Shutters</a><a href="/resources/">Resources</a><a href="/commercial/">Commercial Solutions</a><a href="/about-us/">About</a><a href="/dealers/">Dealers</a><a class="btn-primary" href="/contact-us/">Request Quote</a></nav>
+</div>
+</header>
+<!-- ═════════════════════════════════════════════════════════════════════
+     HERO
+     ═════════════════════════════════════════════════════════════════════ -->
+<section aria-label="Featured TMAX products" class="hero hero-slider" data-hero-slider="">
+<div class="hero-slide active" data-hero-slide="">
+<div class="hero-bg" style="background-image: url('/images/v7/exterior-pool.webp'); background-position: center 48%;"></div>
+<div class="hero-content">
+<span class="hero-eyebrow">EXTERIOR SHADES &amp; SCREENS</span>
+<h1>Feeling the Heat?</h1>
+<p class="hero-desc">Reduce sun and glare, add privacy, or help keep insects out with retractable exterior shades and screens.</p>
+<div class="hero-btns"><a class="btn-primary" href="/exterior-shades/">Explore Exterior Shades</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
+</div>
+</div>
+<div aria-hidden="true" class="hero-slide" data-hero-slide="">
+<div class="hero-bg" style="background-image: url('/images/v7/garage-hero.webp'); background-position: center 52%;"></div>
+<div class="hero-content">
+<span class="hero-eyebrow">ROLL-UP GARAGE DOORS</span>
+<h1>Reclaim Your Space</h1>
+<p class="hero-desc">Roll-up garage doors free overhead ceiling space and can be custom-built in widths up to 18.5 feet.</p>
+<div class="hero-btns"><a class="btn-primary" href="/garage-doors/">Explore Garage Doors</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
+</div>
+</div>
+<div aria-hidden="true" class="hero-slide" data-hero-slide="">
+<div class="hero-bg" style="background-image: url('/images/v7/interior-hero.webp'); background-position: center 48%;"></div>
+<div class="hero-content">
+<span class="hero-eyebrow">INTERIOR SHADES</span>
+<h1>Control Light &amp; Privacy</h1>
+<p class="hero-desc">Manage daylight and privacy with manual or automated interior shades, including dim-out and blackout options.</p>
+<div class="hero-btns"><a class="btn-primary" href="/interior-shades/">Explore Interior Shades</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
+</div>
+</div>
+<div aria-hidden="true" class="hero-slide" data-hero-slide="">
+<div class="hero-bg" style="background-image: url('/images/v7/shutter-hero.webp'); background-position: center 46%;"></div>
+<div class="hero-content">
+<span class="hero-eyebrow">ROLL-UP SHUTTERS</span>
+<h1>Protect What Matters</h1>
+<p class="hero-desc">Add a compact physical barrier for windows and doors with roll-up shutters for residential and commercial use.</p>
+<div class="hero-btns"><a class="btn-primary" href="/shutters/">Explore Shutters</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
+</div>
+</div>
+<div aria-hidden="true" class="hero-slide" data-hero-slide="">
+<div class="hero-bg" style="background-image: url('/images/v7/commercial-foodmart.webp'); background-position: center 50%;"></div>
+<div class="hero-content">
+<span class="hero-eyebrow">COMMERCIAL SYSTEMS</span>
+<h1>Secure Your Business</h1>
+<p class="hero-desc">Protect storefronts, service counters and access points with compact roll-up systems for commercial applications.</p>
+<div class="hero-btns"><a class="btn-primary" href="/commercial/">Explore Commercial Systems</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
+</div>
+</div>
+<div aria-label="Choose featured product" class="hero-slider-controls">
+<button aria-label="Previous slide" class="hero-arrow hero-prev" type="button">‹</button>
+<div class="hero-dots">
+<button aria-label="Exterior shades and screens" class="hero-dot active" data-hero-dot="0" type="button"></button>
+<button aria-label="Garage doors" class="hero-dot" data-hero-dot="1" type="button"></button>
+<button aria-label="Interior shades" class="hero-dot" data-hero-dot="2" type="button"></button>
+<button aria-label="Roll-up shutters" class="hero-dot" data-hero-dot="3" type="button"></button>
+<button aria-label="Commercial systems" class="hero-dot" data-hero-dot="4" type="button"></button>
+</div>
+<button aria-label="Next slide" class="hero-arrow hero-next" type="button">›</button>
+</div>
+</section>
+<section class="intro-section">
+<div class="container">
+<div class="intro-two-col">
+<div class="intro-img-wrap">
+<img alt="View through a fully deployed TMAX retractable patio screen" decoding="async" height="2048" loading="lazy" src="/images/new/patio-screen-view.webp" width="1536"/>
+</div>
+<div class="intro-text"><p class="section-eyebrow">Direct from TMAX</p><h2>Quality Products. Direct Support.</h2><p>TMAX supplies custom shades, screens, garage doors, shutters and commercial roll-up systems for homes and businesses.</p><p>Work directly with our team for product guidance, custom sizing, manufacturing, parts and support—from selecting the right product through service after the sale.</p></div>
+</div>
+</div>
+</section>
+<section class="section section-white" id="products">
+<div class="container">
+<header class="section-header">
+<p class="section-eyebrow">Our Products</p>
+<h2 class="section-title">Explore TMAX Products</h2>
+<p class="section-desc">Shade, screening, privacy, access, security and space-saving products for residential and commercial projects.</p>
+</header>
+<div class="products-grid">
+<a class="product-card" href="/garage-doors/">
+<div class="product-card-image">
+<img alt="Charcoal TMAX roll-up garage door" decoding="async" height="1200" loading="lazy" src="/images/v7/garage-hero.webp" width="1600"/>
+</div>
+<div class="product-card-body">
+<h3>European-Style Roll-Up Garage Doors</h3>
+<p>Motorized roll-up garage doors that free ceiling space and are custom-built for the project, with widths available up to 18.5 ft.</p>
+<span class="product-card-link">Configure &amp; Quote →</span>
+</div>
+</a>
+<a class="product-card" href="/exterior-shades/">
+<div class="product-card-image">
+<img alt="Large TMAX retractable screen deployed across a covered patio" decoding="async" height="2048" loading="lazy" src="/images/new/patio-screen-deployed.webp" width="1536"/>
+</div>
+<div class="product-card-body">
+<h3>Exterior Shades &amp; Screens</h3>
+<p>Control sun and glare with Mermet Natté solar fabrics in 3%, 5%, or 10% openness, blackout options, or durable insect-screen materials.</p>
+<span class="product-card-link">Learn more →</span>
+</div>
+</a>
+<a class="product-card" href="/interior-shades/">
+<div class="product-card-image">
+<img alt="Interior shades in a double-height living room" decoding="async" height="2048" loading="lazy" src="/images/v7/interior-hero.webp" width="1536"/>
+</div>
+<div class="product-card-body">
+<h3>Interior Shades</h3>
+<p>Custom interior shades for daylight, glare, privacy, and room-darkening needs, with manual and motorized configurations depending on the selected system.</p>
+<span class="product-card-link">Learn more →</span>
+</div>
+</a>
+<a class="product-card" href="/shutters/">
+<div class="product-card-image">
+<img alt="Bronze exterior shutters on a stone home" decoding="async" height="952" loading="lazy" src="/images/v7/shutter-hero.webp" width="1288"/>
+</div>
+<div class="product-card-body">
+<h3>Roll-Up Shutters</h3>
+<p>Compact motorized shutters for security, storm protection, wind and noise reduction, with insulated and non-insulated options.</p>
+<span class="product-card-link">Learn more →</span>
+</div>
+</a>
+<a class="product-card" href="/commercial/">
+<div class="product-card-image">
+<img alt="Commercial countertop pass-through door" decoding="async" height="840" loading="lazy" src="/images/commercial-countertop-bar.webp" width="1456"/>
+</div>
+<div class="product-card-body">
+<h3>Commercial Roll-Up Solutions</h3>
+<p>Custom roll-up doors, shutters, shades, and service-opening solutions for restaurants, retail, garages, storefronts, and other commercial spaces.</p>
+<span class="product-card-link">Learn more →</span>
+</div>
+</a>
+<a class="product-card" href="/accessories/">
+<div class="product-card-image">
+<img alt="TMAX motors, remotes, and parts for existing installs" decoding="async" height="952" loading="lazy" src="/images/gallery-woodgrain-porsche.webp" width="1288"/>
+</div>
+<div class="product-card-body">
+<h3>Controls, Motors &amp; Accessories</h3>
+<p>Remotes, wall controls, Wi-Fi hubs, keypads, motors, and replacement components for compatible TMAX systems.</p>
+<span class="product-card-link">Browse parts →</span>
+</div>
+</a>
+</div>
+</div>
+</section><section class="section section-alt">
+<div class="container">
+<header class="section-header">
+<h2 class="section-title">Why TMAX</h2>
+<p class="section-desc">Direct product expertise, custom solutions and support from the team behind the products.</p>
+</header>
+<div class="features-grid">
+<div class="feature-card">
+<div aria-hidden="true" class="feature-icon">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+</div>
+<h3 class="feature-name">Direct from TMAX</h3>
+<p class="feature-text">Work directly with TMAX for product guidance, customization, ordering and support.</p>
+</div>
+<div class="feature-card">
+<div aria-hidden="true" class="feature-icon">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+</div>
+<h3 class="feature-name">Built for the Project</h3>
+<p class="feature-text">Products are sized and configured for residential and commercial applications, including non-standard projects.</p>
+</div>
+<div class="feature-card">
+<div aria-hidden="true" class="feature-icon">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M12 1v6m0 10v6m11-11h-6M7 12H1"></path></svg>
+</div>
+<h3 class="feature-name">Manufactured in Houston</h3>
+<p class="feature-text">TMAX manufactures and assembles its product line in Houston, giving customers and dealers direct access to the team behind the products.</p>
+</div>
+<div class="feature-card">
+<div aria-hidden="true" class="feature-icon">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M21 12.5V20a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h7.5"></path><polyline points="14 4 19 4 19 9"></polyline><line x1="10" x2="19" y1="14" y2="5"></line></svg>
+</div>
+<h3 class="feature-name">Support After the Sale</h3>
+<p class="feature-text">TMAX provides direct assistance with product questions, replacement parts, service and warranty needs.</p>
+</div>
+</div>
+</div>
+</section><section class="consult-section">
+<div class="container">
+<header class="section-header">
+<p class="section-eyebrow">Free Consultation</p>
+<h2 class="section-title">Tell Us About Your Project</h2>
+<p class="section-desc">Share the product you’re interested in, project location and any approximate dimensions or photos you already have. Our team will help with the next step.</p>
+</header>
+<form action="/thanks/" class="consult-form" data-netlify="true" data-netlify-recaptcha="true" id="consult-form" method="POST" name="consultation" netlify-honeypot="bot-field">
+<input name="form-name" type="hidden" value="consultation"/>
+<input name="subject" type="hidden" value="New consultation request — TMAX website"/>
+<input name="source_page" type="hidden" value="Homepage"/>
+<p style="display:none;"><label>Don't fill this: <input name="bot-field"/></label></p>
+<div class="consult-row row-2col">
+<div>
+<label for="c-name">Full Name *</label>
+<input autocomplete="name" id="c-name" maxlength="100" name="name" placeholder="Your name" required="" type="text"/>
+</div>
+<div>
+<label for="c-zip">Installation Zip *</label>
+<input autocomplete="postal-code" id="c-zip" inputmode="numeric" maxlength="10" name="zip" pattern="[0-9A-Za-z -]{3,10}" placeholder="77018" required="" type="text"/>
+</div>
+</div>
+<div class="consult-row row-2col">
+<div>
+<label for="c-email">Email *</label>
+<input autocomplete="email" id="c-email" inputmode="email" maxlength="254" name="email" placeholder="you@example.com" required="" type="email"/>
+</div>
+<div>
+<label for="c-phone">Phone *</label>
+<input autocomplete="tel" id="c-phone" inputmode="tel" maxlength="30" name="phone" placeholder="(713) 555-0100" required="" type="tel"/>
+</div>
+</div>
+<div class="consult-row">
+<label>Areas of interest <span style="font-weight: 400; color: var(--tmax-muted); font-size: 13px;">(check all that apply)</span></label>
+<div class="consult-checkboxes">
+<label><input name="interest" type="checkbox" value="Garage Doors"/> Garage Doors</label>
+<label><input name="interest" type="checkbox" value="Exterior Shades"/> Exterior Shades</label>
+<label><input name="interest" type="checkbox" value="Interior Shades"/> Interior Shades</label>
+<label><input name="interest" type="checkbox" value="Shutters"/> Shutters</label>
+<label><input name="interest" type="checkbox" value="Commercial"/> Commercial</label>
+<label><input name="interest" type="checkbox" value="Parts/Accessories"/> Parts &amp; Accessories</label>
+</div>
+</div>
+<div class="consult-row">
+<label for="c-message">Project details</label>
+<textarea id="c-message" maxlength="3000" name="message" placeholder="Tell us about your project — approximate dimensions, timeline, photos, or anything else that helps us prepare a useful quote." rows="4"></textarea>
+</div>
+<div class="consult-row">
+<label for="c-hear">How did you hear about us?</label>
+<select id="c-hear" name="referral_source">
+<option value="">Choose one (optional)</option>
+<option>Google search</option>
+<option>Social media</option>
+<option>Referral from a friend</option>
+<option>HomeMag</option>
+<option>Saw an install in person</option>
+<option>Other</option>
+</select>
+</div>
+<div class="tmax-captcha" data-netlify-recaptcha="true"></div>
+<button class="consult-submit" type="submit">Send My Consultation Request</button>
+</form>
+</div>
+</section>
+<section class="section section-alt">
+<div class="container">
+<header class="section-header">
+<p class="section-eyebrow">Our Work</p>
+<h2 class="section-title">See TMAX Products in Real Spaces</h2>
+<p class="section-desc">Browse completed installations and see a retractable exterior shade in motion.</p>
+</header>
+<div class="works-grid">
+<div>
+<div class="gallery" style="max-width: 900px; margin-left: auto; margin-right: auto;">
+<div class="gal-cell featured"><img alt="Black TMAX garage door interior with luxury vehicles" decoding="async" height="856" loading="lazy" src="/images/garage-black-country-bmw.webp" width="1440"/></div>
+<div class="gal-cell"><img alt="TMAX screened patio installation beside a swimming pool" decoding="async" height="1350" loading="lazy" src="/images/new/pool-patio-screen.webp" width="1800"/></div>
+<div class="gal-cell"><img alt="Interior shades in modern lounge with ambient lighting" decoding="async" height="2048" loading="lazy" src="/images/interior-shades-lounge-green.webp" width="1536"/></div>
+<div class="gal-cell"><img alt="Double charcoal TMAX roll-up garage door" decoding="async" height="1200" loading="lazy" src="/images/garage-double-charcoal.webp" width="1600"/></div>
+<div class="gal-cell"><img alt="Black security shutter on seafood restaurant" decoding="async" height="1200" loading="lazy" src="/images/commercial-seafood-restaurant.webp" width="1600"/></div>
+<div class="gal-cell"><img alt="Black roll-down shutters on residential home" decoding="async" height="588" loading="lazy" src="/images/shutters-black-residential.webp" width="1008"/></div>
+<div class="gal-cell"><img alt="Modern marble lounge with TMAX interior shades" decoding="async" height="2048" loading="lazy" src="/images/interior-shades-marble-lounge.webp" width="1536"/></div>
+<div class="gal-cell"><img alt="Dark exterior shades integrated into a modern covered patio" decoding="async" height="900" loading="lazy" src="/images/exterior-shades-modern-metal-roof.webp" width="1600"/></div>
+</div>
+</div>
+<div class="works-video-card">
+<video aria-label="TMAX retractable exterior shade demonstration" class="media-video portrait" controls="" muted="" playsinline="" poster="/images/new/exterior-shade-video-poster.webp" preload="metadata"><source src="/videos/exterior-shade-pool-demo.mp4" type="video/mp4"/>Your browser does not support embedded video.</video>
+<div class="works-video-copy"><p class="section-eyebrow">See It in Motion</p><h3>See a Retractable Shade in Action</h3><p>This real TMAX installation shows a retractable exterior shade moving into position at a poolside patio.</p><a href="/exterior-shades/">Explore Exterior Shades &amp; Screens →</a></div>
+</div>
+</div>
+</div>
+</section><section class="section section-white">
+<div class="container">
+<header class="section-header">
+<p class="section-eyebrow">Testimonials</p>
+<h2 class="section-title">What customers say after the install</h2>
+<p class="section-desc">Feedback from customers who chose TMAX for custom doors and roll-up systems.</p>
+</header>
+<div class="testimonials-grid">
+<blockquote class="testimonial-card">
+<p class="testimonial-quote">"These doors are far more than we expected! Thanks for your time and the fine job by your installers! We have taken pictures and sent them to our son who has co-workers that are interested in them."</p>
+<cite class="testimonial-author">— Charlie &amp; Patti</cite>
+</blockquote>
+<blockquote class="testimonial-card">
+<p class="testimonial-quote">"I'm extremely pleased with my new doors and with the craftsmanship that was used. Thank you for offering such a great product and service. I can't wait to finish up some touch ups and take some nice photos to show them off."</p>
+<cite class="testimonial-author">— Tony G</cite>
+</blockquote>
+<blockquote class="testimonial-card">
+<p class="testimonial-quote">"I got one installed and they did a phenomenal job. They demo'd the old door and installed the new in a very professional level. They also cleaned up all the boxes, plastics, and even synced my controllers off my sun visors. Thanks!"</p>
+<cite class="testimonial-author">— Rocky R</cite>
+</blockquote>
+</div>
+</div>
+</section><section class="dealer-cta">
+<div class="container">
+<h2>Bring TMAX products to your market</h2>
+<p>TMAX works with qualified contractors, garage specialists, and window-covering professionals interested in adding TMAX roll-up products to their offering.</p>
+<a class="btn-primary" href="/dealer-application/">Apply to be a Dealer</a>
+</div>
+</section>
+<!-- ═════════════════════════════════════════════════════════════════════
+     INTRO / ABOUT TEASE
+     ═════════════════════════════════════════════════════════════════════ -->
+<!-- ═════════════════════════════════════════════════════════════════════
+     PRODUCTS GRID
+     ═════════════════════════════════════════════════════════════════════ -->
+<!-- ═════════════════════════════════════════════════════════════════════
+     WHY TMAX
+     ═════════════════════════════════════════════════════════════════════ -->
+<!-- ═════════════════════════════════════════════════════════════════════
+     GALLERY
+     ═════════════════════════════════════════════════════════════════════ -->
+<!-- ═════════════════════════════════════════════════════════════════════
+     TESTIMONIALS
+     ═════════════════════════════════════════════════════════════════════ -->
+<!-- ═════════════════════════════════════════════════════════════════════
+     CONSULTATION FORM
+     ═════════════════════════════════════════════════════════════════════ -->
+<!-- ═════════════════════════════════════════════════════════════════════
+     DEALER CTA
+     ═════════════════════════════════════════════════════════════════════ -->
+<!-- ═════════════════════════════════════════════════════════════════════
+     FOOTER
+     ═════════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-col">
+<div class="footer-logo">
+<img alt="TMAX Roll Ups" decoding="async" fetchpriority="high" height="595" loading="eager" src="/images/logo.png" width="1807"/>
+</div>
+<p class="footer-tagline">Custom roll-up doors, shades, screens, shutters, and controls manufactured and supported in Houston for residential and commercial projects.</p>
+<div class="footer-social">
+<a aria-label="Facebook" href="https://www.facebook.com/tmaxsupply/">
+<svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
+</a>
+<a aria-label="Instagram" href="https://www.instagram.com/tmaxdoors/">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="20" rx="5" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"></path></svg>
+</a>
+<a aria-label="TikTok" href="https://www.tiktok.com/@tmaxrollups">
+<svg aria-hidden="true" fill="currentColor" viewbox="0 0 24 24"><path d="M21 8.5a8 8 0 01-4.5-1.3v7.6a6.2 6.2 0 11-6.2-6.2c.3 0 .6 0 .9.1v3.2a3 3 0 102 2.9V2h3a5 5 0 004.8 4.4z"></path></svg>
+</a>
+</div>
+</div>
+<div class="footer-col">
+<h4>Products</h4>
+<ul>
+<li><a href="/garage-doors/">Garage Doors</a></li>
+<li><a href="/exterior-shades/">Exterior Shades</a></li>
+<li><a href="/interior-shades/">Interior Shades</a></li>
+<li><a href="/shutters/">Shutters</a></li>
+<li>Commercial Roll-Up Solutions</li>
+<li>Controls, Motors &amp; Accessories</li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Company</h4>
+<ul>
+<li><a href="/about-us/">About Us</a></li>
+<li><a href="/dealers/">Dealers</a></li>
+
+<li><a href="/resources/">Resources</a></li>
+<li><a href="/contact-us/">Contact Us</a></li>
+<li><a href="/privacy-policy/">Privacy Policy</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Reach Us</h4>
+<div class="footer-contact-item">
+<strong>Address</strong>
+          3831 Pinemont Dr<br/>Houston, TX 77018
+        </div>
+<div class="footer-contact-item">
+<strong>Email</strong>
+<a href="mailto:info@tmaxrollups.com">info@tmaxrollups.com</a>
+</div>
+<div class="footer-contact-item">
+<strong>Phone</strong>
+<a href="tel:7137729988">713-772-9988</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 TMAX Roll Ups. All rights reserved.</span>
+<span>Authorized Heroal (Germany) partner</span>
+</div>
+</div>
+</footer>
+<script defer="True" src="/assets/site.js"></script><script defer="True" src="/assets/gallery.js"></script></body>
+</html>

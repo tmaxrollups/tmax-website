@@ -1,0 +1,65 @@
+# Legacy WordPress URLs → new pages
+/product/roll-up-garage-doors/*   /garage-doors.html   301
+/product/roll-up-garage-doors     /garage-doors.html   301
+/products/roll-up-exterior-shades/*   /exterior-shades.html   301
+/products/roll-up-exterior-shades     /exterior-shades.html   301
+/product/roll-up-exterior-shades/*   /exterior-shades.html   301
+/product/roll-up-exterior-shades     /exterior-shades.html   301
+/products/roll-up-interior-shades/*   /interior-shades.html   301
+/products/roll-up-interior-shades     /interior-shades.html   301
+/product/roll-up-interior-shades/*   /interior-shades.html   301
+/product/roll-up-interior-shades     /interior-shades.html   301
+/product/roll-up-exterior-shutters/*   /shutters.html   301
+/product/roll-up-exterior-shutters     /shutters.html   301
+/product/commercial-applications/*   /commercial.html   301
+/product/commercial-applications     /commercial.html   301
+/product/accessories/*   /accessories.html   301
+/product/accessories     /accessories.html   301
+
+# WooCommerce shop pages → contact
+/shop/*     /   301
+/shop       /   301
+/cart/*     /contact-us.html   301
+/cart       /contact-us.html   301
+/checkout/* /contact-us.html   301
+/checkout   /contact-us.html   301
+/my-account/* /   301
+/my-account   /   301
+
+# Clean URL versions (visitors typing /garage-doors instead of /garage-doors.html)
+/garage-doors   /garage-doors.html   200
+/exterior-shades   /exterior-shades.html   200
+/interior-shades   /interior-shades.html   200
+/shutters   /shutters.html   200
+/commercial   /commercial.html   200
+/accessories   /accessories.html   200
+/about-us   /about-us.html   200
+/contact-us   /contact-us.html   200
+/dealers   /dealers.html   200
+/dealer-application   /dealer-application.html   200
+/resources   /resources.html   200
+
+# Privacy Policy old URL
+/privacy-policy/   /privacy-policy.html   301
+/privacy-policy   /privacy-policy.html   200
+
+# Form success page
+/thanks   /thanks.html   200
+/thanks/  /thanks.html   200
+
+
+# Security: retired WordPress/admin/probe endpoints return 404 and are never proxied
+/wp-admin/*        /404.html  404
+/wp-admin          /404.html  404
+/wp-login.php      /404.html  404
+/xmlrpc.php        /404.html  404
+/wp-json/*         /404.html  404
+/wp-content/*      /404.html  404
+/wp-includes/*     /404.html  404
+/readme.html       /404.html  404
+/license.txt       /404.html  404
+/.env              /404.html  404
+/.git/*            /404.html  404
+/.svn/*            /404.html  404
+/composer.json     /404.html  404
+/package.json      /404.html  404
