@@ -34,7 +34,7 @@
     dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
   };
   const stop = () => { if (timer) window.clearInterval(timer); timer = undefined; };
-  const start = () => { if (!reduced) { stop(); timer = window.setInterval(() => show(current + 1), 6500); } };
+  const start = () => { if (!reduced) { stop(); timer = window.setInterval(() => show(current + 1), 9000); } };
   prev?.addEventListener('click', () => { show(current - 1); start(); });
   next?.addEventListener('click', () => { show(current + 1); start(); });
   dots.forEach((dot, i) => dot.addEventListener('click', () => { show(i); start(); }));

@@ -6,7 +6,7 @@ const FORM_FIELDS = {
   'contact-message': ['name','email','phone','message','source_page','subject'],
   'dealer-application': ['first_name','last_name','email','phone','business_name','website','city','state','biz-type','years_in_business','employees','monthly_volume','products_of_interest','why_partner','source_page','subject'],
   'parts-request': ['name','email','phone','zip','product_interest','part_description','source_page','subject'],
-  'quote-garage-doors': ['name','email','phone','zip','product_interest','install_type','selected_color','selected_width','selected_height','calculated_price','notes','source_page','subject'],
+  'quote-garage-doors': ['name','email','phone','zip','product_interest','install_type','selected_color','rail_housing_color','selected_width','selected_height','notes','source_page','subject'],
   'quote-exterior-shades': ['name','email','phone','zip','product_interest','message','source_page','subject'],
   'quote-interior-shades': ['name','email','phone','zip','product_interest','message','source_page','subject'],
   'quote-shutters': ['name','email','phone','zip','product_interest','message','source_page','subject'],
@@ -31,6 +31,44 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const URL_RE = /https?:\/\/|www\./ig;
 const SPAM_PHRASES = /(?:crypto|casino|viagra|seo services|guest post|backlinks|loan offer)/i;
 
+const GARAGE_PRICING_VERSION = '2026-08-30';
+const GARAGE_PRICES = Object.freeze({
+  '6': Object.freeze({'3':2400,'4':2530,'5':2665,'6':2800,'7':2935,'8':2935,'9':3065,'10':3330,'11':3865,'12':3865,'13':4265,'14':4265,'15':4265,'16':4265,'17':4395,'18.5':4530}),
+  '7': Object.freeze({'3':2400,'4':2530,'5':2665,'6':2800,'7':2935,'8':2935,'9':3065,'10':3330,'11':3865,'12':3865,'13':4265,'14':4265,'15':4265,'16':4265,'17':4395,'18.5':4530}),
+  '8': Object.freeze({'3':2600,'4':2735,'5':2870,'6':3000,'7':3130,'8':3130,'9':3265,'10':3531,'11':4065,'12':4065,'13':4465,'14':4465,'15':4465,'16':4465,'17':4595,'18.5':4730}),
+  '9': Object.freeze({'3':3730,'4':3865,'5':3995,'6':4135,'7':4265,'8':4265,'9':4395,'10':4660,'11':5195,'12':5195,'13':5595,'14':5595,'15':5595,'16':5595,'17':5730,'18.5':5860})
+});
+const GARAGE_WIDTHS = Object.freeze(['3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18.5']);
+const GARAGE_HEIGHTS = Object.freeze(['6','7','8','9','10','11','12']);
+const GARAGE_QUOTE_HEIGHTS = new Set(['10','11','12']);
+const GARAGE_DOOR_COLORS = new Set(['White','Beige','Brown','Black','Light Wood','Dark Wood']);
+const GARAGE_RAIL_COLORS = new Set(['White','Brown','Black','Bronze']);
+
+function validateGarageColor(value) {
+  const color = cleanValue(value);
+  if (!GARAGE_DOOR_COLORS.has(color)) throw new Error('Invalid garage door color');
+  return color;
+}
+
+function validateRailColor(value) {
+  const color = cleanValue(value);
+  if (!GARAGE_RAIL_COLORS.has(color)) throw new Error('Invalid rail/housing color');
+  return color;
+}
+
+function calculateGarageEstimate(widthValue, heightValue) {
+  const width = cleanValue(widthValue);
+  const height = cleanValue(heightValue);
+  if (!GARAGE_WIDTHS.includes(width)) throw new Error('Invalid garage width');
+  if (!GARAGE_HEIGHTS.includes(height)) throw new Error('Invalid garage height');
+  if (GARAGE_QUOTE_HEIGHTS.has(height)) return null;
+  const price = GARAGE_PRICES[height] && GARAGE_PRICES[height][width];
+  if (!Number.isFinite(price)) throw new Error('Garage price unavailable');
+  return price;
+}
+
+const formatCurrency = (amount) => '$' + Number(amount).toLocaleString('en-US');
+
 const escapeHtml = (str) => String(str)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -54,6 +92,13 @@ function validateSubmission(payload) {
   }
   if (data.email && !EMAIL_RE.test(String(data.email)) ) throw new Error('Invalid email');
   if (data.phone && String(data.phone).replace(/\D/g, '').length > 15) throw new Error('Invalid phone');
+  if (formName === 'quote-garage-doors') {
+    data.selected_color = validateGarageColor(data.selected_color);
+    data.rail_housing_color = validateRailColor(data.rail_housing_color);
+    const verifiedPrice = calculateGarageEstimate(data.selected_width, data.selected_height);
+    data.server_verified_estimate = verifiedPrice === null ? 'Request quote' : formatCurrency(verifiedPrice);
+    data.pricing_table_version = GARAGE_PRICING_VERSION;
+  }
   const freeText = ['message','notes','part_description','why_partner'].map(k => data[k] || '').join(' ');
   const urlCount = (freeText.match(URL_RE) || []).length;
   if (urlCount > 3) throw new Error('Too many links');
@@ -141,3 +186,8 @@ exports.handler = async function(event) {
     return { statusCode: 500, body: 'Unable to process submission' };
   }
 };
+
+exports.calculateGarageEstimate = calculateGarageEstimate;
+exports.validateGarageColor = validateGarageColor;
+exports.validateRailColor = validateRailColor;
+exports.validateSubmission = validateSubmission;

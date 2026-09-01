@@ -33,7 +33,7 @@
       });
     }
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function start() { timer = setInterval(() => goTo(current + 1), 3000); }
+    function start() { timer = setInterval(() => goTo(current + 1), 6000); }
     function restart() { stop(); start(); }
     function goTo(i) { current = ((i % slides.length) + slides.length) % slides.length; update(); restart(); }
     slides.forEach((_, i) => {
