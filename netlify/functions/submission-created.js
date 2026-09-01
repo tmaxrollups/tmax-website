@@ -124,6 +124,70 @@ const formatValue = (key, val) => {
   return escapeHtml(String(val)).replace(/\n/g, '<br>');
 };
 
+async function sendNotifications({ formName, data, emailPayload, formTitle }) {
+  const RESEND_API_KEY = process.env.RESEND_API_KEY;
+  const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL;
+  const FROM_EMAIL = process.env.FROM_EMAIL;
+
+  // Helper to send via Resend. Uses RESEND_API_KEY from environment and never logs it.
+  async function sendEmail(payload) {
+    const headers = { 'Content-Type': 'application/json' };
+    if (RESEND_API_KEY) headers.Authorization = `Bearer ${RESEND_API_KEY}`;
+    return fetch('https://api.resend.com/emails', { method: 'POST', headers, body: JSON.stringify(payload) });
+  }
+
+  // Send internal notification
+  let internalSent = false;
+  try {
+    const resInternal = await sendEmail(emailPayload);
+    if (!resInternal || !resInternal.ok) {
+      const status = resInternal && resInternal.status; console.error('Resend API internal notification failure:', status || 'no-response');
+    } else {
+      const result = await resInternal.json().catch(() => ({}));
+      console.log('Form notification sent:', formName, result.id || 'no-id');
+      internalSent = true;
+    }
+  } catch (err) {
+    console.error('Resend API internal error:', err && err.message ? err.message : err);
+  }
+
+  // Customer confirmation
+  let customerSent = false;
+  if (data && data.email) {
+    try {
+      const customerSubjects = {
+        'dealer-application': 'We received your dealer application — TMAX Roll Ups',
+        'parts-request': 'We received your parts request — TMAX Roll Ups',
+        'consultation': 'We received your consultation request — TMAX Roll Ups',
+        'contact-message': 'Thanks for contacting TMAX Roll Ups'
+      };
+      const quoteForms = new Set(['quote-garage-doors','quote-exterior-shades','quote-interior-shades','quote-shutters','quote-commercial']);
+      const customerSubject = customerSubjects[formName] || (quoteForms.has(formName) ? 'We received your project request — TMAX Roll Ups' : `We received your request — TMAX Roll Ups`);
+
+      const customerHtml = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(customerSubject)}</title></head><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#212121;background:#fff;padding:20px"><div style="max-width:620px;margin:0 auto;border:0"><h2 style="color:#59461f;margin-bottom:8px">TMAX Roll Ups</h2><p style="font-size:16px;margin:6px 0 12px">Thanks — we received your ${escapeHtml((formTitle||'request').toLowerCase())} and will review it shortly.</p><p style="font-size:14px;margin:6px 0">Next steps: A TMAX representative will contact you to confirm details and provide an estimated timeline.</p><hr style="border:none;border-top:1px solid #eee;margin:18px 0"><p style="font-size:13px;color:#777;margin:0">Email: <a href="mailto:info@tmaxrollups.com">info@tmaxrollups.com</a><br>Phone: 713-772-9988<br>Hours: Monday–Friday, 9:00 AM–5:00 PM CST<br>Address: 3831 Pinemont Dr, Houston, TX 77018</p></div></body></html>`;
+
+      const customerPayload = {
+        from: FROM_EMAIL,
+        to: data.email,
+        reply_to: NOTIFY_EMAIL,
+        subject: customerSubject,
+        html: customerHtml
+      };
+
+      const resCust = await sendEmail(customerPayload);
+      if (!resCust || !resCust.ok) {
+        const status = resCust && resCust.status; console.error('Resend API customer confirmation failure:', status || 'no-response');
+      } else {
+        customerSent = true;
+      }
+    } catch (err) {
+      console.error('Resend API customer confirmation error:', err && err.message ? err.message : err);
+    }
+  }
+
+  return { internalSent, customerSent };
+}
+
 exports.handler = async function(event) {
   try {
     if (!event || !event.body) return { statusCode: 400, body: 'Invalid request' };
@@ -169,18 +233,9 @@ exports.handler = async function(event) {
     };
     if (data.email) emailPayload.reply_to = data.email;
 
-    const res = await fetch('https://api.resend.com/emails', {
-      method:'POST',
-      headers:{Authorization:`Bearer ${RESEND_API_KEY}`,'Content-Type':'application/json'},
-      body:JSON.stringify(emailPayload)
-    });
-    if (!res.ok) {
-      console.error('Resend API failure:', res.status);
-      return { statusCode: 502, body: 'Submission accepted; notification delivery failed' };
-    }
-    const result = await res.json().catch(() => ({}));
-    console.log('Form notification sent:', formName, result.id || 'no-id');
-    return { statusCode: 200, body: JSON.stringify({ sent:true }) };
+    const notifyResult = await sendNotifications({ formName, data, emailPayload, formTitle });
+
+    return { statusCode: 200, body: JSON.stringify({ accepted: true, internal_notification_sent: notifyResult.internalSent, customer_confirmation_sent: notifyResult.customerSent }) };
   } catch (error) {
     console.error('Submission function error:', error && error.message ? error.message : 'unknown error');
     return { statusCode: 500, body: 'Unable to process submission' };
@@ -191,3 +246,4 @@ exports.calculateGarageEstimate = calculateGarageEstimate;
 exports.validateGarageColor = validateGarageColor;
 exports.validateRailColor = validateRailColor;
 exports.validateSubmission = validateSubmission;
+exports.sendNotifications = sendNotifications;
