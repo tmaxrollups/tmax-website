@@ -1,4 +1,4 @@
-// Netlify Forms event function: sends validated form submissions by email via Resend.
+﻿// Netlify Forms event function: sends validated form submissions by email via Resend.
 'use strict';
 
 const FORM_FIELDS = {
@@ -132,7 +132,7 @@ async function sendNotifications({ formName, data, emailPayload, formTitle }) {
   // Helper to send via Resend. Uses RESEND_API_KEY from environment and never logs it.
   async function sendEmail(payload) {
     const headers = { 'Content-Type': 'application/json' };
-    if (RESEND_API_KEY) headers.Authorization = `Bearer ${RESEND_API_KEY}`;
+    if (RESEND_API_KEY) headers.Authorization = Bearer ;
     return fetch('https://api.resend.com/emails', { method: 'POST', headers, body: JSON.stringify(payload) });
   }
 
@@ -164,7 +164,7 @@ async function sendNotifications({ formName, data, emailPayload, formTitle }) {
       const quoteForms = new Set(['quote-garage-doors','quote-exterior-shades','quote-interior-shades','quote-shutters','quote-commercial']);
       const customerSubject = customerSubjects[formName] || (quoteForms.has(formName) ? 'We received your project request — TMAX Roll Ups' : `We received your request — TMAX Roll Ups`);
 
-      const customerHtml = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(customerSubject)}</title></head><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#212121;background:#fff;padding:20px"><div style="max-width:620px;margin:0 auto;border:0"><h2 style="color:#59461f;margin-bottom:8px">TMAX Roll Ups</h2><p style="font-size:16px;margin:6px 0 12px">Thanks — we received your ${escapeHtml((formTitle||'request').toLowerCase())} and will review it shortly.</p><p style="font-size:14px;margin:6px 0">Next steps: A TMAX representative will contact you to confirm details and provide an estimated timeline.</p><hr style="border:none;border-top:1px solid #eee;margin:18px 0"><p style="font-size:13px;color:#777;margin:0">Email: <a href="mailto:info@tmaxrollups.com">info@tmaxrollups.com</a><br>Phone: 713-772-9988<br>Hours: Monday–Friday, 9:00 AM–5:00 PM CST<br>Address: 3831 Pinemont Dr, Houston, TX 77018</p></div></body></html>`;
+      const customerHtml = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0;padding:0;background:#f6f6f6;font-family:Arial,Helvetica,sans-serif;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr><td align="center"><table role="presentation" cellpadding="0" cellspacing="0" width="620" style="background:#ffffff;margin:20px auto;border-radius:6px;overflow:hidden;border:1px solid #e9e9e9"><tr><td style="background:#59461f;padding:18px 24px;color:#ffffff;text-align:left"><h1 style="margin:0;font-size:20px;font-weight:700">TMAX Roll Ups</h1></td></tr><tr><td style="padding:20px 24px;color:#212121"><p style="font-size:16px;margin:0 0 12px">Thanks — we received your ${escapeHtml((formTitle||'request').toLowerCase())} and will review it shortly.</p><p style="font-size:14px;margin:0 0 16px;color:#555">Next steps: A TMAX representative will contact you to confirm details and provide an estimated timeline.</p><p style="font-size:14px;margin:0">If you need immediate assistance call <strong>713-772-9988</strong> or email <a href=\"mailto:info@tmaxrollups.com\">info@tmaxrollups.com</a>.</p></td></tr><tr><td style="background:#f4f4f4;padding:14px 24px;color:#777;font-size:13px;text-align:center">3831 Pinemont Dr, Houston, TX 77018 · 713-772-9988</td></tr></table></td></tr></table></body></html>`;
 
       const customerPayload = {
         from: FROM_EMAIL,
