@@ -46,3 +46,35 @@
   show(0);
   start();
 })();
+
+(function() {
+  'use strict';
+  function initCaptchaGuard() {
+  const forms = Array.from(document.querySelectorAll('form[data-netlify-recaptcha="true"]'));
+  forms.forEach(form => {
+    const submitButtons = Array.from(form.querySelectorAll('button[type="submit"], input[type="submit"]'));
+    if (!submitButtons.length) return;
+    // start disabled until captcha proves completion
+    submitButtons.forEach(btn => btn.disabled = true);
+    const check = () => {
+      const textarea = form.querySelector('textarea[name="g-recaptcha-response"]');
+      if (textarea && textarea.value && textarea.value.trim().length > 0) {
+        submitButtons.forEach(b => b.disabled = false);
+        return true;
+      }
+      return false;
+    };
+    if (check()) return;
+    // Observe DOM changes and polling as fallbacks
+    const observer = new MutationObserver(() => { if (check()) observer.disconnect(); });
+    observer.observe(form, { childList: true, subtree: true, characterData: true, attributes: true });
+    const interval = setInterval(() => { if (check()) clearInterval(interval); }, 500);
+    // Re-disable on reset
+    form.addEventListener('reset', () => submitButtons.forEach(btn => btn.disabled = true));
+    // Prevent submit while disabled
+    form.addEventListener('submit', (e) => { if (submitButtons.some(b => b.disabled)) { e.preventDefault(); } });
+  });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initCaptchaGuard);
+  else initCaptchaGuard();
+})();
