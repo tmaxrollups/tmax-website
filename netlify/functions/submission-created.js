@@ -132,7 +132,8 @@ async function sendNotifications({ formName, data, emailPayload, formTitle }) {
   // Helper to send via Resend. Uses RESEND_API_KEY from environment and never logs it.
   async function sendEmail(payload) {
     const headers = { 'Content-Type': 'application/json' };
-    if (RESEND_API_KEY) headers.Authorization = Bearer ;
+    if (RESEND_API_KEY) headers.Authorization = `Bearer ${RESEND_API_KEY}`;
+    if (typeof fetch !== 'function') throw new Error('fetch unavailable in runtime');
     return fetch('https://api.resend.com/emails', { method: 'POST', headers, body: JSON.stringify(payload) });
   }
 
@@ -205,9 +206,9 @@ exports.handler = async function(event) {
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
     const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL;
     const FROM_EMAIL = process.env.FROM_EMAIL;
-    if (!RESEND_API_KEY || !NOTIFY_EMAIL || !FROM_EMAIL) {
-      console.error('Required email environment variables are not configured');
-      return { statusCode: 500, body: 'Submission accepted; notification unavailable' };
+    const emailEnabled = Boolean(RESEND_API_KEY && NOTIFY_EMAIL && FROM_EMAIL);
+    if (!emailEnabled) {
+      console.error('Required email environment variables are not configured; skipping notification step');
     }
 
     const createdAt = payload.created_at ? new Date(payload.created_at) : new Date();
@@ -233,7 +234,7 @@ exports.handler = async function(event) {
     };
     if (data.email) emailPayload.reply_to = data.email;
 
-    const notifyResult = await sendNotifications({ formName, data, emailPayload, formTitle });
+    const notifyResult = emailEnabled ? await sendNotifications({ formName, data, emailPayload, formTitle }) : { internalSent: false, customerSent: false };
 
     return { statusCode: 200, body: JSON.stringify({ accepted: true, internal_notification_sent: notifyResult.internalSent, customer_confirmation_sent: notifyResult.customerSent }) };
   } catch (error) {
