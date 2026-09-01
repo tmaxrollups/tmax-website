@@ -1,4 +1,4 @@
-// Netlify Forms event function: sends validated form submissions by email via Resend.
+﻿// Netlify Forms event function: sends validated form submissions by email via Resend.
 'use strict';
 
 const FORM_FIELDS = {
@@ -124,6 +124,71 @@ const formatValue = (key, val) => {
   return escapeHtml(String(val)).replace(/\n/g, '<br>');
 };
 
+async function sendNotifications({ formName, data, emailPayload, formTitle }) {
+  const RESEND_API_KEY = process.env.RESEND_API_KEY;
+  const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL;
+  const FROM_EMAIL = process.env.FROM_EMAIL;
+
+  // Helper to send via Resend. Uses RESEND_API_KEY from environment and never logs it.
+  async function sendEmail(payload) {
+    const headers = { 'Content-Type': 'application/json' };
+    if (RESEND_API_KEY) headers.Authorization = `Bearer ${RESEND_API_KEY}`;
+    if (typeof fetch !== 'function') throw new Error('fetch unavailable in runtime');
+    return fetch('https://api.resend.com/emails', { method: 'POST', headers, body: JSON.stringify(payload) });
+  }
+
+  // Send internal notification
+  let internalSent = false;
+  try {
+    const resInternal = await sendEmail(emailPayload);
+    if (!resInternal || !resInternal.ok) {
+      const status = resInternal && resInternal.status; console.error('Resend API internal notification failure:', status || 'no-response');
+    } else {
+      const result = await resInternal.json().catch(() => ({}));
+      console.log('Form notification sent:', formName, result.id || 'no-id');
+      internalSent = true;
+    }
+  } catch (err) {
+    console.error('Resend API internal error:', err && err.message ? err.message : err);
+  }
+
+  // Customer confirmation
+  let customerSent = false;
+  if (data && data.email) {
+    try {
+      const customerSubjects = {
+        'dealer-application': 'We received your dealer application — TMAX Roll Ups',
+        'parts-request': 'We received your parts request — TMAX Roll Ups',
+        'consultation': 'We received your consultation request — TMAX Roll Ups',
+        'contact-message': 'Thanks for contacting TMAX Roll Ups'
+      };
+      const quoteForms = new Set(['quote-garage-doors','quote-exterior-shades','quote-interior-shades','quote-shutters','quote-commercial']);
+      const customerSubject = customerSubjects[formName] || (quoteForms.has(formName) ? 'We received your project request — TMAX Roll Ups' : `We received your request — TMAX Roll Ups`);
+
+      const customerHtml = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0;padding:0;background:#f6f6f6;font-family:Arial,Helvetica,sans-serif;"><table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr><td align="center"><table role="presentation" cellpadding="0" cellspacing="0" width="620" style="background:#ffffff;margin:20px auto;border-radius:6px;overflow:hidden;border:1px solid #e9e9e9"><tr><td style="background:#59461f;padding:18px 24px;color:#ffffff;text-align:left"><h1 style="margin:0;font-size:20px;font-weight:700">TMAX Roll Ups</h1></td></tr><tr><td style="padding:20px 24px;color:#212121"><p style="font-size:16px;margin:0 0 12px">Thanks — we received your ${escapeHtml((formTitle||'request').toLowerCase())} and will review it shortly.</p><p style="font-size:14px;margin:0 0 16px;color:#555">Next steps: A TMAX representative will contact you to confirm details and provide an estimated timeline.</p><p style="font-size:14px;margin:0">If you need immediate assistance call <strong>713-772-9988</strong> or email <a href=\"mailto:info@tmaxrollups.com\">info@tmaxrollups.com</a>.</p></td></tr><tr><td style="background:#f4f4f4;padding:14px 24px;color:#777;font-size:13px;text-align:center">3831 Pinemont Dr, Houston, TX 77018 · 713-772-9988</td></tr></table></td></tr></table></body></html>`;
+
+      const customerPayload = {
+        from: FROM_EMAIL,
+        to: data.email,
+        reply_to: NOTIFY_EMAIL,
+        subject: customerSubject,
+        html: customerHtml
+      };
+
+      const resCust = await sendEmail(customerPayload);
+      if (!resCust || !resCust.ok) {
+        const status = resCust && resCust.status; console.error('Resend API customer confirmation failure:', status || 'no-response');
+      } else {
+        customerSent = true;
+      }
+    } catch (err) {
+      console.error('Resend API customer confirmation error:', err && err.message ? err.message : err);
+    }
+  }
+
+  return { internalSent, customerSent };
+}
+
 exports.handler = async function(event) {
   try {
     if (!event || !event.body) return { statusCode: 400, body: 'Invalid request' };
@@ -141,9 +206,9 @@ exports.handler = async function(event) {
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
     const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL;
     const FROM_EMAIL = process.env.FROM_EMAIL;
-    if (!RESEND_API_KEY || !NOTIFY_EMAIL || !FROM_EMAIL) {
-      console.error('Required email environment variables are not configured');
-      return { statusCode: 500, body: 'Submission accepted; notification unavailable' };
+    const emailEnabled = Boolean(RESEND_API_KEY && NOTIFY_EMAIL && FROM_EMAIL);
+    if (!emailEnabled) {
+      console.error('Required email environment variables are not configured; skipping notification step');
     }
 
     const createdAt = payload.created_at ? new Date(payload.created_at) : new Date();
@@ -169,18 +234,9 @@ exports.handler = async function(event) {
     };
     if (data.email) emailPayload.reply_to = data.email;
 
-    const res = await fetch('https://api.resend.com/emails', {
-      method:'POST',
-      headers:{Authorization:`Bearer ${RESEND_API_KEY}`,'Content-Type':'application/json'},
-      body:JSON.stringify(emailPayload)
-    });
-    if (!res.ok) {
-      console.error('Resend API failure:', res.status);
-      return { statusCode: 502, body: 'Submission accepted; notification delivery failed' };
-    }
-    const result = await res.json().catch(() => ({}));
-    console.log('Form notification sent:', formName, result.id || 'no-id');
-    return { statusCode: 200, body: JSON.stringify({ sent:true }) };
+    const notifyResult = emailEnabled ? await sendNotifications({ formName, data, emailPayload, formTitle }) : { internalSent: false, customerSent: false };
+
+    return { statusCode: 200, body: JSON.stringify({ accepted: true, internal_notification_sent: notifyResult.internalSent, customer_confirmation_sent: notifyResult.customerSent }) };
   } catch (error) {
     console.error('Submission function error:', error && error.message ? error.message : 'unknown error');
     return { statusCode: 500, body: 'Unable to process submission' };
@@ -191,3 +247,4 @@ exports.calculateGarageEstimate = calculateGarageEstimate;
 exports.validateGarageColor = validateGarageColor;
 exports.validateRailColor = validateRailColor;
 exports.validateSubmission = validateSubmission;
+exports.sendNotifications = sendNotifications;
