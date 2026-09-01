@@ -38,7 +38,9 @@
     if (w && h) parts.push(`${w} ft × ${h} ft`);
     summaryEl.textContent = parts.length ? parts.join(' · ') : 'Select door color, rail/housing color and size to see pricing';
 
-    priceEl.classList.remove('custom');
+    // Reset visual flags
+    priceEl.classList.remove('custom','pop');
+
     if (!selectedColor || !rail || !w || !h) {
       priceEl.textContent = '—';
       return;
@@ -54,7 +56,27 @@
       priceEl.textContent = 'Request quote';
       return;
     }
-    priceEl.textContent = fmt(price);
+    const newText = fmt(price);
+    // Only animate when price changes to a concrete value
+    if (priceEl.textContent !== newText) {
+      priceEl.textContent = newText;
+      priceEl.classList.add('pop');
+      try {
+        priceEl.animate([
+          { transform: 'scale(1)', offset: 0 },
+          { transform: 'scale(1.06)', offset: 0.5 },
+          { transform: 'scale(1)', offset: 1 }
+        ], { duration: 300, easing: 'ease-out' });
+      } catch (e) { /* animate may not be available */ }
+      // ensure the price is visible in viewport without jarring on small screens
+      const rect = priceEl.getBoundingClientRect();
+      if (rect.top < 0 || rect.bottom > (window.innerHeight || document.documentElement.clientHeight)) {
+        priceEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      setTimeout(() => priceEl.classList.remove('pop'), 1200);
+    } else {
+      priceEl.textContent = newText;
+    }
   }
 
   swatches.forEach((sw) => sw.addEventListener('click', () => {
