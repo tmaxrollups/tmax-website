@@ -1,7 +1,7 @@
 'use strict';
 
 function isProductionEnvironment() {
-  return process.env.SITE_CONTEXT === 'production';
+  return !process.env.DEPLOY_PRIME_URL && process.env.BRANCH !== 'dev';
 }
 
 exports.handler = async function() {
