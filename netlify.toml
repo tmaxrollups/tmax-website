@@ -7,6 +7,18 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+[context.production.environment]
+  SITE_CONTEXT = "production"
+
+[context.deploy-preview.environment]
+  SITE_CONTEXT = "deploy-preview"
+
+[context.branch-deploy.environment]
+  SITE_CONTEXT = "branch-deploy"
+
+[context.dev.environment]
+  SITE_CONTEXT = "dev"
+
 [[headers]]
   for = "/*"
   [headers.values]
