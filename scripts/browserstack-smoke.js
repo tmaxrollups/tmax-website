@@ -309,6 +309,23 @@ async function verifyResourcesPage(driver, browser) {
     open: true
   });
 
+  console.log('  verify mobile product dropdown and Resources layout');
+  await driver.findElement(By.css('.nav-products summary')).click();
+  await driver.manage().window().setRect({ width: 390, height: 900 });
+  await driver.findElement(By.css('.menu-toggle')).click();
+  await driver.findElement(By.css('.nav-products summary')).click();
+  const mobileState = await driver.executeScript(() => ({
+    menuOpen: document.querySelector('.site-nav').classList.contains('open'),
+    pageOverflows: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    productsOpen: document.querySelector('.nav-products').open
+  }));
+  assert.deepEqual(mobileState, {
+    menuOpen: true,
+    pageOverflows: false,
+    productsOpen: true
+  });
+  await driver.manage().window().setRect({ width: 1280, height: 900 });
+
   const documentPaths = await driver.executeScript(() => Array.from(
     document.querySelectorAll('a[href*="TMAX-Product-Catalog-2026.pdf"], a[href*="TMAX-Product-Warranty.pdf"]'),
     (link) => new URL(link.href).pathname

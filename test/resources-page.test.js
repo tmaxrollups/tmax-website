@@ -45,6 +45,7 @@ test('parts request does not ask for or accept photo uploads', () => {
   assert.ok(form, 'Resources must contain the parts-request form');
   assert.doesNotMatch(form, /type="file"/i);
   assert.doesNotMatch(form, /\bphotos?\b/i);
+  assert.match(form, /<textarea\b[^>]*name="part_description"[^>]*required/i);
   assert.doesNotMatch(resourcesPage, /photos? of the (?:motor|original)/i);
 });
 
@@ -56,4 +57,6 @@ test('BrowserStack smoke coverage includes Resources navigation, documents, and 
   assert.match(browserstackSmoke, /TMAX-Product-Warranty\.pdf/);
   assert.match(browserstackSmoke, /form\[name="parts-request"\]/);
   assert.match(browserstackSmoke, /duplicateIds/);
+  assert.match(browserstackSmoke, /setRect\(\{ width: 390, height: 900 \}\)/);
+  assert.match(browserstackSmoke, /\.menu-toggle/);
 });

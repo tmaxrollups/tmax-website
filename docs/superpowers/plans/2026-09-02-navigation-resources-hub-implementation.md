@@ -97,8 +97,8 @@ Commit: `Add accessible product navigation dropdown`
 - Modify: `test/captcha-integration.test.js`
 
 **Interfaces:**
-- Consumes: existing Resources documents/galleries and Accessories parts content/form.
-- Produces: one Resources hub containing documents, planning, controls, galleries, guidance, and `parts-request`.
+- Consumes: existing Resources documents and Accessories parts content/form.
+- Produces: one Resources hub containing documents, planning, controls, guidance, and `parts-request`.
 
 - [ ] **Step 1: Write failing consolidation tests**
 

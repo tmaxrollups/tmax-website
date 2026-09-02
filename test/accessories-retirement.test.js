@@ -20,6 +20,10 @@ test('public pages and sitemap no longer reference Accessories URLs', () => {
   for (const fileName of files) {
     const contents = fs.readFileSync(path.join(publicDir, fileName), 'utf8');
     assert.doesNotMatch(contents, /(?:href="|<loc>[^<]*)[^"<]*\/accessories(?:[/.]|$)/i, `${fileName} must use Resources`);
+    if (fileName.endsWith('.html')) {
+      const footer = contents.match(/<footer\b[\s\S]*?<\/footer>/i)?.[0] || '';
+      assert.ok((footer.match(/href="\/resources\/"/g) || []).length <= 1, `${fileName} footer must not duplicate Resources`);
+    }
   }
 
   const sitemap = fs.readFileSync(path.join(publicDir, 'sitemap.xml'), 'utf8');
