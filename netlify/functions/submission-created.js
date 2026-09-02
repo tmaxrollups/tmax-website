@@ -46,14 +46,21 @@ const GARAGE_RAIL_COLORS = new Set(['White','Brown','Black','Bronze']);
 
 function validateGarageColor(value) {
   const color = cleanValue(value);
-  if (!GARAGE_DOOR_COLORS.has(color)) throw new Error('Invalid garage door color');
-  return color;
+  // Case-insensitive matching against allowed colors — return the canonical allowed value when matched
+  const normalized = String(color).toLowerCase();
+  const allowedLower = new Set([...GARAGE_DOOR_COLORS].map(c => String(c).toLowerCase()));
+  if (!allowedLower.has(normalized)) throw new Error('Invalid garage door color');
+  const matched = [...GARAGE_DOOR_COLORS].find(c => String(c).toLowerCase() === normalized);
+  return matched || color;
 }
 
 function validateRailColor(value) {
   const color = cleanValue(value);
-  if (!GARAGE_RAIL_COLORS.has(color)) throw new Error('Invalid rail/housing color');
-  return color;
+  const normalized = String(color).toLowerCase();
+  const allowedLower = new Set([...GARAGE_RAIL_COLORS].map(c => String(c).toLowerCase()));
+  if (!allowedLower.has(normalized)) throw new Error('Invalid rail/housing color');
+  const matched = [...GARAGE_RAIL_COLORS].find(c => String(c).toLowerCase() === normalized);
+  return matched || color;
 }
 
 function calculateGarageEstimate(widthValue, heightValue) {
