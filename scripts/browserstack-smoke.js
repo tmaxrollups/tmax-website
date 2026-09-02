@@ -10,6 +10,7 @@ const publicDir = path.resolve(__dirname, '..', 'public');
 const resultsDir = path.resolve(__dirname, '..', 'test-results', 'browserstack');
 const localUrl = 'http://localhost:4173/';
 const commercialUrl = new URL('commercial.html', localUrl).href;
+const resourcesUrl = new URL('resources.html', localUrl).href;
 const hubUrl = 'https://hub-cloud.browserstack.com/wd/hub';
 
 const browserMatrix = [
@@ -285,6 +286,67 @@ async function verifyCommercialPage(driver, browser) {
   }
 }
 
+async function verifyResourcesPage(driver, browser) {
+  console.log('  navigate to Resources page');
+  await driver.get(resourcesUrl);
+  await driver.manage().window().setRect({ width: 1280, height: 900 });
+  await driver.wait(until.elementLocated(By.css('form[name="parts-request"]')), 20_000);
+
+  const heading = await driver.findElement(By.css('.page-header h1'));
+  assert.equal(await heading.getText(), 'Product Resources');
+
+  console.log('  verify product dropdown and document links');
+  await driver.findElement(By.css('.nav-products summary')).click();
+  const dropdownState = await driver.executeScript(() => {
+    const menu = document.querySelector('.nav-products');
+    return {
+      labels: Array.from(menu.querySelectorAll('.nav-products-menu a'), (link) => link.textContent.trim()),
+      open: menu.open
+    };
+  });
+  assert.deepEqual(dropdownState, {
+    labels: ['Garage Doors', 'Exterior Shades', 'Interior Shades', 'Shutters'],
+    open: true
+  });
+
+  const documentPaths = await driver.executeScript(() => Array.from(
+    document.querySelectorAll('a[href*="TMAX-Product-Catalog-2026.pdf"], a[href*="TMAX-Product-Warranty.pdf"]'),
+    (link) => new URL(link.href).pathname
+  ));
+  assert.ok(documentPaths.includes('/documents/TMAX-Product-Catalog-2026.pdf'));
+  assert.ok(documentPaths.includes('/documents/TMAX-Product-Warranty.pdf'));
+
+  console.log('  verify Resources layout and parts form');
+  const pageState = await driver.executeScript(() => {
+    const form = document.querySelector('form[name="parts-request"]');
+    const ids = Array.from(document.querySelectorAll('[id]'), (element) => element.id);
+    const duplicateIds = ids.filter((id, index) => ids.indexOf(id) !== index);
+    return {
+      captchaPlaceholder: Boolean(form.querySelector('[data-netlify-recaptcha="true"]')),
+      duplicateIds,
+      formAction: new URL(form.action).pathname,
+      formMethod: form.method,
+      netlifyEnabled: form.getAttribute('data-netlify'),
+      pageOverflows: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+      submitDisabled: form.querySelector('button[type="submit"]').disabled
+    };
+  });
+  assert.deepEqual(pageState, {
+    captchaPlaceholder: true,
+    duplicateIds: [],
+    formAction: '/thanks/',
+    formMethod: 'post',
+    netlifyEnabled: 'true',
+    pageOverflows: false,
+    submitDisabled: false
+  });
+
+  if (browser.browserName === 'Chrome' || browser.browserName === 'Edge') {
+    console.log('  verify Resources browser console');
+    await assertNoSevereConsoleErrors(driver);
+  }
+}
+
 async function runBrowser(browser, credentials, buildName) {
   let driver;
   try {
@@ -295,8 +357,9 @@ async function runBrowser(browser, credentials, buildName) {
       .build();
     console.log(`  ${browser.name} session created`);
     await verifyHomepage(driver, browser);
+    await verifyResourcesPage(driver, browser);
     await verifyCommercialPage(driver, browser);
-    await setSessionStatus(driver, 'passed', 'Homepage smoke checks passed');
+    await setSessionStatus(driver, 'passed', 'Homepage, Resources, and Commercial smoke checks passed');
     console.log(`PASS ${browser.name}`);
   } catch (error) {
     if (driver) {

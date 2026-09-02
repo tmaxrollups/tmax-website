@@ -10,6 +10,10 @@ const resourcesPage = fs.readFileSync(
   'utf8'
 );
 const publicDir = path.join(__dirname, '..', 'public');
+const browserstackSmoke = fs.readFileSync(
+  path.join(__dirname, '..', 'scripts', 'browserstack-smoke.js'),
+  'utf8'
+);
 
 test('catalog and warranty actions align at the bottom of equal-height cards', () => {
   assert.match(
@@ -42,4 +46,14 @@ test('parts request does not ask for or accept photo uploads', () => {
   assert.doesNotMatch(form, /type="file"/i);
   assert.doesNotMatch(form, /\bphotos?\b/i);
   assert.doesNotMatch(resourcesPage, /photos? of the (?:motor|original)/i);
+});
+
+test('BrowserStack smoke coverage includes Resources navigation, documents, and form', () => {
+  assert.match(browserstackSmoke, /const resourcesUrl = new URL\('resources\.html', localUrl\)\.href/);
+  assert.match(browserstackSmoke, /async function verifyResourcesPage\(driver, browser\)/);
+  assert.match(browserstackSmoke, /await verifyResourcesPage\(driver, browser\)/);
+  assert.match(browserstackSmoke, /TMAX-Product-Catalog-2026\.pdf/);
+  assert.match(browserstackSmoke, /TMAX-Product-Warranty\.pdf/);
+  assert.match(browserstackSmoke, /form\[name="parts-request"\]/);
+  assert.match(browserstackSmoke, /duplicateIds/);
 });
