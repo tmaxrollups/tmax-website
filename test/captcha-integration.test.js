@@ -54,6 +54,7 @@ test('every Netlify form has valid metadata, controls, labels, and server field 
       )];
 
       assert.ok(formName && allowedFields[formName], `${pageName} must use a recognized unique form name`);
+      if (formName === 'parts-request') assert.equal(pageName, 'resources.html');
       formNames.push(formName);
       assert.equal(attribute(formTag, 'method')?.toUpperCase(), 'POST', `${formName} must POST`);
       assert.equal(attribute(formTag, 'action'), '/thanks/', `${formName} must use the success route`);

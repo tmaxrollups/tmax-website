@@ -279,6 +279,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 /* v21 Resources hub */
 .resource-feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.resource-feature-card,.resource-link-card{background:#fff;border:1px solid var(--tmax-border);border-radius:8px;padding:28px}.resource-feature-card{border-top:4px solid var(--tmax-gold);display:flex;flex-direction:column}.resource-feature-card .btn-secondary{margin-top:auto;align-self:flex-start}.resource-feature-card h3,.resource-link-card h3{font-size:20px;margin-bottom:10px}.resource-feature-card p,.resource-link-card p{font-size:15px;line-height:1.6}.resource-kicker{display:block;color:var(--tmax-gold-dark);font:700 12px/1.2 'Raleway',sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}.resource-link-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.resource-link-grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}.resource-link-card a{font-family:'Raleway',sans-serif;font-weight:700;text-decoration:none}.resource-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:30px}.gallery-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.gallery-links a{display:flex;align-items:center;justify-content:center;min-height:76px;background:#fff;border:1px solid var(--tmax-border);border-radius:6px;text-decoration:none;font-family:'Raleway',sans-serif;font-weight:700;color:var(--tmax-body);padding:16px;text-align:center}.gallery-links a:hover{border-color:var(--tmax-gold);color:var(--tmax-brown)}@media(max-width:900px){.resource-link-grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:720px){.resource-feature-grid,.resource-link-grid,.resource-link-grid-4,.gallery-links{grid-template-columns:1fr}}
+.resource-jump-nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 42px}.resource-jump-nav a{display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border:1px solid var(--tmax-border);border-radius:999px;background:#fff;color:var(--tmax-body);font:700 13px/1.2 'Raleway',sans-serif;text-decoration:none}.resource-jump-nav a:hover{border-color:var(--tmax-gold);color:var(--tmax-brown)}.support-list{max-width:780px;margin:0 auto;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.support-list li{padding:16px 18px;border-left:4px solid var(--tmax-gold);border-radius:4px;background:var(--tmax-bg-tint);font-weight:600}@media(max-width:620px){.support-list{grid-template-columns:1fr}}
 </style>
 <link href="/assets/navigation.css" rel="stylesheet"/>
 </head>
@@ -303,8 +304,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 
 
-<section class="section section-white resources-hub">
+<section class="section section-white resources-hub" id="documents">
 <div class="container">
+<nav aria-label="Resources sections" class="resource-jump-nav"><a href="#documents">Documents</a><a href="#controls">Controls &amp; Parts</a><a href="#galleries">Galleries</a><a href="#parts-request">Parts Request</a></nav>
 <div class="section-header">
 <p class="section-eyebrow">Resources</p>
 <h2 class="section-title">Documents &amp; Product Support</h2>
@@ -338,22 +340,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <article class="resource-link-card"><h3>Fabric &amp; Screen Selection</h3><p>Natté 3%, 5% and 10% openness options, blackout choices and TuffScreen No-See-Um information.</p><a href="/documents/TMAX-Product-Catalog-2026.pdf">Open Catalog →</a></article>
 </div>
 </div>
-</section><section class="section section-white">
+</section><section class="section section-white" id="controls">
 <div class="container">
 <div class="section-header">
 <p class="section-eyebrow">Controls &amp; Programming</p>
-<h2 class="section-title">Remotes, Hubs, Keypads &amp; Controls</h2>
-<p class="section-desc">Current control options vary by product and motor configuration. Use the catalog as a starting point, then contact TMAX when you need programming help or a compatible replacement.</p>
+<h2 class="section-title">Controls, Automation &amp; Replacement Parts</h2>
+<p class="section-desc">Control and motor compatibility depends on the product generation, opening, load, and installed control system. Use the catalog as a starting point, then confirm the existing equipment with TMAX before ordering.</p>
 </div>
 <div class="resource-link-grid resource-link-grid-4">
-<article class="resource-link-card"><h3>Remote Controls</h3><p>Handheld, wall-mount, keychain and multi-channel control options for compatible TMAX systems.</p></article>
+<article class="resource-link-card"><h3>Replacement Motors</h3><p>Motor selection is based on the product, opening size, load, and control system. Provide the existing motor information or original order details so TMAX can identify a compatible replacement.</p></article>
 <article class="resource-link-card"><h3>Wi-Fi Hubs</h3><p>Current Dooya and VTi smart-hub information, app control, scenes, routines and compatible voice-control options.</p></article>
+<article class="resource-link-card"><h3>Remotes &amp; Wall Controls</h3><p>Handheld, wall-mount, keychain, single-channel, and multi-channel options are available for compatible TMAX motor systems.</p></article>
 <article class="resource-link-card"><h3>TMAX Keypad</h3><p>Weather-resistant illuminated keypad option for compatible residential and commercial applications.</p></article>
-<article class="resource-link-card"><h3>Programming &amp; Replacement Help</h3><p>For programming instructions or replacement controls, provide the product type, approximate installation date and any motor/control model information.</p><a href="/contact-us/">Contact TMAX →</a></article>
 </div>
-<div class="resource-actions"><a class="btn-secondary" href="/documents/TMAX-Product-Catalog-2026.pdf">Controls in 2026 Catalog</a><a class="btn-primary" href="/accessories/">Controls &amp; Accessories</a></div>
+<div class="resource-actions"><a class="btn-secondary" href="/documents/TMAX-Product-Catalog-2026.pdf">Controls in 2026 Catalog</a><a class="btn-primary" href="#parts-request">Request a Part</a></div>
 </div>
-</section><section class="section section-alt">
+</section><section class="section section-alt" id="galleries">
 <div class="container">
 <div class="section-header">
 <p class="section-eyebrow">Product Galleries</p>
@@ -369,11 +371,48 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <a href="/#our-work">Videos &amp; Our Work</a>
 </div>
 </div>
-</section><section class="dealer-cta">
+</section><section class="section section-white">
 <div class="container">
-<h2>Need a product-specific guide?</h2>
-<p>Some installation and programming documents depend on the product generation, motor or control. Contact TMAX with the product details so the team can provide the correct instructions.</p>
-<a class="btn-primary" href="/contact-us/">Contact TMAX</a>
+<div class="section-header">
+<p class="section-eyebrow">Parts &amp; Service</p>
+<h2 class="section-title">Help us identify the correct component</h2>
+<p class="section-desc">For an existing system, provide as much identifying information as possible. Mechanical, slat, rail, housing, motor, and control availability varies by product generation.</p>
+</div>
+<ul class="support-list">
+<li>Product type and approximate opening size</li>
+<li>Motor or control model information</li>
+<li>Installation address and approximate installation date</li>
+<li>A written description of the issue or required part</li>
+</ul>
+</div>
+</section><section class="consult-section" id="parts-request">
+<div class="container">
+<header class="section-header">
+<p class="section-eyebrow">Parts Request</p>
+<h2 class="section-title">Request parts, controls, or service</h2>
+<p class="section-desc">Tell us what you need and include identifying information from the existing system whenever possible.</p>
+</header>
+<form action="/thanks/" class="consult-form" data-netlify="true" data-netlify-recaptcha="true" method="POST" name="parts-request" netlify-honeypot="bot-field">
+<input name="form-name" type="hidden" value="parts-request"/>
+<input name="subject" type="hidden" value="New parts / accessories request - TMAX website"/>
+<input name="source_page" type="hidden" value="Resources page"/>
+<p style="display:none;"><label>Don't fill this: <input name="bot-field"/></label></p>
+<div class="consult-row row-2col">
+<div><label for="parts-name">Full Name *</label><input autocomplete="name" id="parts-name" maxlength="100" name="name" required="" type="text"/></div>
+<div><label for="parts-zip">Shipping ZIP *</label><input autocomplete="postal-code" id="parts-zip" inputmode="numeric" maxlength="10" name="zip" pattern="[0-9A-Za-z -]{3,10}" required="" type="text"/></div>
+</div>
+<div class="consult-row row-2col">
+<div><label for="parts-email">Email *</label><input autocomplete="email" id="parts-email" inputmode="email" maxlength="254" name="email" required="" type="email"/></div>
+<div><label for="parts-phone">Phone *</label><input autocomplete="tel" id="parts-phone" inputmode="tel" maxlength="30" name="phone" required="" type="tel"/></div>
+</div>
+<div class="consult-row">
+<label for="parts-description">What part or service do you need?</label>
+<textarea id="parts-description" maxlength="2000" name="part_description" placeholder="Include the product type, model information, installation date or address, and a description of the issue." rows="4"></textarea>
+</div>
+<input name="product_interest" type="hidden" value="Parts &amp; Accessories"/>
+<div class="tmax-captcha" data-netlify-recaptcha="true"></div>
+<button class="consult-submit" type="submit">Send Parts Request</button>
+</form>
 </div>
 </section>
 <footer class="site-footer">
