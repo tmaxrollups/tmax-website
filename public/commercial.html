@@ -70,7 +70,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .site-logo img { height: 44px; width: auto; display: block; }
 @media (max-width: 640px) { .header-inner { padding: 10px 16px; } .site-logo img { height: 36px; } }
 .site-nav { display: flex; align-items: center; gap: 20px; }
-.site-nav a { color: #fff; text-decoration: none; font-family: 'Raleway', sans-serif; font-weight: 500; font-size: 14px; transition: color 0.15s; text-transform: uppercase; letter-spacing: 0.04em; }
+.site-nav a { color: #fff; text-decoration: none; font-family: 'Raleway', sans-serif; font-weight: 500; font-size: 14px; transition: color 0.15s; letter-spacing: 0.04em; }
 .site-nav a:hover, .site-nav a.active { color: var(--tmax-gold); }
 .site-nav .btn-primary { padding: 8px 16px; min-height: 40px; font-size: 12px; }
 .menu-toggle { display: none; background: transparent; border: 2px solid var(--tmax-gold); color: var(--tmax-gold); padding: 8px 14px; font-size: 13px; font-weight: 700; font-family: 'Raleway', sans-serif; border-radius: 4px; cursor: pointer; min-height: 44px; }
@@ -348,33 +348,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         </ul>
       </div>
       <div class="media-player">
-        <video id="commercial-shutter-video" controls playsinline preload="metadata" poster="/images/v7/commercial-shutter-poster.webp" width="100%" aria-label="Commercial shutter demonstration showing smooth motorized operation and perforated steel design" style="border-radius:8px; border:1px solid var(--tmax-border); background:#000" data-src-1080="/videos/commercial-shutter-1080.mp4" data-src-720="/videos/commercial-shutter-720.mp4">
-          <source id="commercial-source" src="/videos/commercial-shutter-1080.mp4" type="video/mp4">
-          Your browser does not support HTML5 video. View the demo at /videos/commercial-shutter-1080.mp4
+        <video id="commercial-shutter-video" controls playsinline preload="metadata" poster="/images/commercial-retail-perforated.webp" width="100%" aria-label="Commercial shutter demonstration showing smooth motorized operation and perforated steel design" style="border-radius:8px; border:1px solid var(--tmax-border); background:#000">
+          <source src="/videos/IMG_6156.mp4" type="video/mp4">
+          Your browser does not support HTML5 video. View the demo at /videos/IMG_6156.mp4
         </video>
-        <script>
-          document.addEventListener('DOMContentLoaded', function(){
-            const vid = document.getElementById('commercial-shutter-video');
-            if (!vid) return;
-            const src = document.getElementById('commercial-source');
-            try {
-              const viewportWidth = window.innerWidth || screen.width || 900;
-              const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-              const effectiveType = connection && connection.effectiveType ? connection.effectiveType : '4g';
-              const isSlowConnection = effectiveType === '2g' || effectiveType === '3g';
-              const isMobileDevice = navigator.deviceMemory ? navigator.deviceMemory <= 2 : false;
-              const preferMobile = viewportWidth <= 900 || isSlowConnection || isMobileDevice;
-              const mobileSrc = vid.getAttribute('data-src-720');
-              const desktopSrc = vid.getAttribute('data-src-1080');
-              if (preferMobile && mobileSrc) {
-                src.src = mobileSrc;
-              } else if (desktopSrc) {
-                src.src = desktopSrc;
-              }
-              vid.load();
-            } catch(e) { console.warn('Video source selection failed:', e); }
-          });
-        </script>
       </div>
     </div>
   </div>
