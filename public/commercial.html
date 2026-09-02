@@ -280,6 +280,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .page-header-content { width: 100%; max-width: 980px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; }
 .page-header .page-header-desc { display: block !important; max-width: 760px; margin: 0 auto; color: #f2f2f2; font-size: 18px; line-height: 1.5; }
 .page-header-actions { justify-content: center; margin-top: 22px; }
+.commercial-page-header h1 { white-space: nowrap; font-size: clamp(30px, 8vw, 56px); }
 .hero .hero-content { width: 100%; }
 .hero .hero-desc { max-width: 720px; color: #f4f4f4; }
 @media (max-width: 720px) {
@@ -298,7 +299,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 </header>
 <!-- HERO -->
-<section class="page-header">
+<section class="page-header commercial-page-header">
 <div class="page-header-bg" style="background-image: url('/images/v7/commercial-foodmart.webp'); background-position: center 50%;"></div>
 <div class="container">
 <div class="page-header-content">
@@ -326,21 +327,23 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 </section>
 
-<!-- VIDEO + FEATURES: commercial shutter demo -->
-<section class="section">
+<!-- VIDEO + FEATURES: commercial screen installation -->
+<section aria-labelledby="commercial-video-title" class="section">
   <div class="container">
     <div class="media-showcase">
       <div class="feature-list">
+        <p class="section-eyebrow">Commercial Installation</p>
+        <h2 id="commercial-video-title">Full-height coverage with an open view</h2>
+        <p>Take a closer look at a finished TMAX screen installation enclosing a covered patio while maintaining visibility to the outdoors.</p>
         <ul>
-          <li><strong>Perforated steel curtain</strong> — visibility for counters while providing a secure barrier.</li>
-          <li><strong>Smooth motor operation</strong> — soft start/stop and manual override options.</li>
-          <li><strong>Custom sizing</strong> — field-fit housings and mounting for retrofit or new construction.</li>
-          <li><strong>Code & safety</strong> — integrated sensors and compliance with local codes.</li>
-          <li><strong>Finish options</strong> — powder coat or anodized finishes for durability.</li>
+          <li><strong>Custom coverage</strong> — panels are sized to the finished openings.</li>
+          <li><strong>Outdoor visibility</strong> — screening preserves the view beyond the patio.</li>
+          <li><strong>Clean integration</strong> — housings and tracks align with the existing structure.</li>
+          <li><strong>Flexible use</strong> — retract the screens when the space should be fully open.</li>
         </ul>
       </div>
       <div class="media-player">
-        <video id="commercial-shutter-video" class="media-video" controls playsinline preload="none" poster="/images/commercial-retail-perforated.webp" aria-label="Commercial shutter demonstration showing smooth motorized operation and perforated steel design">
+        <video id="commercial-shutter-video" class="media-video" controls playsinline preload="none" poster="/images/commercial-shutter-video-poster.webp" aria-label="Finished TMAX commercial screen installation around a covered patio">
           <source src="/videos/IMG_6156.mp4" type="video/mp4">
           Your browser does not support HTML5 video. View the demo at /videos/IMG_6156.mp4
         </video>
