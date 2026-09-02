@@ -44,26 +44,19 @@
 
 .hero h1,
 .hero h2,
-.hero .hero-desc {
-  background: #000;
-  box-shadow: 0 0 0 5px #000;
-  width: fit-content;
-}
-
-.hero .hero-eyebrow {
-  background: #000;
-}
-
-.hero-title-text {
-  background: #000;
-  box-shadow: 0 0 0 5px #000;
-}
-
+.hero .hero-desc,
+.hero .hero-eyebrow,
+.hero-title-text,
 .page-header .hero-eyebrow,
 .page-header h1,
 .page-header-desc {
-  background: #000;
-  box-shadow: 0 0 0 5px #000;
+  background: transparent;
+  box-shadow: none;
+  text-shadow:
+    0 2px 2px rgba(0, 0, 0, 0.98),
+    0 4px 7px rgba(0, 0, 0, 0.92),
+    0 8px 16px rgba(0, 0, 0, 0.84),
+    0 12px 28px rgba(0, 0, 0, 0.72);
   width: fit-content;
 }
 

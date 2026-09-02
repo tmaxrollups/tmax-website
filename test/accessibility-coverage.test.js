@@ -43,8 +43,8 @@ test('shared styles preserve readable text and controls', () => {
   assert.match(css, /--tmax-gold-dark:\s*#7a591c/i);
   assert.match(css, /\.site-nav \.btn-primary\s*{[^}]*color:\s*#000/is);
   assert.match(css, /\.media-video\s*{[^}]*color:\s*#fff/is);
-  assert.match(css, /\.hero h1,[^}]*\.hero-desc\s*{[^}]*background:\s*#000/is);
-  assert.match(css, /\.page-header \.hero-eyebrow,[^}]*\.page-header-desc\s*{[^}]*background:\s*#000/is);
+  assert.match(css, /\.hero h1,[^}]*\.hero-desc,[^}]*\.page-header-desc\s*{[^}]*background:\s*transparent[^}]*box-shadow:\s*none[^}]*text-shadow:\s*[^;}]*rgba\(0, 0, 0, 0\.98\)[^;}]*rgba\(0, 0, 0, 0\.72\)/is);
+  assert.doesNotMatch(css, /(?:\.hero-title-text|\.page-header h1)[^}]*background:\s*#000/is);
   assert.doesNotMatch(css, /\.hero \.hero-content\s*{[^}]*background:/is);
   assert.doesNotMatch(css, /\.page-header-content\s*{[^}]*background:/is);
   assert.match(css, /\.tmax-price-display\s*{[^}]*background:\s*#fbf7ee\s*!important/is);
