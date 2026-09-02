@@ -48,7 +48,37 @@
       if (!nav) return;
       const isOpen = nav.classList.toggle('open');
       button.setAttribute('aria-expanded', String(isOpen));
+      if (!isOpen) nav.querySelectorAll('.nav-products[open]').forEach((menu) => menu.removeAttribute('open'));
     });
+  });
+
+  const productMenus = Array.from(document.querySelectorAll('.nav-products'));
+  productMenus.forEach((menu) => {
+    const currentLink = Array.from(menu.querySelectorAll('a')).find((link) => {
+      const linkPath = new URL(link.href, window.location.href).pathname.replace(/\/$/, '');
+      const currentPath = window.location.pathname.replace(/\.html$/, '').replace(/\/$/, '');
+      return linkPath === currentPath;
+    });
+    if (currentLink) {
+      currentLink.setAttribute('aria-current', 'page');
+      menu.classList.add('is-active');
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    productMenus.forEach((menu) => {
+      if (!menu.contains(event.target)) menu.removeAttribute('open');
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      productMenus.forEach((menu) => {
+        if (!menu.open) return;
+        menu.removeAttribute('open');
+        menu.querySelector('summary')?.focus();
+      });
+    }
   });
 })();
 
