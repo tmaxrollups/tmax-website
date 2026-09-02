@@ -6,6 +6,17 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="/favicon.ico" rel="icon" type="image/x-icon"/>
 <title>Commercial Roll-Up Doors, Shades &amp; Shutters | TMAX Houston</title>
 <meta content="Commercial roll-up doors, shutters, shades and compact security systems for storefronts, service counters, garages and other business applications." name="description"/>
+<link rel="canonical" href="https://tmax-rollups.netlify.app/commercial.html"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "TMAX Roll Ups", "item": "https://tmax-rollups.netlify.app/"},
+    {"@type": "ListItem", "position": 2, "name": "Commercial Solutions", "item": "https://tmax-rollups.netlify.app/commercial.html"}
+  ]
+}
+</script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700;800&amp;family=Work+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
@@ -59,7 +70,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .site-logo img { height: 44px; width: auto; display: block; }
 @media (max-width: 640px) { .header-inner { padding: 10px 16px; } .site-logo img { height: 36px; } }
 .site-nav { display: flex; align-items: center; gap: 20px; }
-.site-nav a { color: #fff; text-decoration: none; font-family: 'Raleway', sans-serif; font-weight: 500; font-size: 14px; transition: color 0.15s; }
+.site-nav a { color: #fff; text-decoration: none; font-family: 'Raleway', sans-serif; font-weight: 500; font-size: 14px; transition: color 0.15s; text-transform: uppercase; letter-spacing: 0.04em; }
 .site-nav a:hover, .site-nav a.active { color: var(--tmax-gold); }
 .site-nav .btn-primary { padding: 8px 16px; min-height: 40px; font-size: 12px; }
 .menu-toggle { display: none; background: transparent; border: 2px solid var(--tmax-gold); color: var(--tmax-gold); padding: 8px 14px; font-size: 13px; font-weight: 700; font-family: 'Raleway', sans-serif; border-radius: 4px; cursor: pointer; min-height: 44px; }
@@ -250,7 +261,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .footer-col a:hover { color: var(--tmax-gold); }
 .footer-logo img { width: 170px; max-width: 100%; height: auto; margin-bottom: 16px; object-fit: contain; }
 .footer-tagline { color: #999; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; }
-.footer-social { display: flex; gap: 12px; }
+.footer-social { display: flex; gap: 12px; justify-content: center; }
+.footer-grid .footer-col:first-child { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .footer-social a { width: 40px; height: 40px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ccc; transition: border-color 0.15s, color 0.15s; }
 .footer-social a:hover { border-color: var(--tmax-gold); color: var(--tmax-gold); }
 .footer-social svg { width: 16px; height: 16px; }
@@ -313,14 +325,70 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <section class="intro-section">
 <div class="container">
 <div class="two-col">
-<div><img alt="Perforated TMAX roll-down shutter protecting an interior retail opening" decoding="async" height="631" loading="lazy" src="/images/v7/commercial-grille.webp" width="1125"/></div>
-<div>
-<p class="section-eyebrow">How we work</p>
-<h2>Roll-up systems for security, access and service</h2>
-<p>TMAX supplies roll-up shutters, doors, shades and service-counter systems for restaurants, retail spaces, garages, storefronts and other commercial properties.</p>
-<p>Dimensions, mounting surfaces, power, access, safety requirements and applicable code considerations are reviewed during project planning.</p>
+  <div class="media-col"><picture><source srcset="/images/v7/commercial-grille.webp" type="image/webp"/><img alt="Perforated TMAX roll-down shutter protecting an interior retail opening" decoding="async" height="631" loading="lazy" src="/images/v7/commercial-grille.jpg" width="1125"/></picture></div>
+  <div>
+    <p class="section-eyebrow">How we work</p>
+    <h2>Roll-up systems for security, access and service</h2>
+    <p>TMAX supplies roll-up shutters, doors, shades and service-counter systems for restaurants, retail spaces, garages, storefronts and other commercial properties.</p>
+    <p>Dimensions, mounting surfaces, power, access, safety requirements and applicable code considerations are reviewed during project planning.</p>
+  </div>
 </div>
-</div>
+
+<!-- VIDEO + FEATURES: commercial shutter demo -->
+<section class="section">
+  <div class="container">
+    <div class="two-col media-features">
+      <div class="media-player">
+        <video id="commercial-shutter-video" controls playsinline preload="metadata" poster="/images/v7/commercial-shutter-poster.webp" width="100%" aria-label="Commercial shutter demonstration showing smooth motorized operation and perforated steel design" style="border-radius:8px; border:1px solid var(--tmax-border); background:#000" data-src-1080="/videos/commercial-shutter-1080.mp4" data-src-720="/videos/commercial-shutter-720.mp4">
+          <source id="commercial-source" src="/videos/commercial-shutter-1080.mp4" type="video/mp4">
+          Your browser does not support HTML5 video. View the demo at /videos/commercial-shutter-1080.mp4
+        </video>
+        <script>
+          document.addEventListener('DOMContentLoaded', function(){
+            const vid = document.getElementById('commercial-shutter-video');
+            if (!vid) return;
+            const src = document.getElementById('commercial-source');
+            try {
+              const viewportWidth = window.innerWidth || screen.width || 900;
+              const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+              const effectiveType = connection && connection.effectiveType ? connection.effectiveType : '4g';
+              const isSlowConnection = effectiveType === '2g' || effectiveType === '3g';
+              const isMobileDevice = navigator.deviceMemory ? navigator.deviceMemory <= 2 : false;
+              const preferMobile = viewportWidth <= 900 || isSlowConnection || isMobileDevice;
+              const mobileSrc = vid.getAttribute('data-src-720');
+              const desktopSrc = vid.getAttribute('data-src-1080');
+              if (preferMobile && mobileSrc) {
+                src.src = mobileSrc;
+              } else if (desktopSrc) {
+                src.src = desktopSrc;
+              }
+              vid.load();
+            } catch(e) { console.warn('Video source selection failed:', e); }
+          });
+        </script>
+      </div>
+      <div class="feature-list">
+        <ul>
+          <li><strong>Perforated steel curtain</strong> — visibility for counters while providing a secure barrier.</li>
+          <li><strong>Smooth motor operation</strong> — soft start/stop and manual override options.</li>
+          <li><strong>Custom sizing</strong> — field-fit housings and mounting for retrofit or new construction.</li>
+          <li><strong>Code & safety</strong> — integrated sensors and compliance with local codes.</li>
+          <li><strong>Finish options</strong> — powder coat or anodized finishes for durability.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.media-features { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; margin-top: 18px; }
+.media-player video { width: 100%; height: auto; display: block; }
+.media-player { width: 100%; }
+.feature-list h3 { margin-top: 0; color: var(--tmax-body); }
+.feature-list ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.feature-list li { background: transparent; padding: 0; color: var(--tmax-text); }
+@media (max-width: 900px) { .media-features { grid-template-columns: 1fr; } .media-player { order: 0; } .feature-list { order: 1; } }
+</style>
 </div>
 </section>
 <!-- FEATURES -->
@@ -345,16 +413,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <section class="section section-alt">
 <div class="container">
 <header class="section-header">
-<p class="section-eyebrow">Recent Installations</p>
+<p class="section-eyebrow">RECENT COMMERCIAL INSTALLATIONS</p>
 <h2 class="section-title">Commercial installations</h2>
 </header>
 <div class="gallery" style="max-width: 900px; margin-left: auto; margin-right: auto;">
-<div class="gal-cell featured"><img alt="Countertop pass-through door for outdoor bar" decoding="async" height="840" loading="lazy" src="/images/commercial-countertop-bar.webp" width="1456"/></div>
-<div class="gal-cell"><img alt="Fixed-panel patio enclosure for outdoor commercial seating" decoding="async" height="2133" loading="lazy" src="/images/commercial-patio-enclosure.webp" width="1600"/></div>
-<div class="gal-cell"><img alt="Black security shutter on seafood restaurant" decoding="async" height="1200" loading="lazy" src="/images/commercial-seafood-restaurant.webp" width="1600"/></div>
-<div class="gal-cell"><img alt="White security shutters on convenience store" decoding="async" height="2133" loading="lazy" src="/images/v7/commercial-foodmart.webp" width="1600"/></div>
-<div class="gal-cell"><img alt="Silver roll-down shutter at liquor store entrance" decoding="async" height="2048" loading="lazy" src="/images/commercial-liquor-store.webp" width="1536"/></div>
-<div class="gal-cell"><img alt="Large white commercial roll-down shutter" decoding="async" height="616" loading="lazy" src="/images/commercial-white-shutter.webp" width="1148"/></div>
+<div class="gal-cell featured"><picture><source srcset="/images/commercial-countertop-bar.webp" type="image/webp"/><img alt="Countertop pass-through door for outdoor bar" decoding="async" height="840" loading="lazy" src="/images/commercial-countertop-bar.jpg" width="1456"/></picture></div>
+<div class="gal-cell"><picture><source srcset="/images/commercial-patio-enclosure.webp" type="image/webp"/><img alt="Fixed-panel patio enclosure for outdoor commercial seating" decoding="async" height="2133" loading="lazy" src="/images/commercial-patio-enclosure.jpg" width="1600"/></picture></div>
+<div class="gal-cell"><picture><source srcset="/images/commercial-seafood-restaurant.webp" type="image/webp"/><img alt="Black security shutter on seafood restaurant" decoding="async" height="1200" loading="lazy" src="/images/commercial-seafood-restaurant.jpg" width="1600"/></picture></div>
+<div class="gal-cell"><picture><source srcset="/images/v7/commercial-foodmart.webp" type="image/webp"/><img alt="White security shutters on convenience store" decoding="async" height="2133" loading="lazy" src="/images/v7/commercial-foodmart.jpg" width="1600"/></picture></div>
+<div class="gal-cell"><picture><source srcset="/images/commercial-liquor-store.webp" type="image/webp"/><img alt="Silver roll-down shutter at liquor store entrance" decoding="async" height="2048" loading="lazy" src="/images/commercial-liquor-store.jpg" width="1536"/></picture></div>
+<div class="gal-cell"><picture><source srcset="/images/commercial-white-shutter.webp" type="image/webp"/><img alt="Large white commercial roll-down shutter" decoding="async" height="616" loading="lazy" src="/images/commercial-white-shutter.jpg" width="1148"/></picture></div>
 </div>
 </div>
 </section>

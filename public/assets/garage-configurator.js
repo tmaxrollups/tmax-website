@@ -22,6 +22,14 @@
   if (!widthSel || !heightSel || !railSel || !summaryEl || !priceEl || !hColor || !hRail || !hWidth || !hHeight) return;
 
   let selectedColor = '';
+  const syncSwatchState = (selectedButton) => {
+    swatches.forEach((s) => {
+      const selected = s === selectedButton;
+      s.classList.toggle('selected', selected);
+      s.setAttribute('aria-checked', String(selected));
+      s.setAttribute('tabindex', selected ? '0' : '-1');
+    });
+  };
   const fmt = (n) => '$' + n.toLocaleString('en-US');
 
   function update() {
@@ -79,17 +87,39 @@
     }
   }
 
-  swatches.forEach((sw) => sw.addEventListener('click', () => {
-    swatches.forEach((s) => {
-      s.classList.remove('selected');
-      s.setAttribute('aria-checked', 'false');
-    });
-    sw.classList.add('selected');
-    sw.setAttribute('aria-checked', 'true');
+  const selectSwatch = (sw) => {
     selectedColor = sw.dataset.color || '';
     hColor.value = selectedColor;
+    syncSwatchState(sw);
     update();
-  }));
+  };
+
+  swatches.forEach((sw, index) => {
+    sw.setAttribute('tabindex', index === 0 ? '0' : '-1');
+    sw.addEventListener('click', () => selectSwatch(sw));
+    sw.addEventListener('keydown', (event) => {
+      const currentIndex = swatches.indexOf(sw);
+      if (event.key === ' ' || event.key === 'Enter') {
+        event.preventDefault();
+        selectSwatch(sw);
+        return;
+      }
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+        event.preventDefault();
+        const next = swatches[(currentIndex + 1) % swatches.length];
+        next.focus();
+        selectSwatch(next);
+      }
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        const prev = swatches[(currentIndex - 1 + swatches.length) % swatches.length];
+        prev.focus();
+        selectSwatch(prev);
+      }
+    });
+  });
+
+  syncSwatchState(swatches[0]);
 
   widthSel.addEventListener('change', update);
   heightSel.addEventListener('change', update);

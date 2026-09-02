@@ -1,0 +1,9 @@
+{
+  "name": "tmaxrollups-scaling-robot",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "test": "node --test",
+    "validate": "node validate_repo.js"
+  }
+}
