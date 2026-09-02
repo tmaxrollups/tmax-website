@@ -1,7 +1,7 @@
 'use strict';
 
 function isProductionEnvironment() {
-  return process.env.CONTEXT === 'production' || process.env.NODE_ENV === 'production';
+  return process.env.SITE_CONTEXT === 'production';
 }
 
 exports.handler = async function() {
