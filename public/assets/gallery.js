@@ -24,7 +24,6 @@
     const dotsWrap = document.createElement('div');
     dotsWrap.className = 'carousel-dots';
     let current = 0;
-    let timer = null;
     function update() {
       slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
       dotsWrap.querySelectorAll('.carousel-dot').forEach((dot, i) => {
@@ -32,10 +31,7 @@
         dot.setAttribute('aria-current', i === current ? 'true' : 'false');
       });
     }
-    function stop() { if (timer) { clearInterval(timer); timer = null; } }
-    function start() { timer = setInterval(() => goTo(current + 1), 6000); }
-    function restart() { stop(); start(); }
-    function goTo(i) { current = ((i % slides.length) + slides.length) % slides.length; update(); restart(); }
+    function goTo(i) { current = ((i % slides.length) + slides.length) % slides.length; update(); }
     slides.forEach((_, i) => {
       const dot = document.createElement('button');
       dot.type = 'button';
@@ -47,10 +43,6 @@
     gallery.appendChild(dotsWrap);
     prev.addEventListener('click', () => goTo(current - 1));
     next.addEventListener('click', () => goTo(current + 1));
-    gallery.addEventListener('mouseenter', stop);
-    gallery.addEventListener('mouseleave', start);
-    gallery.addEventListener('focusin', stop);
-    gallery.addEventListener('focusout', start);
-    update(); start();
+    update();
   });
 })();
