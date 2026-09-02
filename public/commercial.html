@@ -80,18 +80,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .menu-toggle { display: inline-flex; align-items: center; }
 }
 
-/* Hero */
-.hero { background: #000; position: relative; min-height: 520px; display: flex; align-items: center; overflow: hidden; padding: 80px 0; }
-.hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.82; }
-.hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.34) 48%, rgba(0,0,0,0.08) 78%); }
-.hero-content { position: relative; max-width: 1200px; width: 100%; margin: 0 auto; padding: 0 24px; z-index: 2; }
-.hero-eyebrow { display: inline-block; background: rgba(213, 170, 81, 0.18); color: var(--tmax-gold); border: 1px solid rgba(213, 170, 81, 0.35); padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 22px; }
-.hero h1 { font-size: 60px; color: #fff; max-width: 720px; margin: 0 0 18px 0; line-height: 1.05; }
-.hero h1 em { color: var(--tmax-gold); font-style: normal; }
-.hero-desc { font-size: 19px; color: #e5e5e5; max-width: 560px; line-height: 1.55; margin: 0 0 28px 0; }
-.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
-@media (max-width: 720px) { .hero h1 { font-size: 38px; } .hero-desc { font-size: 17px; } .hero { min-height: 440px; padding: 56px 0; } }
-
 /* Page header (smaller hero for content pages) */
 .page-header { background: #000; color: #fff; padding: 80px 0 64px; border-bottom: 4px solid var(--tmax-gold); position: relative; overflow: hidden; }
 .page-header-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.22; }
@@ -100,6 +88,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .page-header h1 { font-size: 52px; color: #fff; margin: 0 0 14px 0; line-height: 1.1; }
 .page-header h1 em { color: var(--tmax-gold); font-style: normal; }
 .page-header-desc { font-size: 19px; color: #e5e5e5; max-width: 640px; margin: 0 auto; line-height: 1.55; }
+.page-header-actions { display:flex; justify-content:center; margin-top: 22px; }
 @media (max-width: 720px) { .page-header { padding: 56px 0 44px; } .page-header h1 { font-size: 36px; } .page-header-desc { font-size: 17px; } }
 
 /* Sections */
@@ -281,10 +270,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 @media (max-width: 720px) { .hero-bg { background-position: 58% 50% !important; } }
 
 /* v7 hero refinement */
-.page-header h1, .hero h1 { max-width: 980px; }
 .page-header .page-header-desc { display:none; }
 @media (min-width: 900px) { .page-header h1 { white-space: nowrap; font-size: clamp(38px,4vw,56px); } }
-@media (max-width: 720px) { .hero-bg { background-size: cover; } .page-header { min-height: 220px !important; padding: 34px 0 !important; } }
+@media (max-width: 720px) { .page-header-bg { background-size: cover; } .page-header { min-height: 220px !important; padding: 34px 0 !important; } }
 </style>
 <style>
 /* v14 header alignment and readability */
@@ -310,14 +298,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 </header>
 <!-- HERO -->
-<section class="hero">
-<div class="hero-bg" style="background-image: url('/images/v7/commercial-foodmart.webp'); background-position: center 50%;"></div>
-<div class="hero-content">
+<section class="page-header">
+<div class="page-header-bg" style="background-image: url('/images/v7/commercial-foodmart.webp'); background-position: center 50%;"></div>
+<div class="container">
+<div class="page-header-content">
 <span class="hero-eyebrow">Restaurants, Retail &amp; Facilities</span>
 <h1>Commercial Systems</h1>
-<p class="hero-desc">Roll-up security and access systems for storefronts, service counters, facilities and commercial doors.</p>
-<div class="hero-btns">
+<p class="page-header-desc">Roll-up security and access systems for storefronts, service counters, facilities and commercial doors.</p>
+<div class="page-header-actions">
 <a class="btn-primary" href="#quote">Request a Quote</a>
+</div>
 </div>
 </div>
 </section>
@@ -333,11 +323,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     <p>Dimensions, mounting surfaces, power, access, safety requirements and applicable code considerations are reviewed during project planning.</p>
   </div>
 </div>
+</div>
+</section>
 
 <!-- VIDEO + FEATURES: commercial shutter demo -->
 <section class="section">
   <div class="container">
-    <div class="two-col media-features">
+    <div class="media-showcase">
       <div class="feature-list">
         <ul>
           <li><strong>Perforated steel curtain</strong> — visibility for counters while providing a secure barrier.</li>
@@ -348,7 +340,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         </ul>
       </div>
       <div class="media-player">
-        <video id="commercial-shutter-video" controls playsinline preload="metadata" poster="/images/commercial-retail-perforated.webp" width="100%" aria-label="Commercial shutter demonstration showing smooth motorized operation and perforated steel design" style="border-radius:8px; border:1px solid var(--tmax-border); background:#000">
+        <video id="commercial-shutter-video" class="media-video" controls playsinline preload="metadata" poster="/images/commercial-retail-perforated.webp" aria-label="Commercial shutter demonstration showing smooth motorized operation and perforated steel design">
           <source src="/videos/IMG_6156.mp4" type="video/mp4">
           Your browser does not support HTML5 video. View the demo at /videos/IMG_6156.mp4
         </video>
@@ -358,13 +350,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </section>
 
 <style>
-.media-features { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; margin-top: 18px; }
+.media-showcase { display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr); gap:48px; align-items:center; margin-top: 18px; }
 .media-player video { width: 100%; height: auto; display: block; }
 .media-player { width: 100%; }
 .feature-list h3 { margin-top: 0; color: var(--tmax-body); }
 .feature-list ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .feature-list li { background: transparent; padding: 0; color: var(--tmax-text); }
-@media (max-width: 900px) { .media-features { grid-template-columns: 1fr; } .media-player { order: 0; } .feature-list { order: 1; } }
+@media (max-width:800px){ .media-showcase{grid-template-columns:1fr;gap:28px;} .media-video{max-width:360px;margin:0 auto;} }
 </style>
 </div>
 </section>

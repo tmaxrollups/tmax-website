@@ -95,82 +95,47 @@
       const submitButtons = Array.from(form.querySelectorAll('button[type="submit"], input[type="submit"]'));
       if (!submitButtons.length) return;
 
-      const ensureFallback = () => {
-        let fallback = form.querySelector('[data-captcha-fallback]');
-        if (fallback) return fallback;
-
-        fallback = document.createElement('div');
-        fallback.setAttribute('data-captcha-fallback', 'true');
-        fallback.style.cssText = 'display:none;margin-top:16px;padding:14px 16px;border:1px solid #d4cfc0;border-radius:4px;background:#fff;';
-        fallback.innerHTML = `
-          <label style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.5;cursor:pointer;">
-            <input type="checkbox" data-captcha-fallback-check style="margin-top:4px;width:18px;height:18px;min-height:18px;accent-color:#bf9749;">
-            <span>
-              I do not see the verification box. I understand this request may be reviewed manually before it is sent.
-            </span>
-          </label>
-        `;
-        form.appendChild(fallback);
-        return fallback;
+      const getCaptcha = () => form.querySelector('textarea[name="g-recaptcha-response"]');
+      const setState = () => {
+        const captcha = getCaptcha();
+        const ready = Boolean(captcha && captcha.value && captcha.value.trim().length > 0);
+        submitButtons.forEach(btn => { btn.disabled = !ready; });
+        return ready;
       };
 
-      const getCaptchaReady = () => {
-        const textarea = form.querySelector('textarea[name="g-recaptcha-response"]');
-        return Boolean(textarea && textarea.value && textarea.value.trim().length > 0);
-      };
+      submitButtons.forEach(btn => { btn.disabled = true; });
 
-      const setSubmitState = () => {
-        const fallback = form.querySelector('[data-captcha-fallback]');
-        const fallbackCheck = fallback ? fallback.querySelector('[data-captcha-fallback-check]') : null;
-        const captchaReady = getCaptchaReady();
-        const fallbackReady = Boolean(fallbackCheck && fallbackCheck.checked);
-        const enabled = captchaReady || fallbackReady;
-        submitButtons.forEach(btn => { btn.disabled = !enabled; });
-        return enabled;
-      };
-
-      const hasCaptchaTextarea = Boolean(form.querySelector('textarea[name="g-recaptcha-response"]'));
-      if (!hasCaptchaTextarea) {
-        const fallback = ensureFallback();
-        fallback.style.display = 'block';
-        submitButtons.forEach(btn => { btn.disabled = true; });
-        fallback.querySelector('[data-captcha-fallback-check]')?.addEventListener('change', setSubmitState);
-        form.addEventListener('submit', (e) => {
-          if (!setSubmitState()) e.preventDefault();
-        });
-        return;
-      }
+      const timeout = window.setTimeout(() => {
+        if (setState()) return;
+        const noticeId = `${form.id || form.name || 'form'}-captcha-notice`;
+        if (!form.querySelector('#' + noticeId)) {
+          const note = document.createElement('p');
+          note.id = noticeId;
+          note.setAttribute('role', 'alert');
+          note.style.cssText = 'margin:12px 0 0;color:#8a1f11;font-size:14px;line-height:1.5;';
+          note.textContent = 'Verification is not available right now. Please refresh the page before submitting.';
+          const captchaWrap = form.querySelector('[data-netlify-recaptcha="true"]') || submitButtons[0];
+          captchaWrap.parentNode.insertBefore(note, captchaWrap);
+        }
+      }, 5000);
 
       const observer = new MutationObserver(() => {
-        if (getCaptchaReady()) {
-          submitButtons.forEach(btn => { btn.disabled = false; });
+        if (setState()) {
+          clearTimeout(timeout);
           observer.disconnect();
         }
       });
       observer.observe(form, { childList: true, subtree: true, characterData: true, attributes: true });
 
-      const timeout = window.setTimeout(() => {
-        if (getCaptchaReady()) return;
-        const fallback = ensureFallback();
-        fallback.style.display = 'block';
-        submitButtons.forEach(btn => { btn.disabled = true; });
-        const fallbackCheck = fallback.querySelector('[data-captcha-fallback-check]');
-        fallbackCheck?.addEventListener('change', setSubmitState);
-        setSubmitState();
-      }, 5000);
-
-      const interval = setInterval(() => {
-        if (getCaptchaReady()) {
-          clearInterval(interval);
-          window.clearTimeout(timeout);
-          submitButtons.forEach(btn => { btn.disabled = false; });
+      const poll = window.setInterval(() => {
+        if (setState()) {
+          clearInterval(poll);
+          clearTimeout(timeout);
         }
-      }, 500);
+      }, 400);
 
       form.addEventListener('submit', (e) => {
-        if (!setSubmitState()) {
-          e.preventDefault();
-        }
+        if (!setState()) e.preventDefault();
       });
     });
   }
