@@ -14,8 +14,8 @@ test('Feeling the Heat hero serves WebP with a JPEG fallback', () => {
   const webpPath = path.join(publicDir, 'images', webpName);
   const jpegPath = path.join(publicDir, 'images', jpegName);
 
-  assert.match(homepage, new RegExp(`background-image: url\\('/images/${jpegName}'\\)`));
-  assert.match(homepage, new RegExp(`image-set\\(url\\('/images/${webpName}'\\)`));
+  assert.match(homepage, new RegExp(`--hero-image: image-set\\(url\\('/images/${webpName}'\\)`));
+  assert.match(homepage, new RegExp(`url\\('/images/${jpegName}'\\) type\\('image/jpeg'\\)`));
   assert.ok(fs.existsSync(webpPath), `${webpName} must exist`);
   assert.ok(fs.existsSync(jpegPath), `${jpegName} must exist`);
 
@@ -31,6 +31,13 @@ test('homepage gallery picture elements retain JPEG fallbacks', () => {
   assert.match(homepage, /<source srcset="\/images\/garage-black-country-bmw\.webp"[^>]*><img[^>]*src="\/images\/garage-black-country-bmw\.jpg"/);
   assert.match(homepage, /<source srcset="\/images\/gallery-black-luxury\.webp"[^>]*><img[^>]*src="\/images\/gallery-black-luxury\.jpg"/);
   assert.match(homepage, /<source srcset="\/images\/garage-double-charcoal\.webp"[^>]*><img[^>]*src="\/images\/garage-double-charcoal\.jpg"/);
+});
+
+test('homepage Our Work section contains only a centered installation carousel', () => {
+  assert.doesNotMatch(homepage, /works-video-card|Exterior Shade Demonstration|From covered patio to open air|in motion/);
+  assert.doesNotMatch(homepage, /exterior-shade-pool-demo\.mp4/);
+  assert.match(homepage, /<div class="homepage-gallery">\s*<div class="gallery"/);
+  assert.match(homepage, /\.homepage-gallery\s*\{[^}]*max-width:\s*900px[^}]*margin:\s*0 auto[^}]*\}/);
 });
 
 test('carousel quote buttons have a high-contrast translucent background', () => {

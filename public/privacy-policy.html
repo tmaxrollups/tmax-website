@@ -241,7 +241,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .footer-col a:hover { color: var(--tmax-gold); }
 .footer-logo img { width: 170px; max-width: 100%; height: auto; margin-bottom: 16px; object-fit: contain; }
 .footer-tagline { color: #999; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; }
-.footer-social { display: flex; gap: 12px; }
+.footer-social { display: flex; gap: 12px; justify-content: center; }
+.footer-grid .footer-col:first-child { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .footer-social a { width: 40px; height: 40px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ccc; transition: border-color 0.15s, color 0.15s; }
 .footer-social a:hover { border-color: var(--tmax-gold); color: var(--tmax-gold); }
 .footer-social svg { width: 16px; height: 16px; }
@@ -278,6 +279,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 </style>
 <link href="/assets/navigation.css" rel="stylesheet"/>
+<link href="/assets/accessibility.css" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -289,11 +291,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </header>
 <!-- PAGE HEADER -->
 <section class="page-header">
-<div class="page-header-bg" style="background-image: url('/images/gallery-white-clean.jpg');"></div>
+<div class="page-header-bg" style="--hero-image: url('/images/gallery-white-clean.jpg');"></div>
 <div class="container">
 <div class="page-header-content">
 <span class="hero-eyebrow">Legal</span>
-<h1>Privacy Policy</h1>
+<h1><span class="hero-title-text">Privacy Policy</span></h1>
 </div>
 </div>
 </section>

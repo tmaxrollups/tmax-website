@@ -6,7 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const publicDir = path.join(__dirname, '..', 'public');
-const videoPages = ['index.html', 'exterior-shades.html', 'interior-shades.html', 'commercial.html'];
+const videoPages = ['exterior-shades.html', 'interior-shades.html', 'commercial.html'];
 
 test('below-the-fold videos remain user-initiated and defer network loading', () => {
   for (const pageName of videoPages) {

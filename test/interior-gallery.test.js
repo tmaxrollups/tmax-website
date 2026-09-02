@@ -16,7 +16,7 @@ const galleryImages = [
 
 test('interior gallery uses the approved replacement photos', () => {
   const galleryStart = page.indexOf('<h2 class="section-title">Interior shade installations</h2>');
-  const galleryEnd = page.indexOf('<section class="consult-section"', galleryStart);
+  const galleryEnd = page.indexOf('<section', galleryStart);
   const gallery = page.slice(galleryStart, galleryEnd);
   const sources = Array.from(
     gallery.matchAll(/<img[^>]+src="\/images\/([^"]+)"/g),

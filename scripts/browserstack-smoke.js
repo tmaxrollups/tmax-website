@@ -169,20 +169,24 @@ async function verifyHomepage(driver, browser) {
 
   console.log('  verify optimized media behavior');
   const heroImage = await driver.executeScript(
-    'return getComputedStyle(document.querySelector("[data-hero-slide].active .hero-bg")).backgroundImage;'
+    'return getComputedStyle(document.querySelector("[data-hero-slide].active .hero-bg"), "::before").backgroundImage;'
   );
   assert.match(heroImage, /feeling-the-heat\.(webp|jpg)/);
 
-  const videoState = await driver.executeScript(() => {
-    const video = document.querySelector('.works-video-card video');
-    return { autoplay: video.autoplay, paused: video.paused, preload: video.preload };
+  const galleryState = await driver.executeScript(() => {
+    const gallery = document.querySelector('.homepage-gallery');
+    const container = gallery.closest('.container');
+    const galleryRect = gallery.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    return {
+      centered: Math.abs(
+        (galleryRect.left + galleryRect.right) / 2 - (containerRect.left + containerRect.right) / 2
+      ) < 2,
+      imagesLazy: Array.from(gallery.querySelectorAll('img')).every((image) => image.loading === 'lazy'),
+      videoPresent: Boolean(document.querySelector('.works-video-card video'))
+    };
   });
-  assert.deepEqual(videoState, { autoplay: false, paused: true, preload: 'none' });
-
-  const galleryIsLazy = await driver.executeScript(() =>
-    Array.from(document.querySelectorAll('.gallery img')).every((image) => image.loading === 'lazy')
-  );
-  assert.equal(galleryIsLazy, true, 'all homepage gallery images must remain lazy-loaded');
+  assert.deepEqual(galleryState, { centered: true, imagesLazy: true, videoPresent: false });
 
   console.log('  verify manual hero navigation');
   await driver.findElement(By.css('.hero-next')).click();

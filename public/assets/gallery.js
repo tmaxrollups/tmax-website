@@ -7,6 +7,7 @@
       return;
     }
     gallery.removeAttribute('style');
+    gallery.setAttribute('role', 'region');
     gallery.setAttribute('aria-roledescription', 'carousel');
     gallery.setAttribute('aria-label', 'Recent installations');
     const prev = document.createElement('button');

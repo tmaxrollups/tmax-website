@@ -241,7 +241,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .footer-col a:hover { color: var(--tmax-gold); }
 .footer-logo img { width: 170px; max-width: 100%; height: auto; margin-bottom: 16px; object-fit: contain; }
 .footer-tagline { color: #999; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; }
-.footer-social { display: flex; gap: 12px; }
+.footer-social { display: flex; gap: 12px; justify-content: center; }
+.footer-grid .footer-col:first-child { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .footer-social a { width: 40px; height: 40px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ccc; transition: border-color 0.15s, color 0.15s; }
 .footer-social a:hover { border-color: var(--tmax-gold); color: var(--tmax-gold); }
 .footer-social svg { width: 16px; height: 16px; }
@@ -282,6 +283,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .resource-jump-nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 42px}.resource-jump-nav a{display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border:1px solid var(--tmax-border);border-radius:999px;background:#fff;color:var(--tmax-body);font:700 13px/1.2 'Raleway',sans-serif;text-decoration:none}.resource-jump-nav a:hover{border-color:var(--tmax-gold);color:var(--tmax-brown)}.support-list{max-width:780px;margin:0 auto;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.support-list li{padding:16px 18px;border-left:4px solid var(--tmax-gold);border-radius:4px;background:var(--tmax-bg-tint);font-weight:600}@media(max-width:620px){.support-list{grid-template-columns:1fr}}
 </style>
 <link href="/assets/navigation.css" rel="stylesheet"/>
+<link href="/assets/accessibility.css" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -292,11 +294,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 </header>
 <section class="page-header">
-<div class="page-header-bg" style="background-image: url('/images/gallery-white-clean.jpg');"></div>
+<div class="page-header-bg" style="--hero-image: url('/images/gallery-white-clean.jpg');"></div>
 <div class="container">
 <div class="page-header-content">
 <span class="hero-eyebrow">Documents &amp; Downloads</span>
-<h1>Product Resources</h1>
+<h1><span class="hero-title-text">Product Resources</span></h1>
 <p class="page-header-desc">Catalogs, warranty information, controls guidance and product support for TMAX systems.</p>
 </div>
 </div>
@@ -369,7 +371,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <li>A written description of the issue or required part</li>
 </ul>
 </div>
-</section><section class="consult-section" id="parts-request">
+</section><section class="consult-section section section-white" id="parts-request">
 <div class="container">
 <header class="section-header">
 <p class="section-eyebrow">Parts Request</p>

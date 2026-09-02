@@ -8,36 +8,45 @@ const path = require('node:path');
 const publicDir = path.join(__dirname, '..', 'public');
 
 function backgroundFor(classes) {
-  if (classes.includes('consult-section')) return 'tint';
-  if (classes.includes('dealer-cta')) return 'accent';
-  if (classes.includes('section-alt')) return 'soft';
+  if (classes.includes('section-alt')) return 'tan';
   if (classes.includes('section-white') || classes.includes('intro-section')) return 'white';
   return null;
 }
 
-test('content section backgrounds alternate on every page', () => {
+test('content sections start white and alternate white and tan on every page', () => {
   const pages = fs.readdirSync(publicDir).filter((name) => name.endsWith('.html'));
 
   for (const pageName of pages) {
     const page = fs.readFileSync(path.join(publicDir, pageName), 'utf8');
     const sectionTags = Array.from(page.matchAll(/<section\b[^>]*>/g), (match) => match[0]);
-    let previousBackground = null;
+    const contentBackgrounds = [];
 
     for (const tag of sectionTags) {
       const classes = (tag.match(/class="([^"]*)"/)?.[1] || '').split(/\s+/).filter(Boolean);
-      const background = backgroundFor(classes);
+      if (classes.includes('dealer-cta')) {
+        assert.equal(pageName, 'index.html', 'only the homepage may use the black dealer CTA');
+        assert.equal(tag, sectionTags.at(-1), 'the black dealer CTA must be the final homepage section');
+        continue;
+      }
 
-      if (classes.includes('section')) {
+      const background = backgroundFor(classes);
+      const isContentSection = classes.includes('section') ||
+        classes.includes('intro-section') ||
+        classes.includes('consult-section');
+
+      if (isContentSection) {
         assert.ok(background, `${pageName} has a content section without an explicit background: ${tag}`);
       }
-      if (!background) continue;
+      if (background) contentBackgrounds.push(background);
+    }
 
-      assert.notEqual(
+    for (const [index, background] of contentBackgrounds.entries()) {
+      const expected = index % 2 === 0 ? 'white' : 'tan';
+      assert.equal(
         background,
-        previousBackground,
-        `${pageName} has consecutive ${background} content sections`
+        expected,
+        `${pageName} content section ${index + 1} must be ${expected}, received ${background}`
       );
-      previousBackground = background;
     }
   }
 });

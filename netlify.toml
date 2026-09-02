@@ -1,6 +1,7 @@
 # TMAX Netlify build, functions, and security policy
 
 [build]
+  command = "npm run test:deploy"
   publish = "public"
 
 [functions]

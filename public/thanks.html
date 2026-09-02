@@ -259,7 +259,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .footer-col a:hover { color: var(--tmax-gold); }
 .footer-logo img { width: 170px; max-width: 100%; height: auto; margin-bottom: 16px; object-fit: contain; }
 .footer-tagline { color: #999; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; }
-.footer-social { display: flex; gap: 12px; }
+.footer-social { display: flex; gap: 12px; justify-content: center; }
+.footer-grid .footer-col:first-child { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .footer-social a { width: 40px; height: 40px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ccc; transition: border-color 0.15s, color 0.15s; }
 .footer-social a:hover { border-color: var(--tmax-gold); color: var(--tmax-gold); }
 .footer-social svg { width: 16px; height: 16px; }
@@ -299,6 +300,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 </style>
 <link href="/assets/navigation.css" rel="stylesheet"/>
+<link href="/assets/accessibility.css" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -311,10 +313,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 </header>
 <section class="hero" style="min-height: auto; padding: 100px 0 80px 0;">
-<div class="hero-bg" style="background-image: url('/images/hero-spanish-home.jpg'); background-position: center center;"></div>
+<div class="hero-bg" style="--hero-image: url('/images/hero-spanish-home.jpg'); background-position: center center;"></div>
 <div class="hero-content" style="text-align: center; max-width: 900px; margin: 0 auto;">
 <span class="hero-eyebrow">Message received</span>
-<h1 style="margin-bottom: 20px; max-width: none;">Thank You</h1>
+<h1 style="margin-bottom: 20px; max-width: none;"><span class="hero-title-text">Thank You</span></h1>
 <div class="hero-btns" style="justify-content: center;">
 <a class="btn-primary" href="/">Back to Home</a>
 <a class="btn-ghost-dark" href="tel:7137729988">713-772-9988</a>

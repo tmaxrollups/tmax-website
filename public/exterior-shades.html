@@ -250,7 +250,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .footer-col a:hover { color: var(--tmax-gold); }
 .footer-logo img { width: 170px; max-width: 100%; height: auto; margin-bottom: 16px; object-fit: contain; }
 .footer-tagline { color: #999; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; }
-.footer-social { display: flex; gap: 12px; }
+.footer-social { display: flex; gap: 12px; justify-content: center; }
+.footer-grid .footer-col:first-child { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .footer-social a { width: 40px; height: 40px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ccc; transition: border-color 0.15s, color 0.15s; }
 .footer-social a:hover { border-color: var(--tmax-gold); color: var(--tmax-gold); }
 .footer-social svg { width: 16px; height: 16px; }
@@ -295,6 +296,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 </style>
 <link href="/assets/navigation.css" rel="stylesheet"/>
+<link href="/assets/accessibility.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- HEADER -->
@@ -307,10 +309,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </header>
 <!-- HERO -->
 <section class="hero">
-<div class="hero-bg" style="background-image: url('/images/v7/exterior-hero.webp'); background-position: center 50%;"></div>
+<div class="hero-bg" style="--hero-image: url('/images/v7/exterior-hero.webp'); background-position: center 50%;"></div>
 <div class="hero-content">
 <span class="hero-eyebrow">Outdoor Living</span>
-<h1>Exterior Shades &amp; Screens</h1>
+<h1><span class="hero-title-text">Exterior Shades &amp; Screens</span></h1>
 <p class="hero-desc">Solar control, insect-screen and privacy options for patios, porches, pergolas and large windows.</p>
 <div class="hero-btns">
 <a class="btn-primary" href="#quote">Request a Quote</a>
@@ -333,7 +335,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <!-- VIDEO DEMONSTRATION -->
 <section aria-labelledby="ext-video-title" class="section section-alt"><div class="container"><div class="media-showcase">
 <div><p class="section-eyebrow">Exterior Shade Demonstration</p><h2 id="ext-video-title">Poolside shade when you want it. Open air when you don’t.</h2><p>This TMAX shade lowers to cover the patio, then retracts cleanly to restore the full opening.</p></div>
-<div><video aria-label="Motorized TMAX exterior shade demonstration" class="media-video portrait" controls="" muted="" playsinline="" poster="/images/new/exterior-shade-video-poster.webp" preload="none"><source src="/videos/exterior-shade-pool-demo.mp4" type="video/mp4"/>Your browser does not support embedded video.</video></div>
+<div><video aria-label="Motorized TMAX exterior shade demonstration" class="media-video portrait" controls="" muted="" playsinline="" poster="/images/new/exterior-shade-video-poster.webp" preload="none"><source src="/videos/exterior-shade-pool-demo.mp4" type="video/mp4"/><track default="" kind="captions" label="No audio" src="/captions/silent-demonstration-en.vtt" srclang="en"/>Your browser does not support embedded video.</video></div>
 </div></div></section>
 <!-- FEATURES -->
 <section class="section section-white">
@@ -351,7 +353,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <div class="feature-card"><div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><rect height="14" rx="2" width="18" x="3" y="5"></rect><circle cx="9" cy="12" r="2"></circle><circle cx="15" cy="12" r="2"></circle></svg></div><h3 class="feature-name">Optional Smart Control</h3><p class="feature-text">An optional Wi-Fi hub can add app-based remote control, timers, scenes, and compatible Alexa or Google voice control.</p></div>
 <div class="feature-card"><div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg></div><h3 class="feature-name">Documented Warranty Coverage</h3><p class="feature-text">The current limited warranty lists 5 years on motors, 2 years on other parts, and 5 years on the entire system for Zip Shade products. Terms and exclusions apply.</p></div>
 </div>
-<div class="warranty-callout"><div class="warranty-badge">✓</div><div class="warranty-text"><strong>Product-specific limited warranty</strong> — 5 years on motors, 2 years on other parts, and 5 years on the entire system for Zip Shade products. Written terms and exclusions apply.</div></div>
+<div class="warranty-callout"><div aria-hidden="true" class="warranty-badge"></div><div class="warranty-text"><strong>Product-specific limited warranty</strong> — 5 years on motors, 2 years on other parts, and 5 years on the entire system for Zip Shade products. Written terms and exclusions apply.</div></div>
 </div>
 </section>
 <!-- GALLERY -->
@@ -376,7 +378,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 </section>
 <!-- QUOTE FORM -->
-<section class="consult-section" id="quote">
+<section class="consult-section section section-white" id="quote">
 <div class="container">
 <header class="section-header">
 <p class="section-eyebrow">Get In Touch</p>

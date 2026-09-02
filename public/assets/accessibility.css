@@ -1,0 +1,96 @@
+:root {
+  --tmax-gold-dark: #7a591c;
+}
+
+.site-nav .btn-primary {
+  color: #000;
+}
+
+.site-nav .btn-primary:hover,
+.site-nav .btn-primary:focus-visible {
+  color: #fff;
+}
+
+.hero-bg,
+.page-header-bg {
+  background-image: none !important;
+  opacity: 1 !important;
+  z-index: 0;
+}
+
+.hero-bg::before,
+.page-header-bg::before {
+  background-image: var(--hero-image);
+  background-position: inherit;
+  background-size: cover;
+  content: "";
+  inset: 0;
+  opacity: 0.82;
+  position: absolute;
+}
+
+.hero-bg::after {
+  opacity: 0.82;
+}
+
+.hero-slider .hero-bg::before,
+.hero-slider .hero-bg::after {
+  opacity: 0.94;
+}
+
+.page-header-bg::before {
+  opacity: 0.22;
+}
+
+.hero h1,
+.hero h2,
+.hero .hero-desc {
+  background: #000;
+  box-shadow: 0 0 0 5px #000;
+  width: fit-content;
+}
+
+.hero .hero-eyebrow {
+  background: #000;
+}
+
+.hero-title-text {
+  background: #000;
+  box-shadow: 0 0 0 5px #000;
+}
+
+.page-header .hero-eyebrow,
+.page-header h1,
+.page-header-desc {
+  background: #000;
+  box-shadow: 0 0 0 5px #000;
+  width: fit-content;
+}
+
+.media-video {
+  color: #fff;
+}
+
+.gal-caption {
+  background: rgba(0, 0, 0, 0.86);
+}
+
+.warranty-badge {
+  background: #f3cf7a !important;
+  color: #000 !important;
+}
+
+.warranty-badge::before {
+  content: "✓";
+}
+
+.tmax-price-display {
+  background: #fbf7ee !important;
+}
+
+.tmax-price-display,
+.tmax-price-display .tmax-price-label,
+.tmax-price-display .tmax-price-config,
+.tmax-price-display .tmax-price-note {
+  color: #1a1a1a !important;
+}

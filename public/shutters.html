@@ -250,7 +250,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .footer-col a:hover { color: var(--tmax-gold); }
 .footer-logo img { width: 170px; max-width: 100%; height: auto; margin-bottom: 16px; object-fit: contain; }
 .footer-tagline { color: #999; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; }
-.footer-social { display: flex; gap: 12px; }
+.footer-social { display: flex; gap: 12px; justify-content: center; }
+.footer-grid .footer-col:first-child { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .footer-social a { width: 40px; height: 40px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ccc; transition: border-color 0.15s, color 0.15s; }
 .footer-social a:hover { border-color: var(--tmax-gold); color: var(--tmax-gold); }
 .footer-social svg { width: 16px; height: 16px; }
@@ -289,6 +290,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 </style>
 <link href="/assets/navigation.css" rel="stylesheet"/>
+<link href="/assets/accessibility.css" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -300,10 +302,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </header>
 <!-- HERO -->
 <section class="hero">
-<div class="hero-bg" style="background-image: url('/images/v7/shutter-hero.webp'); background-position: center 50%;"></div>
+<div class="hero-bg" style="--hero-image: url('/images/v7/shutter-hero.webp'); background-position: center 50%;"></div>
 <div class="hero-content">
 <span class="hero-eyebrow">Security &amp; Storm Protection</span>
-<h1>Roll-Up Shutters</h1>
+<h1><span class="hero-title-text">Roll-Up Shutters</span></h1>
 <p class="hero-desc">Compact roll-up protection for security, privacy, storm applications and residential or commercial access.</p>
 <div class="hero-btns">
 <a class="btn-primary" href="#quote">Request a Quote</a>
@@ -340,7 +342,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <div class="feature-card"><div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg></div><h3 class="feature-name">Manual Override</h3><p class="feature-text">An override crank handle provides manual operation during a power outage.</p></div>
 <div class="feature-card"><div class="feature-icon"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M21 12.5V20a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h7.5"></path></svg></div><h3 class="feature-name">Safety Options</h3><p class="feature-text">Bumper sensors and other safety components are available based on the project; the catalog notes that safety sensors may be omitted where not required.</p></div>
 </div>
-<div class="warranty-callout"><div class="warranty-badge">✓</div><div class="warranty-text"><strong>Product-specific limited warranty</strong> — 5 years on motors, 2 years on other parts, and 5 years on the entire system for Zip Shade products. Written terms and exclusions apply.</div></div>
+<div class="warranty-callout"><div aria-hidden="true" class="warranty-badge"></div><div class="warranty-text"><strong>Product-specific limited warranty</strong> — 5 years on motors, 2 years on other parts, and 5 years on the entire system for Zip Shade products. Written terms and exclusions apply.</div></div>
 </div>
 </section>
 <!-- GALLERY -->
@@ -358,7 +360,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 </div>
 </section>
-<section class="consult-section" id="quote">
+<section class="consult-section section section-alt" id="quote">
 <div class="container">
 <header class="section-header">
 <p class="section-eyebrow">Get In Touch</p>

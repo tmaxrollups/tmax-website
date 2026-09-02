@@ -20,7 +20,7 @@ const galleryImages = [
 ];
 
 test('garage page uses the approved replacement photo set', () => {
-  assert.match(page, new RegExp(`background-image: url\\('/images/${hero}'\\)`));
+  assert.match(page, new RegExp(`--hero-image: url\\('/images/${hero}'\\)`));
   assert.match(page, new RegExp(`src="/images/${intro}"`));
 
   const galleryStart = page.indexOf('<h2 class="section-title">Roll-up garage-door installations</h2>');

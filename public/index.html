@@ -264,7 +264,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .footer-col a:hover { color: var(--tmax-gold); }
 .footer-logo img { width: 170px; max-width: 100%; height: auto; margin-bottom: 16px; object-fit: contain; }
 .footer-tagline { color: #999; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; }
-.footer-social { display: flex; gap: 12px; }
+.footer-social { display: flex; gap: 12px; justify-content: center; }
+.footer-grid .footer-col:first-child { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .footer-social a { width: 40px; height: 40px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ccc; transition: border-color 0.15s, color 0.15s; }
 .footer-social a:hover { border-color: var(--tmax-gold); color: var(--tmax-gold); }
 .footer-social svg { width: 16px; height: 16px; }
@@ -280,12 +281,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 
-.media-video { width:100%; max-height:680px; display:block; object-fit:cover; background:#000; border-radius:10px; border:1px solid var(--tmax-border); }
-.media-video.portrait { aspect-ratio:9/16; max-width:420px; margin:0 auto; }
-.media-showcase { display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr); gap:48px; align-items:center; }
-.media-note { color:var(--tmax-muted); font-size:14px; margin-top:10px; }
-@media (max-width:800px){ .media-showcase{grid-template-columns:1fr;gap:28px;} .media-video.portrait{max-width:360px;} }
-
 @media (max-width: 720px) { .hero-bg { background-position: 58% 50% !important; } }
 
 /* v7 hero refinement */
@@ -300,16 +295,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .direct-source-inner { display:flex; align-items:center; justify-content:space-between; gap:36px; }
 .direct-source-inner h2 { color:#fff; font-size:30px; margin-bottom:10px; }
 .direct-source-inner p:not(.section-eyebrow) { color:#d7d7d7; max-width:760px; margin:0; }
-.works-grid { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(280px,.7fr); gap:28px; align-items:stretch; }
-.works-grid .gallery { max-width:none !important; height:100%; min-height:420px; aspect-ratio:auto; }
-.works-video-card { background:#fff; border:1px solid var(--tmax-border); border-radius:8px; overflow:hidden; display:flex; flex-direction:column; }
-.works-video-card video { width:100%; aspect-ratio:9/16; max-height:420px; object-fit:cover; background:#000; }
-.works-video-copy { padding:22px; }
-.works-video-copy h3 { font-size:21px; margin-bottom:10px; }
-.works-video-copy p { font-size:14px; line-height:1.6; }
-.works-video-copy a { font-weight:700; text-decoration:none; }
-@media (max-width:860px) { .direct-source-inner { flex-direction:column; align-items:flex-start; } .works-grid { grid-template-columns:1fr; } .works-grid .gallery { min-height:360px; aspect-ratio:2/1; } .works-video-card { display:grid; grid-template-columns:minmax(180px,.75fr) 1.25fr; } .works-video-card video { max-height:360px; } }
-@media (max-width:580px) { .works-grid .gallery { min-height:260px; } .works-video-card { display:block; } .works-video-card video { max-height:520px; } }
+.homepage-gallery { max-width:900px; margin:0 auto; }
+@media (max-width:860px) { .direct-source-inner { flex-direction:column; align-items:flex-start; } }
 
 /* Homepage cycling product hero */
 .hero-slider { position: relative; min-height: 500px; padding: 0; }
@@ -349,6 +336,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 </style>
 <link href="/assets/navigation.css" rel="stylesheet"/>
+<link href="/assets/accessibility.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- ═════════════════════════════════════════════════════════════════════
@@ -368,51 +356,51 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
      ═════════════════════════════════════════════════════════════════════ -->
 <section aria-label="Featured TMAX products" class="hero hero-slider" data-hero-slider="">
 <div class="hero-slide active" data-hero-slide="">
-<div class="hero-bg" style="background-image: url('/images/feeling-the-heat.jpg'); background-image: image-set(url('/images/feeling-the-heat.webp') type('image/webp'), url('/images/feeling-the-heat.jpg') type('image/jpeg')); background-position: center center;"></div>
+<div class="hero-bg" style="--hero-image: image-set(url('/images/feeling-the-heat.webp') type('image/webp'), url('/images/feeling-the-heat.jpg') type('image/jpeg')); background-position: center center;"></div>
 <div class="hero-content">
 <span class="hero-eyebrow">EXTERIOR SHADES &amp; SCREENS</span>
-<h1>Feeling the Heat?</h1>
+<h1><span class="hero-title-text">Feeling the Heat?</span></h1>
 <p class="hero-desc">Reduce sun and glare, add privacy, or help keep insects out with retractable exterior shades and screens.</p>
 <div class="hero-btns"><a class="btn-primary" href="/exterior-shades/">Explore Exterior Shades</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
 </div>
 </div>
 <div aria-hidden="true" class="hero-slide" data-hero-slide="">
-<div class="hero-bg" style="background-image: url('/images/v7/garage-hero.webp'); background-position: center 52%;"></div>
+<div class="hero-bg" style="--hero-image: url('/images/v7/garage-hero.webp'); background-position: center 52%;"></div>
 <div class="hero-content">
 <span class="hero-eyebrow">ROLL-UP GARAGE DOORS</span>
-<h2>Reclaim Your Space</h2>
+<h2><span class="hero-title-text">Reclaim Your Space</span></h2>
 <p class="hero-desc">Roll-up garage doors free overhead ceiling space and can be custom-built in widths up to 18.5 feet.</p>
 <div class="hero-btns"><a class="btn-primary" href="/garage-doors/">Explore Garage Doors</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
 </div>
 </div>
 <div aria-hidden="true" class="hero-slide" data-hero-slide="">
-<div class="hero-bg" style="background-image: url('/images/v7/interior-hero.webp'); background-position: center 48%;"></div>
+<div class="hero-bg" style="--hero-image: url('/images/v7/interior-hero.webp'); background-position: center 48%;"></div>
 <div class="hero-content">
 <span class="hero-eyebrow">INTERIOR SHADES</span>
-<h2>Control Light &amp; Privacy</h2>
+<h2><span class="hero-title-text">Control Light &amp; Privacy</span></h2>
 <p class="hero-desc">Manage daylight and privacy with manual or automated interior shades, including dim-out and blackout options.</p>
 <div class="hero-btns"><a class="btn-primary" href="/interior-shades/">Explore Interior Shades</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
 </div>
 </div>
 <div aria-hidden="true" class="hero-slide" data-hero-slide="">
-<div class="hero-bg" style="background-image: url('/images/v7/shutter-hero.webp'); background-position: center 46%;"></div>
+<div class="hero-bg" style="--hero-image: url('/images/v7/shutter-hero.webp'); background-position: center 46%;"></div>
 <div class="hero-content">
 <span class="hero-eyebrow">ROLL-UP SHUTTERS</span>
-<h2>Protect What Matters</h2>
+<h2><span class="hero-title-text">Protect What Matters</span></h2>
 <p class="hero-desc">Add a compact physical barrier for windows and doors with roll-up shutters for residential and commercial use.</p>
 <div class="hero-btns"><a class="btn-primary" href="/shutters/">Explore Shutters</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
 </div>
 </div>
 <div aria-hidden="true" class="hero-slide" data-hero-slide="">
-<div class="hero-bg" style="background-image: url('/images/v7/commercial-foodmart.webp'); background-position: center 50%;"></div>
+<div class="hero-bg" style="--hero-image: url('/images/v7/commercial-foodmart.webp'); background-position: center 50%;"></div>
 <div class="hero-content">
 <span class="hero-eyebrow">COMMERCIAL SYSTEMS</span>
-<h2>Secure Your Business</h2>
+<h2><span class="hero-title-text">Secure Your Business</span></h2>
 <p class="hero-desc">Protect storefronts, service counters and access points with compact roll-up systems for commercial applications.</p>
 <div class="hero-btns"><a class="btn-primary" href="/commercial/">Explore Commercial Systems</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
 </div>
 </div>
-<div aria-label="Choose featured product" class="hero-slider-controls">
+<div aria-label="Choose featured product" class="hero-slider-controls" role="group">
 <button aria-label="Previous slide" class="hero-arrow hero-prev" type="button">‹</button>
 <div class="hero-dots">
 <button aria-label="Exterior shades and screens" class="hero-dot active" data-hero-dot="0" type="button"></button>
@@ -541,7 +529,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 </div>
 </div>
-</section><section class="consult-section">
+</section><section class="consult-section section section-alt">
 <div class="container">
 <header class="section-header">
 <p class="section-eyebrow">Free Consultation</p>
@@ -605,15 +593,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </form>
 </div>
 </section>
-<section class="section section-alt">
+<section class="section section-white">
 <div class="container">
 <header class="section-header">
 <p class="section-eyebrow">Our Work</p>
 <h2 class="section-title">See TMAX Products in Real Spaces</h2>
-<p class="section-desc">Browse completed installations and see a retractable exterior shade in motion.</p>
+<p class="section-desc">Browse completed TMAX installations in residential and commercial spaces.</p>
 </header>
-<div class="works-grid">
-<div>
+<div class="homepage-gallery">
 <div class="gallery" style="max-width: 900px; margin-left: auto; margin-right: auto;">
 <div class="gal-cell featured"><picture><source srcset="/images/garage-black-country-bmw.webp" type="image/webp"/><img alt="Black TMAX garage door interior with luxury vehicles" decoding="async" height="856" loading="lazy" src="/images/garage-black-country-bmw.jpg" width="1440"/></picture></div>
 <div class="gal-cell"><picture><source srcset="/images/gallery-black-luxury.webp" type="image/webp"/><img alt="TMAX screened patio installation beside a swimming pool" decoding="async" height="1350" loading="lazy" src="/images/gallery-black-luxury.jpg" width="1800"/></picture></div>
@@ -625,13 +612,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <div class="gal-cell"><img alt="Dark exterior shades integrated into a modern covered patio" decoding="async" height="900" loading="lazy" src="/images/exterior-shades-modern-metal-roof.webp" width="1600"/></div>
 </div>
 </div>
-<div class="works-video-card">
-<video aria-label="TMAX retractable exterior shade demonstration" class="media-video portrait" controls="" muted="" playsinline="" poster="/images/new/exterior-shade-video-poster.webp" preload="none"><source src="/videos/exterior-shade-pool-demo.mp4" type="video/mp4"/>Your browser does not support embedded video.</video>
-<div class="works-video-copy"><p class="section-eyebrow">Exterior Shade Demonstration</p><h3>From covered patio to open air</h3><a href="/exterior-shades/">Explore Exterior Shades &amp; Screens →</a></div>
 </div>
-</div>
-</div>
-</section><section class="section section-white">
+</section><section class="section section-alt">
 <div class="container">
 <header class="section-header">
 <p class="section-eyebrow">Testimonials</p>

@@ -164,5 +164,5 @@ test('all accepted form submissions trigger internal and customer notifications'
 test('the shared form success route resolves to the thank-you page', () => {
   const redirects = fs.readFileSync(path.join(publicDir, '_redirects'), 'utf8');
   assert.match(redirects, /^\/thanks\/\s+\/thanks\.html\s+200$/m);
-  assert.match(fs.readFileSync(path.join(publicDir, 'thanks.html'), 'utf8'), /<h1[^>]*>Thank You<\/h1>/i);
+  assert.match(fs.readFileSync(path.join(publicDir, 'thanks.html'), 'utf8'), /<h1[^>]*><span class="hero-title-text">Thank You<\/span><\/h1>/i);
 });

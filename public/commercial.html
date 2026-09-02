@@ -290,6 +290,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 </style>
 <link href="/assets/navigation.css" rel="stylesheet"/>
+<link href="/assets/accessibility.css" rel="stylesheet"/>
 </head>
 <body>
 <header class="site-header">
@@ -301,11 +302,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </header>
 <!-- HERO -->
 <section class="page-header commercial-page-header">
-<div class="page-header-bg" style="background-image: url('/images/v7/commercial-foodmart.webp'); background-position: center 50%;"></div>
+<div class="page-header-bg" style="--hero-image: url('/images/v7/commercial-foodmart.webp'); background-position: center 50%;"></div>
 <div class="container">
 <div class="page-header-content">
 <span class="hero-eyebrow">Restaurants, Retail &amp; Facilities</span>
-<h1>Commercial Systems</h1>
+<h1><span class="hero-title-text">Commercial Systems</span></h1>
 <p class="page-header-desc">Roll-up security and access systems for storefronts, service counters, facilities and commercial doors.</p>
 <div class="page-header-actions">
 <a class="btn-primary" href="#quote">Request a Quote</a>
@@ -346,6 +347,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
       <div class="media-player">
         <video id="commercial-shutter-video" class="media-video portrait" controls playsinline preload="none" poster="/images/commercial-shutter-video-poster.webp" aria-label="Finished TMAX commercial screen installation around a covered patio">
           <source src="/videos/IMG_6156.mp4" type="video/mp4">
+          <track kind="captions" src="/captions/commercial-installation-en.vtt" srclang="en" label="English captions" default>
           Your browser does not support HTML5 video. View the demo at /videos/IMG_6156.mp4
         </video>
       </div>
@@ -399,7 +401,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 </div>
 </section>
-<section class="consult-section" id="quote">
+<section class="consult-section section section-white" id="quote">
 <div class="container">
 <header class="section-header">
 <p class="section-eyebrow">Get In Touch</p>
