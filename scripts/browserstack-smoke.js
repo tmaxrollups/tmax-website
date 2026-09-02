@@ -188,6 +188,24 @@ async function verifyCommercialPage(driver, browser) {
   const heading = await driver.findElement(By.css('.page-header h1'));
   assert.equal(await heading.getText(), 'Commercial Systems');
 
+  await driver.manage().window().setRect({ width: 320, height: 800 });
+  const headingLayout = await driver.executeScript(() => {
+    const title = document.querySelector('.commercial-page-header h1');
+    const container = document.querySelector('.commercial-page-header .container');
+    const titleRect = title.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    const lineHeight = Number.parseFloat(getComputedStyle(title).lineHeight);
+    return {
+      fitsContainer: titleRect.left >= containerRect.left && titleRect.right <= containerRect.right,
+      lineCount: titleRect.height / lineHeight,
+      whiteSpace: getComputedStyle(title).whiteSpace
+    };
+  });
+  assert.equal(headingLayout.whiteSpace, 'nowrap');
+  assert.ok(headingLayout.lineCount < 1.2, 'commercial page title must remain on one line');
+  assert.equal(headingLayout.fitsContainer, true, 'commercial page title must fit its container');
+  await driver.manage().window().setRect({ width: 1280, height: 900 });
+
   const logoPath = await driver.executeScript(() =>
     new URL(document.querySelector('.site-logo').href).pathname
   );
