@@ -32,3 +32,17 @@ test('homepage gallery picture elements retain JPEG fallbacks', () => {
   assert.match(homepage, /<source srcset="\/images\/gallery-black-luxury\.webp"[^>]*><img[^>]*src="\/images\/gallery-black-luxury\.jpg"/);
   assert.match(homepage, /<source srcset="\/images\/garage-double-charcoal\.webp"[^>]*><img[^>]*src="\/images\/garage-double-charcoal\.jpg"/);
 });
+
+test('carousel quote buttons have a high-contrast translucent background', () => {
+  const quoteButtons = homepage.match(/<a class="btn-ghost-dark" href="\/contact-us\/">Request a Quote<\/a>/g) || [];
+
+  assert.equal(quoteButtons.length, 5);
+  assert.match(
+    homepage,
+    /\.hero-slider \.btn-ghost-dark\s*\{[^}]*background:\s*rgba\(0,\s*0,\s*0,\s*\.72\)[^}]*color:\s*#fff[^}]*border-color:\s*rgba\(255,\s*255,\s*255,\s*\.9\)[^}]*font-weight:\s*700[^}]*\}/
+  );
+  assert.match(
+    homepage,
+    /\.hero-slider \.btn-ghost-dark:hover\s*\{[^}]*background:\s*rgba\(0,\s*0,\s*0,\s*\.9\)[^}]*color:\s*#fff[^}]*\}/
+  );
+});
