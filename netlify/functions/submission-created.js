@@ -45,7 +45,7 @@ const GARAGE_DOOR_COLORS = new Set(['White','Beige','Brown','Black','Light Wood'
 const GARAGE_RAIL_COLORS = new Set(['White','Brown','Black','Bronze']);
 
 function isProductionEnvironment() {
-  return process.env.SITE_CONTEXT === 'production';
+  return !process.env.DEPLOY_PRIME_URL && process.env.BRANCH !== 'dev';
 }
 
 function getEmailEnvironmentStatus() {
