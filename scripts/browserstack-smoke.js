@@ -131,6 +131,7 @@ async function assertNoSevereConsoleErrors(driver) {
 async function verifyHomepage(driver, browser) {
   console.log('  navigate to local homepage');
   await driver.get(localUrl);
+  await driver.manage().window().setRect({ width: 1280, height: 900 });
   console.log('  verify title');
   await driver.wait(async () => {
     const title = await driver.executeScript('return document.title;');
@@ -144,6 +145,26 @@ async function verifyHomepage(driver, browser) {
 
   const initialSlide = await driver.findElement(By.css('[data-hero-slide].active'));
   assert.match(await initialSlide.getText(), /Feeling the Heat\?/);
+
+  console.log('  verify evenly spaced desktop navigation');
+  const navLayout = await driver.executeScript(() => {
+    const header = document.querySelector('.header-inner');
+    const nav = document.querySelector('.site-nav');
+    const items = Array.from(nav.children);
+    const itemRects = items.map((item) => item.getBoundingClientRect());
+    const gaps = itemRects.slice(1).map((rect, index) => rect.left - itemRects[index].right);
+    const styles = getComputedStyle(nav);
+    return {
+      flexGrow: styles.flexGrow,
+      gapSpread: Math.max(...gaps) - Math.min(...gaps),
+      justifyContent: styles.justifyContent,
+      quoteFitsHeader: itemRects.at(-1).right <= header.getBoundingClientRect().right + 1
+    };
+  });
+  assert.equal(navLayout.flexGrow, '1');
+  assert.equal(navLayout.justifyContent, 'space-between');
+  assert.ok(navLayout.gapSpread < 2, 'desktop navigation gaps must be evenly distributed');
+  assert.equal(navLayout.quoteFitsHeader, true, 'quote button must remain inside the header');
 
   console.log('  verify optimized media behavior');
   const heroImage = await driver.executeScript(
