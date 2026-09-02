@@ -1,5 +1,45 @@
 (() => {
   'use strict';
+  const mainTarget = 'main-content';
+  if (!document.getElementById(mainTarget)) {
+    const style = document.createElement('style');
+    style.textContent = `
+      .skip-link {
+        position: absolute;
+        left: 12px;
+        top: -48px;
+        z-index: 1000;
+        padding: 12px 16px;
+        background: #fff;
+        color: #000;
+        border: 2px solid #000;
+        border-radius: 4px;
+        font-family: 'Raleway', sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: top 0.15s ease;
+      }
+      .skip-link:focus {
+        top: 12px;
+      }
+    `;
+    document.head.appendChild(style);
+
+    const skip = document.createElement('a');
+    skip.className = 'skip-link';
+    skip.href = `#${mainTarget}`;
+    skip.textContent = 'Skip to content';
+    document.body.prepend(skip);
+
+    const header = document.querySelector('.site-header');
+    const firstContent = header ? header.nextElementSibling : document.body.firstElementChild;
+    if (firstContent) {
+      firstContent.id = mainTarget;
+      if (!firstContent.hasAttribute('tabindex')) firstContent.setAttribute('tabindex', '-1');
+    }
+  }
+
   document.querySelectorAll('.menu-toggle').forEach((button) => {
     button.removeAttribute('onclick');
     button.addEventListener('click', () => {

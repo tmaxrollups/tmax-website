@@ -44,6 +44,18 @@ const GARAGE_QUOTE_HEIGHTS = new Set(['10','11','12']);
 const GARAGE_DOOR_COLORS = new Set(['White','Beige','Brown','Black','Light Wood','Dark Wood']);
 const GARAGE_RAIL_COLORS = new Set(['White','Brown','Black','Bronze']);
 
+function isProductionEnvironment() {
+  return process.env.CONTEXT === 'production' || process.env.NODE_ENV === 'production';
+}
+
+function getEmailEnvironmentStatus() {
+  return {
+    resend_api_key: Boolean(process.env.RESEND_API_KEY),
+    notify_email: Boolean(process.env.NOTIFY_EMAIL),
+    from_email: Boolean(process.env.FROM_EMAIL)
+  };
+}
+
 function validateGarageColor(value) {
   const color = cleanValue(value);
   // Case-insensitive matching against allowed colors — return the canonical allowed value when matched
@@ -215,7 +227,11 @@ exports.handler = async function(event) {
     const FROM_EMAIL = process.env.FROM_EMAIL;
     const emailEnabled = Boolean(RESEND_API_KEY && NOTIFY_EMAIL && FROM_EMAIL);
     if (!emailEnabled) {
-      console.error('Required email environment variables are not configured; skipping notification step');
+      const envStatus = getEmailEnvironmentStatus();
+      console.error('Required email environment variables are not configured; skipping notification step', envStatus);
+      if (isProductionEnvironment()) {
+        console.warn('Production environment is missing one or more required email variables', envStatus);
+      }
     }
 
     const createdAt = payload.created_at ? new Date(payload.created_at) : new Date();

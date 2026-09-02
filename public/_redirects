@@ -47,6 +47,9 @@
 /thanks   /thanks.html   200
 /thanks/  /thanks.html   200
 
+# Health check endpoint for monitoring email env configuration
+/health   /.netlify/functions/health   200
+
 
 # Security: retired WordPress/admin/probe endpoints return 404 and are never proxied
 /wp-admin/*        /404.html  404
