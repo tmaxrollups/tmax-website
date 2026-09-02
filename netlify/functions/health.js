@@ -12,9 +12,17 @@ exports.handler = async function() {
   };
 
   const ready = emailConfig.resend_api_key && emailConfig.notify_email && emailConfig.from_email;
+  const deploySignals = {
+    branch: process.env.BRANCH || null,
+    head: process.env.HEAD || null,
+    context: process.env.CONTEXT || null,
+    deploy_prime_url: process.env.DEPLOY_PRIME_URL || null,
+    url: process.env.URL || null
+  };
   const body = {
     ok: true,
     production: isProductionEnvironment(),
+    context: deploySignals,
     email_notifications_ready: ready,
     missing_email_envs: Object.entries(emailConfig).filter(([, value]) => !value).map(([key]) => key)
   };
