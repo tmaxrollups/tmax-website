@@ -8,7 +8,8 @@ const path = require('node:path');
 const rootDir = path.join(__dirname, '..');
 const publicDir = path.join(rootDir, 'public');
 const auditScript = path.join(rootDir, 'scripts', 'pa11y-audit.js');
-const sharedStylesheet = '/assets/accessibility.css';
+const sharedStylesheet = '/assets/accessibility.css?v=20260902-1';
+const escapedSharedStylesheet = sharedStylesheet.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 test('pa11y command audits every public page at desktop and mobile sizes', () => {
   const packageJson = JSON.parse(fs.readFileSync(path.join(rootDir, 'package.json'), 'utf8'));
@@ -34,7 +35,7 @@ test('pa11y command audits every public page at desktop and mobile sizes', () =>
 test('every public page loads the shared accessibility styles last', () => {
   for (const pageName of fs.readdirSync(publicDir).filter((name) => name.endsWith('.html'))) {
     const html = fs.readFileSync(path.join(publicDir, pageName), 'utf8');
-    assert.match(html, new RegExp(`<link[^>]+href=["']${sharedStylesheet.replace('/', '\\/')}["'][^>]*>\\s*</head>`), pageName);
+    assert.match(html, new RegExp(`<link[^>]+href=["']${escapedSharedStylesheet}["'][^>]*>\\s*</head>`), pageName);
   }
 });
 
@@ -43,7 +44,8 @@ test('shared styles preserve readable text and controls', () => {
   assert.match(css, /--tmax-gold-dark:\s*#7a591c/i);
   assert.match(css, /\.site-nav \.btn-primary\s*{[^}]*color:\s*#000/is);
   assert.match(css, /\.media-video\s*{[^}]*color:\s*#fff/is);
-  assert.match(css, /\.hero h1,[^}]*\.hero-desc,[^}]*\.page-header-desc\s*{[^}]*background:\s*transparent[^}]*box-shadow:\s*none[^}]*text-shadow:\s*[^;}]*rgba\(0, 0, 0, 0\.98\)[^;}]*rgba\(0, 0, 0, 0\.72\)/is);
+  assert.match(css, /\.hero h1,[^}]*\.page-header h1\s*{[^}]*background:\s*transparent[^}]*box-shadow:\s*none[^}]*text-shadow:\s*[^;}]*rgba\(0, 0, 0, 0\.98\)[^;}]*rgba\(0, 0, 0, 0\.72\)/is);
+  assert.match(css, /\.hero \.hero-desc,[^}]*\.page-header-desc\s*{[^}]*text-shadow:\s*[^;}]*rgba\(0, 0, 0, 0\.96\)[^;}]*rgba\(0, 0, 0, 0\.78\)/is);
   assert.doesNotMatch(css, /(?:\.hero-title-text|\.page-header h1)[^}]*background:\s*#000/is);
   assert.doesNotMatch(css, /\.hero \.hero-content\s*{[^}]*background:/is);
   assert.doesNotMatch(css, /\.page-header-content\s*{[^}]*background:/is);

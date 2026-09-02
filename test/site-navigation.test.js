@@ -67,7 +67,7 @@ test('every primary navigation groups the four product pages under Our Products'
       const withoutDropdown = navigation.replace(details[0], '');
       assert.doesNotMatch(withoutDropdown, new RegExp(`href="${href}"`, 'i'), `${pageName} must not duplicate ${label} at the top level`);
     }
-    assert.match(page, /<link\b[^>]*href="\/assets\/navigation\.css"[^>]*rel="stylesheet"[^>]*>/i);
+    assert.match(page, /<link\b[^>]*href="\/assets\/navigation\.css\?v=20260902-1"[^>]*rel="stylesheet"[^>]*>/i);
   }
 });
 

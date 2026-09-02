@@ -35,7 +35,8 @@ test('commercial page references only existing local media and scripts', () => {
 
   assert.ok(references.length > 0, 'commercial page must contain local resources');
   for (const reference of references) {
-    const filePath = path.join(publicDir, ...reference.slice(1).split('/'));
+    const pathname = new URL(reference, 'https://tmax.test').pathname;
+    const filePath = path.join(publicDir, ...pathname.slice(1).split('/'));
     assert.ok(fs.existsSync(filePath), `missing local resource: ${reference}`);
   }
 });
