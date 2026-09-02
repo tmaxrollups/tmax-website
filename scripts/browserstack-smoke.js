@@ -274,9 +274,10 @@ async function verifyCommercialPage(driver, browser) {
   await driver.sleep(750);
   const formState = await driver.executeScript(() => ({
     disabled: document.querySelector('form[name="quote-commercial"] button[type="submit"]').disabled,
+    falseFailureNotice: Boolean(document.querySelector('[id$="-captcha-notice"]')),
     present: Boolean(document.querySelector('form[name="quote-commercial"]'))
   }));
-  assert.deepEqual(formState, { disabled: true, present: true });
+  assert.deepEqual(formState, { disabled: false, falseFailureNotice: false, present: true });
 
   if (browser.browserName === 'Chrome' || browser.browserName === 'Edge') {
     console.log('  verify commercial browser console');

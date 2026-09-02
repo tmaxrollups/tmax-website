@@ -39,10 +39,14 @@ test('carousel quote buttons have a high-contrast translucent background', () =>
   assert.equal(quoteButtons.length, 5);
   assert.match(
     homepage,
-    /\.hero-slider \.btn-ghost-dark\s*\{[^}]*background:\s*rgba\(0,\s*0,\s*0,\s*\.72\)[^}]*color:\s*#fff[^}]*border-color:\s*rgba\(255,\s*255,\s*255,\s*\.9\)[^}]*font-weight:\s*700[^}]*\}/
+    /\.hero-slider \.btn-primary\s*\{[^}]*border-color:\s*#000[^}]*\}/
   );
   assert.match(
     homepage,
-    /\.hero-slider \.btn-ghost-dark:hover\s*\{[^}]*background:\s*rgba\(0,\s*0,\s*0,\s*\.9\)[^}]*color:\s*#fff[^}]*\}/
+    /\.hero-slider \.btn-ghost-dark\s*\{[^}]*background:\s*rgba\(0,\s*0,\s*0,\s*\.82\)[^}]*color:\s*var\(--tmax-gold\)[^}]*border-color:\s*var\(--tmax-gold\)[^}]*font-weight:\s*700[^}]*\}/
+  );
+  assert.match(
+    homepage,
+    /\.hero-slider \.btn-ghost-dark:hover\s*\{[^}]*background:\s*rgba\(0,\s*0,\s*0,\s*\.9\)[^}]*color:\s*var\(--tmax-gold\)[^}]*border-color:\s*var\(--tmax-gold\)[^}]*\}/
   );
 });
