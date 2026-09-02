@@ -22,8 +22,8 @@ test('catalog and warranty actions align at the bottom of equal-height cards', (
   );
 });
 
-test('Resources is the single documents, controls, galleries, and parts hub', () => {
-  for (const target of ['documents', 'controls', 'galleries', 'parts-request']) {
+test('Resources is the single documents, controls, and parts hub', () => {
+  for (const target of ['documents', 'controls', 'parts-request']) {
     assert.match(resourcesPage, new RegExp(`id="${target}"`, 'i'), `Resources must expose the ${target} jump target`);
   }
 
@@ -31,11 +31,8 @@ test('Resources is the single documents, controls, galleries, and parts hub', ()
     assert.match(resourcesPage, new RegExp(`<h3>\\s*${heading}\\s*<\\/h3>`, 'i'));
   }
 
-  for (const href of ['/garage-doors/', '/shutters/', '/exterior-shades/', '/interior-shades/', '/commercial/', '/#our-work']) {
-    assert.match(resourcesPage, new RegExp(`href="${href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`, 'i'));
-  }
-
   assert.match(resourcesPage, /<form\b[^>]*name="parts-request"[^>]*>/i);
+  assert.doesNotMatch(resourcesPage, /id="galleries"|Product Galleries/i);
   assert.equal(fs.existsSync(path.join(publicDir, 'accessories.html')), false, 'Accessories must not remain as a page');
 });
 

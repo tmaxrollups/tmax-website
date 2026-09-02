@@ -12,15 +12,14 @@ The combined Resources page will contain these sections in order:
 2. Current catalog and warranty downloads.
 3. Measuring and product-planning guidance.
 4. Controls and replacement-parts categories.
-5. Product gallery links.
-6. Parts and service guidance.
-7. The existing Parts Request form.
+5. Parts and service guidance.
+6. The existing Parts Request form.
 
-The jump links will target Documents, Controls, Galleries, and Parts Request. The page will follow the site's existing typography, header, responsive behavior, and alternating white/tinted section backgrounds.
+The jump links will target Documents, Controls, and Parts Request. Product pages remain available through the site-wide Our Products navigation rather than a repeated gallery directory. The page will follow the site's existing typography, header, responsive behavior, and alternating white/tinted section backgrounds.
 
 ## Content Rules
 
-The Resources page will retain the current catalog, warranty, measuring guidance, product gallery links, and these accessory categories:
+The Resources page will retain the current catalog, warranty, measuring guidance, and these accessory categories:
 
 - Replacement motors
 - Wi-Fi hubs
@@ -72,7 +71,7 @@ Automated tests will verify:
 - No file input or photo-request language exists in the Resources parts area.
 - Every Accessories URL has a permanent redirect to `/resources/`.
 - Internal HTML and sitemap references no longer target Accessories.
-- Catalog, warranty, gallery, and local asset links resolve.
+- Catalog, warranty, and local asset links resolve.
 - Page sections alternate backgrounds correctly.
 - Repository validation and the full unit test suite pass.
 - BrowserStack checks Resources navigation, downloads, CAPTCHA injection, enabled submit behavior, and browser console output in current Chrome, Edge, Firefox, and Safari.

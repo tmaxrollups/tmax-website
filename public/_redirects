@@ -13,8 +13,8 @@
 /product/roll-up-exterior-shutters     /shutters.html   301
 /product/commercial-applications/*   /commercial.html   301
 /product/commercial-applications     /commercial.html   301
-/product/accessories/*   /accessories.html   301
-/product/accessories     /accessories.html   301
+/product/accessories/*   /resources/   301
+/product/accessories     /resources/   301
 
 # WooCommerce shop pages → contact
 /shop/*     /   301
@@ -32,7 +32,9 @@
 /interior-shades   /interior-shades.html   200
 /shutters   /shutters.html   200
 /commercial   /commercial.html   200
-/accessories   /accessories.html   200
+/accessories.html   /resources/   301
+/accessories/   /resources/   301
+/accessories   /resources/   301
 /about-us   /about-us.html   200
 /contact-us   /contact-us.html   200
 /dealers   /dealers.html   200

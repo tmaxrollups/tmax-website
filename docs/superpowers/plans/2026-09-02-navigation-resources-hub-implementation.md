@@ -17,7 +17,7 @@
 - `/resources/` is the only Resources/Accessories content page.
 - Preserve the `parts-request` form name, field names, CAPTCHA, honeypot, notifications, and `/thanks/` action.
 - Do not add file inputs or request customer photos.
-- Retain all six existing Resources gallery links.
+- Do not repeat a product gallery directory on Resources; product pages remain available through Our Products.
 
 ---
 
@@ -102,7 +102,7 @@ Commit: `Add accessible product navigation dropdown`
 
 - [ ] **Step 1: Write failing consolidation tests**
 
-Assert `resources.html` contains the four jump targets `documents`, `controls`, `galleries`, and `parts-request`; all four supported accessory category headings; all six gallery destinations; and the `parts-request` form. Assert `accessories.html` does not exist and Resources contains neither `type="file"` nor the words `photo` or `photos` in its parts guidance/form.
+Assert `resources.html` contains the three jump targets `documents`, `controls`, and `parts-request`; all four supported accessory category headings; and the `parts-request` form. Assert `accessories.html` does not exist, Resources does not repeat a product-gallery directory, and its parts area contains neither `type="file"` nor the words `photo` or `photos`.
 
 - [ ] **Step 2: Run focused tests and verify RED**
 
@@ -112,7 +112,7 @@ Expected: FAIL because Accessories still exists and the parts form is not on Res
 
 - [ ] **Step 3: Build the combined hub**
 
-Retain the Resources header, catalog/warranty cards, measuring cards, control guidance, and six gallery links. Add an in-page jump navigation after the header. Merge category-level Accessories copy into the controls section, remove SKU labels, add parts/service guidance without photo language, and move the exact `parts-request` form to the final section.
+Retain the Resources header, catalog/warranty cards, measuring cards, and control guidance. Add an in-page jump navigation after the header. Merge category-level Accessories copy into the controls section, remove SKU labels and the redundant product-gallery directory, add parts/service guidance without photo language, and move the exact `parts-request` form to the final section.
 
 Update `source_page` to `Resources page` and its subject to `New parts / accessories request - TMAX website`; do not change submitted field names.
 
