@@ -62,8 +62,6 @@
   const next = slider.querySelector('.hero-next');
   if (slides.length < 2) return;
   let current = 0;
-  let timer;
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const show = (index) => {
     current = (index + slides.length) % slides.length;
     slides.forEach((slide, i) => {
@@ -73,18 +71,10 @@
     });
     dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
   };
-  const stop = () => { if (timer) window.clearInterval(timer); timer = undefined; };
-  const start = () => { if (!reduced) { stop(); timer = window.setInterval(() => show(current + 1), 9000); } };
-  prev?.addEventListener('click', () => { show(current - 1); start(); });
-  next?.addEventListener('click', () => { show(current + 1); start(); });
-  dots.forEach((dot, i) => dot.addEventListener('click', () => { show(i); start(); }));
-  slider.addEventListener('mouseenter', stop);
-  slider.addEventListener('mouseleave', start);
-  slider.addEventListener('focusin', stop);
-  slider.addEventListener('focusout', start);
-  document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+  prev?.addEventListener('click', () => { show(current - 1); });
+  next?.addEventListener('click', () => { show(current + 1); });
+  dots.forEach((dot, i) => dot.addEventListener('click', () => { show(i); }));
   show(0);
-  start();
 })();
 
 (function() {
@@ -99,14 +89,19 @@
       const setState = () => {
         const captcha = getCaptcha();
         const ready = Boolean(captcha && captcha.value && captcha.value.trim().length > 0);
-        submitButtons.forEach(btn => { btn.disabled = !ready; });
+        submitButtons.forEach(btn => {
+          if (btn.disabled === ready) btn.disabled = !ready;
+        });
         return ready;
       };
 
       submitButtons.forEach(btn => { btn.disabled = true; });
 
+      let poll;
       const timeout = window.setTimeout(() => {
         if (setState()) return;
+        if (poll) clearInterval(poll);
+        observer.disconnect();
         const noticeId = `${form.id || form.name || 'form'}-captcha-notice`;
         if (!form.querySelector('#' + noticeId)) {
           const note = document.createElement('p');
@@ -125,9 +120,9 @@
           observer.disconnect();
         }
       });
-      observer.observe(form, { childList: true, subtree: true, characterData: true, attributes: true });
+      observer.observe(form, { childList: true, subtree: true });
 
-      const poll = window.setInterval(() => {
+      poll = window.setInterval(() => {
         if (setState()) {
           clearInterval(poll);
           clearTimeout(timeout);

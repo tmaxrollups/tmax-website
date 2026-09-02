@@ -4,6 +4,10 @@
   "type": "commonjs",
   "scripts": {
     "test": "node --test",
+    "test:browserstack": "node scripts/browserstack-smoke.js",
     "validate": "node validate_repo.js"
+  },
+  "devDependencies": {
+    "selenium-webdriver": "^4.48.0"
   }
 }
