@@ -198,12 +198,14 @@ async function verifyCommercialPage(driver, browser) {
     return {
       fitsContainer: titleRect.left >= containerRect.left && titleRect.right <= containerRect.right,
       lineCount: titleRect.height / lineHeight,
+      pageOverflows: document.documentElement.scrollWidth > document.documentElement.clientWidth,
       whiteSpace: getComputedStyle(title).whiteSpace
     };
   });
   assert.equal(headingLayout.whiteSpace, 'nowrap');
   assert.ok(headingLayout.lineCount < 1.2, 'commercial page title must remain on one line');
   assert.equal(headingLayout.fitsContainer, true, 'commercial page title must fit its container');
+  assert.equal(headingLayout.pageOverflows, false, 'commercial page must not overflow horizontally');
   await driver.manage().window().setRect({ width: 1280, height: 900 });
 
   const logoPath = await driver.executeScript(() =>

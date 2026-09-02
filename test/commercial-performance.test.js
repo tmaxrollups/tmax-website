@@ -53,7 +53,7 @@ test('commercial page title remains on one line at narrow viewport widths', () =
   assert.match(commercialPage, /<section class="page-header commercial-page-header">/);
   assert.match(
     commercialPage,
-    /\.commercial-page-header h1\s*\{[^}]*white-space:\s*nowrap[^}]*font-size:\s*clamp\(30px,\s*8vw,\s*56px\)[^}]*\}/
+    /\.commercial-page-header h1\s*\{[^}]*white-space:\s*nowrap[^}]*font-size:\s*clamp\(22px,\s*7\.5vw,\s*56px\)[^}]*\}/
   );
 });
 
