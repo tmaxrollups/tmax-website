@@ -343,7 +343,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
         </ul>
       </div>
       <div class="media-player">
-        <video id="commercial-shutter-video" class="media-video" controls playsinline preload="none" poster="/images/commercial-shutter-video-poster.webp" aria-label="Finished TMAX commercial screen installation around a covered patio">
+        <video id="commercial-shutter-video" class="media-video portrait" controls playsinline preload="none" poster="/images/commercial-shutter-video-poster.webp" aria-label="Finished TMAX commercial screen installation around a covered patio">
           <source src="/videos/IMG_6156.mp4" type="video/mp4">
           Your browser does not support HTML5 video. View the demo at /videos/IMG_6156.mp4
         </video>
@@ -355,11 +355,13 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <style>
 .media-showcase { display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr); gap:48px; align-items:center; margin-top: 18px; }
 .media-player video { width: 100%; height: auto; display: block; }
+.media-video { width:100%; max-height:680px; display:block; object-fit:cover; background:#000; border-radius:10px; border:1px solid var(--tmax-border); }
+.media-video.portrait { aspect-ratio:9/16; max-width:420px; margin:0 auto; }
 .media-player { width: 100%; }
 .feature-list h3 { margin-top: 0; color: var(--tmax-body); }
 .feature-list ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .feature-list li { background: transparent; padding: 0; color: var(--tmax-text); }
-@media (max-width:800px){ .media-showcase{grid-template-columns:1fr;gap:28px;} .media-video{max-width:360px;margin:0 auto;} }
+@media (max-width:800px){ .media-showcase{grid-template-columns:1fr;gap:28px;} .media-video.portrait{max-width:360px;} }
 </style>
 <!-- FEATURES -->
 <section class="section section-white">

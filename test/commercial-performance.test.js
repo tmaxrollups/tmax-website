@@ -44,9 +44,21 @@ test('commercial video remains user-initiated and defers network loading', () =>
   const [videoTag] = commercialPage.match(/<video\b[^>]*id="commercial-shutter-video"[^>]*>/) || [];
 
   assert.ok(videoTag, 'commercial shutter video must exist');
+  assert.match(videoTag, /\bclass="media-video portrait"/);
   assert.match(videoTag, /\bcontrols(?:="")?\b/);
   assert.match(videoTag, /\bpreload="none"/);
   assert.doesNotMatch(videoTag, /\bautoplay\b/);
+});
+
+test('commercial video uses the same portrait frame as shade-page videos', () => {
+  assert.match(
+    commercialPage,
+    /\.media-video\.portrait\s*\{[^}]*aspect-ratio:\s*9\s*\/\s*16[^}]*max-width:\s*420px[^}]*margin:\s*0 auto[^}]*\}/
+  );
+  assert.match(
+    commercialPage,
+    /@media\s*\(max-width:\s*800px\)[^\r\n]*\.media-video\.portrait\s*\{[^}]*max-width:\s*360px[^}]*\}/
+  );
 });
 
 test('commercial page title remains on one line at narrow viewport widths', () => {
