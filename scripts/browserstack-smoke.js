@@ -255,10 +255,13 @@ async function verifyHomepage(driver, browser) {
     const copy = document.querySelector('[data-hero-slide].active .hero-copy');
     const panelStyles = getComputedStyle(panel);
     const panelRect = panel.getBoundingClientRect();
+    const sliderRect = document.querySelector('[data-hero-slider]').getBoundingClientRect();
     const controlsRect = document.querySelector('.hero-slider-controls').getBoundingClientRect();
+    const arrowStyles = getComputedStyle(document.querySelector('.hero-arrow'));
     return {
-      controlsAligned: Math.abs(panelRect.left - controlsRect.left) < 1 && Math.abs(panelRect.width - controlsRect.width) < 1,
-      controlsOnLowerEdge: panelRect.bottom >= controlsRect.top && panelRect.bottom <= controlsRect.bottom,
+      arrowsCentered: arrowStyles.display === 'flex' && arrowStyles.alignItems === 'center' && arrowStyles.justifyContent === 'center',
+      controlsBottomOffset: Math.round(sliderRect.bottom - controlsRect.bottom),
+      controlsCentered: Math.abs((sliderRect.left + sliderRect.right) / 2 - (controlsRect.left + controlsRect.right) / 2) < 1,
       copyBackground: getComputedStyle(copy).backgroundColor,
       descriptionMaxWidth: getComputedStyle(document.querySelector('[data-hero-slide].active .hero-desc')).maxWidth,
       headingMaxWidth: getComputedStyle(document.querySelector('[data-hero-slide].active h1, [data-hero-slide].active h2')).maxWidth,
@@ -268,8 +271,9 @@ async function verifyHomepage(driver, browser) {
       panelShadow: panelStyles.boxShadow
     };
   });
-  assert.equal(heroPresentation.controlsAligned, true);
-  assert.equal(heroPresentation.controlsOnLowerEdge, true);
+  assert.equal(heroPresentation.arrowsCentered, true);
+  assert.equal(heroPresentation.controlsBottomOffset, 24);
+  assert.equal(heroPresentation.controlsCentered, true);
   assert.equal(heroPresentation.copyBackground, 'rgba(0, 0, 0, 0)');
   assert.equal(heroPresentation.descriptionMaxWidth, '540px');
   assert.equal(heroPresentation.headingMaxWidth, '540px');
@@ -282,18 +286,18 @@ async function verifyHomepage(driver, browser) {
   await setViewportSize(driver, 390, 844);
   await driver.sleep(250);
   const mobileHeroPresentation = await driver.executeScript(() => {
-    const panelRect = document.querySelector('[data-hero-slide].active .hero-content').getBoundingClientRect();
+    const sliderRect = document.querySelector('[data-hero-slider]').getBoundingClientRect();
     const controlsRect = document.querySelector('.hero-slider-controls').getBoundingClientRect();
     return {
-      controlsAligned: Math.abs(panelRect.left - controlsRect.left) < 1 && Math.abs(panelRect.width - controlsRect.width) < 1,
-      controlsOnLowerEdge: panelRect.bottom >= controlsRect.top && panelRect.bottom <= controlsRect.bottom,
+      controlsBottomOffset: Math.round(sliderRect.bottom - controlsRect.bottom),
+      controlsCentered: Math.abs((sliderRect.left + sliderRect.right) / 2 - (controlsRect.left + controlsRect.right) / 2) < 1,
       copyBackground: getComputedStyle(document.querySelector('[data-hero-slide].active .hero-copy')).backgroundColor,
       pageOverflows: document.documentElement.scrollWidth > document.documentElement.clientWidth
     };
   });
   assert.deepEqual(mobileHeroPresentation, {
-    controlsAligned: true,
-    controlsOnLowerEdge: true,
+    controlsBottomOffset: 24,
+    controlsCentered: true,
     copyBackground: 'rgba(0, 0, 0, 0)',
     pageOverflows: false
   });

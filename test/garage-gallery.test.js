@@ -17,7 +17,9 @@ const galleryImages = [
   'garage-commercial-white.webp',
   'garage-white-residential.webp',
   'garage-brown-closeup.webp',
-  'garage-black-stone-home.webp'
+  'garage-black-stone-home.webp',
+  'garage-black-entry-door.webp',
+  'garage-black-residential-door.webp'
 ];
 const colorImages = {
   White: 'garage-color-white-ral9002.webp',

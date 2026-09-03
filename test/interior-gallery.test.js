@@ -9,7 +9,6 @@ const publicDir = path.join(__dirname, '..', 'public');
 const page = fs.readFileSync(path.join(publicDir, 'interior-shades.html'), 'utf8');
 const galleryImages = [
   'interior-bedroom-shades.webp',
-  'interior-hallway-shades.webp',
   'interior-coordinated-shades.webp',
   'interior-neolux-dual-shades.webp'
 ];

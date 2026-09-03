@@ -18,5 +18,5 @@ test('exterior installation gallery omits the two open-patio images', () => {
   assert.ok(galleryStart >= 0 && galleryEnd > galleryStart, 'exterior installation gallery must exist');
   assert.doesNotMatch(gallery, /patio-open-exterior\.webp/);
   assert.doesNotMatch(gallery, /patio-open-view\.webp/);
-  assert.equal((gallery.match(/class="gal-cell(?: featured)?"/g) || []).length, 10);
+  assert.equal((gallery.match(/class="gal-cell(?: featured)?"/g) || []).length, 13);
 });

@@ -318,11 +318,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .hero-slider .hero-slide h2 { font-size: clamp(44px, 4.2vw, 60px); color: #fff; max-width: none; margin: 0 0 18px 0; line-height: 1.05; white-space: nowrap; }
 .hero-slider .hero-slide h2 { font-weight: 700; }
 .hero-slider .hero-desc { max-width: none; font-size: clamp(16px, 1.5vw, 19px); white-space: nowrap; }
-.hero-slider-controls { position: absolute; z-index: 4; left: var(--hero-panel-left); bottom: 4px; width: var(--hero-panel-width); display: flex; align-items: center; justify-content: center; gap: 13px; }
+.hero-slider-controls { position: absolute; z-index: 4; left: 0; bottom: 24px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 13px; }
 .hero-dots { display: flex; gap: 9px; }
 .hero-dot { width: 10px; height: 10px; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.85); background: rgba(255,255,255,.25); cursor: pointer; }
 .hero-dot.active { background: #fff; transform: scale(1.2); }
-.hero-arrow { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(255,255,255,.55); background: rgba(0,0,0,.28); color: #fff; font-size: 27px; line-height: 1; cursor: pointer; }
+.hero-arrow { width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.55); background: rgba(0,0,0,.28); color: #fff; font-size: 27px; line-height: 1; cursor: pointer; }
 .hero-arrow:hover, .hero-arrow:focus-visible { background: rgba(0,0,0,.55); }
 @media (max-width: 720px) {
   .hero-slider { --hero-panel-left: 12px; --hero-panel-width: calc(100% - 24px); min-height: 540px; }
@@ -392,7 +392,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 </div>
 <div aria-hidden="true" class="hero-slide" data-hero-slide="">
-<div class="hero-bg" style="--hero-image: url('/images/v7/interior-hero.webp'); background-position: center 48%;"></div>
+<div class="hero-bg" style="--hero-image: url('/images/interior-light-filtering-window.webp'); background-position: center 48%;"></div>
 <div class="hero-content">
 <div class="hero-copy">
 <h2><span class="hero-title-text">Control Light &amp; Privacy</span></h2>

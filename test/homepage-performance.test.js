@@ -77,7 +77,8 @@ test('homepage hero uses one borderless full-image overlay with single-line copy
     homepage,
     /\.hero-slider \.hero-content\s*\{[^}]*position:\s*absolute[^}]*left:\s*var\(--hero-panel-left\)[^}]*width:\s*var\(--hero-panel-width\)[^}]*border:\s*0[^}]*background:\s*transparent[^}]*box-shadow:\s*none[^}]*z-index:\s*2[^}]*\}/
   );
-  assert.match(homepage, /\.hero-slider-controls\s*\{[^}]*left:\s*var\(--hero-panel-left\)[^}]*width:\s*var\(--hero-panel-width\)[^}]*justify-content:\s*center[^}]*\}/);
+  assert.match(homepage, /\.hero-slider-controls\s*\{[^}]*left:\s*0[^}]*bottom:\s*24px[^}]*width:\s*100%[^}]*justify-content:\s*center[^}]*\}/);
+  assert.match(homepage, /\.hero-arrow\s*\{[^}]*display:\s*inline-flex[^}]*align-items:\s*center[^}]*justify-content:\s*center[^}]*padding:\s*0[^}]*\}/);
   assert.match(homepage, /@media \(max-width:\s*720px\)[^{]*\{[^}]*\.hero-slider\s*\{[^}]*--hero-panel-left:\s*12px[^}]*--hero-panel-width:\s*calc\(100% - 24px\)[^}]*\}/);
   assert.match(homepage, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-slider \.hero-copy\s*\{[^}]*width:\s*100%[^}]*\}[\s\S]*?\.hero-slider \.hero-slide h1,[^}]*white-space:\s*normal[^}]*\}[\s\S]*?\.hero-slider \.hero-desc\s*\{[^}]*white-space:\s*normal[^}]*\}/);
   assert.match(homepage, /\.hero-slider \.hero-bg::after\s*\{[^}]*background:\s*linear-gradient\(90deg,\s*rgba\(0,\s*0,\s*0,\s*\.7\)\s*0%,\s*rgba\(0,\s*0,\s*0,\s*\.5\)\s*50%,\s*rgba\(0,\s*0,\s*0,\s*0\)\s*100%\)[^}]*\}/);
