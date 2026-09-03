@@ -8,6 +8,7 @@ const path = require('node:path');
 const publicDir = path.join(__dirname, '..', 'public');
 const siteScript = fs.readFileSync(path.join(publicDir, 'assets', 'site.js'), 'utf8');
 const navigationStyles = fs.readFileSync(path.join(publicDir, 'assets', 'navigation.css'), 'utf8');
+const browserStackSmoke = fs.readFileSync(path.join(__dirname, '..', 'scripts', 'browserstack-smoke.js'), 'utf8');
 const productLinks = [
   ['/garage-doors/', 'Garage Doors'],
   ['/exterior-shades/', 'Exterior Shades'],
@@ -65,6 +66,13 @@ test('desktop navigation keeps labels compact and centered without moving the qu
     /\.site-nav\s*>\s*\.btn-primary\s*\{[^}]*position:\s*absolute[^}]*right:\s*0[^}]*\}/,
     'the quote button must remain anchored at the right edge'
   );
+});
+
+test('BrowserStack sizes the CSS viewport before checking the desktop breakpoint', () => {
+  assert.match(browserStackSmoke, /async function setViewportSize\(driver, width, height\)/);
+  assert.match(browserStackSmoke, /window\.innerWidth/);
+  assert.match(browserStackSmoke, /setViewportSize\(driver, 1181, 900\)/);
+  assert.doesNotMatch(browserStackSmoke, /setRect\(\{ width: 1181, height: 900 \}\)/);
 });
 
 test('every primary navigation groups the four product pages under Our Products', () => {

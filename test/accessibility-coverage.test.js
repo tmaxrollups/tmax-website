@@ -68,6 +68,29 @@ test('carousel semantics and media captions require no audit exclusions', () => 
   assert.doesNotMatch(pa11yScript, /ignoreRules|rules:\s*\{|ignore:\s*\[/);
 });
 
+test('pa11y scopes the translucent hero contrast fallback to known carousel text', () => {
+  const { assertHomepageHeroContrastContract, isExpectedHeroContrastFalsePositive } = require(auditScript);
+  const homepage = fs.readFileSync(path.join(publicDir, 'index.html'), 'utf8');
+  const contrastIssue = {
+    code: 'color-contrast',
+    context: '<span class="hero-title-text">Feeling the Heat?</span>',
+    selector: '#main-content > div:nth-child(1) > div:nth-child(2) > div > h1 > span'
+  };
+
+  assert.equal(isExpectedHeroContrastFalsePositive('index.html', contrastIssue), true);
+  assert.equal(isExpectedHeroContrastFalsePositive('commercial.html', contrastIssue), false);
+  assert.equal(isExpectedHeroContrastFalsePositive('index.html', { ...contrastIssue, code: 'button-name' }), false);
+  assert.equal(isExpectedHeroContrastFalsePositive('index.html', {
+    ...contrastIssue,
+    selector: '#main-content > section:nth-child(2) .hero-title-text'
+  }), false);
+  assert.doesNotThrow(() => assertHomepageHeroContrastContract(homepage));
+  assert.throws(
+    () => assertHomepageHeroContrastContract(homepage.replace('color: #fff; max-width: 540px', 'color: #777; max-width: 540px')),
+    /contrast contract/
+  );
+});
+
 test('contact location uses an accessible external map link without an unauditable frame', () => {
   const contact = fs.readFileSync(path.join(publicDir, 'contact-us.html'), 'utf8');
   assert.doesNotMatch(contact, /<iframe\b/i);

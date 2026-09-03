@@ -41,7 +41,7 @@ const GARAGE_PRICES = Object.freeze({
 const GARAGE_WIDTHS = Object.freeze(['3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18.5']);
 const GARAGE_HEIGHTS = Object.freeze(['6','7','8','9','10','11','12']);
 const GARAGE_QUOTE_HEIGHTS = new Set(['10','11','12']);
-const GARAGE_DOOR_COLORS = new Set(['White','Beige','Brown','Black','Light Wood','Dark Wood']);
+const GARAGE_DOOR_COLORS = new Set(['White','Beige','Bronze','Black','Light Wood','Dark Wood']);
 const GARAGE_RAIL_COLORS = new Set(['White','Brown','Black','Bronze']);
 
 function isProductionEnvironment() {

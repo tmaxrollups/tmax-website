@@ -67,15 +67,17 @@ test('homepage hero cards omit decorative eyebrow labels', () => {
 test('homepage hero uses a framed translucent panel with aligned controls', () => {
   assert.doesNotMatch(homepage, /hero-panel-frame/);
   assert.equal((homepage.match(/<div class="hero-copy">/g) || []).length, 5);
-  assert.match(homepage, /\.hero-slider \.hero-copy\s*\{[^}]*width:\s*min\(100%,\s*540px\)[^}]*background:\s*#0d0d0d[^}]*\}/);
+  assert.match(homepage, /\.hero-slider \.hero-copy\s*\{[^}]*width:\s*min\(100%,\s*540px\)[^}]*background:\s*transparent[^}]*box-shadow:\s*none[^}]*\}/);
+  assert.doesNotMatch(homepage, /\.hero-slider \.hero-copy::after/);
   assert.match(homepage, /\.hero-slider \.hero-slide h1,[\s\S]*?\.hero-slider \.hero-slide h2\s*\{[^}]*max-width:\s*540px[^}]*\}/);
   assert.match(homepage, /\.hero-slider \.hero-desc\s*\{[^}]*max-width:\s*540px[^}]*\}/);
   assert.doesNotMatch(homepage, /\.hero \.hero-desc\s*\{[^}]*max-width:\s*720px[^}]*\}/);
   assert.match(homepage, /\.hero:not\(\.hero-slider\) \.hero-desc\s*\{[^}]*max-width:\s*720px[^}]*\}/);
   assert.match(
     homepage,
-    /\.hero-slider \.hero-content\s*\{[^}]*position:\s*absolute[^}]*left:\s*var\(--hero-panel-left\)[^}]*width:\s*var\(--hero-panel-width\)[^}]*border:\s*1px solid rgba\(213,\s*170,\s*81,\s*\.72\)[^}]*background:\s*linear-gradient\(90deg,\s*#0d0d0d\s*0%,\s*#0d0d0d\s*82%,\s*rgba\(13,\s*13,\s*13,\s*\.7\)\s*88%,\s*rgba\(13,\s*13,\s*13,\s*\.42\)\s*94%,\s*rgba\(13,\s*13,\s*13,\s*\.18\)\s*100%\)[^}]*z-index:\s*2[^}]*\}/
+    /\.hero-slider \.hero-content\s*\{[^}]*position:\s*absolute[^}]*left:\s*var\(--hero-panel-left\)[^}]*width:\s*var\(--hero-panel-width\)[^}]*border:\s*1px solid rgba\(213,\s*170,\s*81,\s*\.72\)[^}]*background:\s*linear-gradient\(90deg,\s*rgba\(0,\s*0,\s*0,\s*\.7\)\s*0%,\s*rgba\(0,\s*0,\s*0,\s*\.13\)\s*100%\)[^}]*z-index:\s*2[^}]*\}/
   );
   assert.match(homepage, /\.hero-slider-controls\s*\{[^}]*left:\s*var\(--hero-panel-left\)[^}]*width:\s*var\(--hero-panel-width\)[^}]*justify-content:\s*center[^}]*\}/);
   assert.match(homepage, /@media \(max-width:\s*720px\)[^{]*\{[^}]*\.hero-slider\s*\{[^}]*--hero-panel-left:\s*12px[^}]*--hero-panel-width:\s*calc\(100% - 24px\)[^}]*\}/);
+  assert.match(homepage, /\.hero-slider \.hero-bg::after\s*\{[^}]*background:\s*transparent[^}]*\}/);
 });

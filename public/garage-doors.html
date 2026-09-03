@@ -355,12 +355,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 <label class="tmax-cfg-sub-label">Door / slat color</label>
 <div aria-label="Door or slat color" class="tmax-color-swatches" role="radiogroup">
-<button aria-checked="false" class="tmax-swatch" data-color="White" role="radio" type="button"><span class="tmax-swatch-chip" style="background:#f5f2ea;border:1px solid #d4cfc0;"></span><span class="tmax-swatch-label">White</span></button>
-<button aria-checked="false" class="tmax-swatch" data-color="Beige" role="radio" type="button"><span class="tmax-swatch-chip" style="background:#d9c9a3;"></span><span class="tmax-swatch-label">Beige</span></button>
-<button aria-checked="false" class="tmax-swatch" data-color="Brown" role="radio" type="button"><span class="tmax-swatch-chip" style="background:#42494a;"></span><span class="tmax-swatch-label">Brown</span></button>
-<button aria-checked="false" class="tmax-swatch" data-color="Black" role="radio" type="button"><span class="tmax-swatch-chip" style="background:#1a1a1a;"></span><span class="tmax-swatch-label">Black</span></button>
-<button aria-checked="false" class="tmax-swatch" data-color="Light Wood" role="radio" type="button"><span class="tmax-swatch-chip" style="background:linear-gradient(135deg,#c69a63 0%,#dfba82 45%,#b8824d 100%);"></span><span class="tmax-swatch-label">Light Wood</span></button>
-<button aria-checked="false" class="tmax-swatch" data-color="Dark Wood" role="radio" type="button"><span class="tmax-swatch-chip" style="background:linear-gradient(135deg,#6d4528 0%,#4d2f1d 50%,#785034 100%);"></span><span class="tmax-swatch-label">Dark Wood</span></button>
+<button aria-checked="false" class="tmax-swatch" data-color="White" role="radio" type="button"><img alt="" class="tmax-swatch-chip" decoding="async" height="114" loading="lazy" src="/images/garage-color-white-ral9002.webp" width="205"/><span class="tmax-swatch-label">White</span></button>
+<button aria-checked="false" class="tmax-swatch" data-color="Beige" role="radio" type="button"><img alt="" class="tmax-swatch-chip" decoding="async" height="166" loading="lazy" src="/images/garage-color-beige-ral1019.webp" width="245"/><span class="tmax-swatch-label">Beige</span></button>
+<button aria-checked="false" class="tmax-swatch" data-color="Bronze" role="radio" type="button"><img alt="" class="tmax-swatch-chip" decoding="async" height="225" loading="lazy" src="/images/garage-color-bronze-ral7022.webp" width="267"/><span class="tmax-swatch-label">Bronze</span></button>
+<button aria-checked="false" class="tmax-swatch" data-color="Black" role="radio" type="button"><img alt="" class="tmax-swatch-chip" decoding="async" height="335" loading="lazy" src="/images/garage-color-black.webp" width="799"/><span class="tmax-swatch-label">Black</span></button>
+<button aria-checked="false" class="tmax-swatch" data-color="Light Wood" role="radio" type="button"><img alt="" class="tmax-swatch-chip" decoding="async" height="322" loading="lazy" src="/images/garage-color-light-wood.webp" width="794"/><span class="tmax-swatch-label">Light Wood</span></button>
+<button aria-checked="false" class="tmax-swatch" data-color="Dark Wood" role="radio" type="button"><img alt="" class="tmax-swatch-chip" decoding="async" height="293" loading="lazy" src="/images/garage-color-dark-wood.webp" width="794"/><span class="tmax-swatch-label">Dark Wood</span></button>
 </div>
 <div class="tmax-cfg-rail-row">
 <label for="cfg-rail-color">Rail / housing color</label>
@@ -481,7 +481,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     .tmax-swatch { background: #fff; border: 2px solid var(--tmax-border); border-radius: 8px; padding: 14px 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: border-color 0.15s, transform 0.15s; font-family: 'Raleway', sans-serif; }
     .tmax-swatch:hover { border-color: var(--tmax-gold); transform: translateY(-2px); }
     .tmax-swatch.selected { border-color: var(--tmax-gold-dark); background: var(--tmax-bg-tint); box-shadow: 0 0 0 3px rgba(213, 170, 81, 0.2); }
-    .tmax-swatch-chip { width: 100%; height: 44px; border-radius: 4px; display: block; }
+    .tmax-swatch-chip { width: 100%; height: 60px; border: 1px solid var(--tmax-border); border-radius: 4px; display: block; object-fit: cover; }
     .tmax-swatch-label { font-size: 13px; font-weight: 600; color: var(--tmax-body); }
         .tmax-cfg-sub-label { display:block; font-size:14px; font-weight:700; color:var(--tmax-body); margin:0 0 8px; }
     .tmax-cfg-rail-row { margin-top:18px; }

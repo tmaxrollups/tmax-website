@@ -10,6 +10,7 @@ const publicDir = path.resolve(__dirname, '..', 'public');
 const resultsDir = path.resolve(__dirname, '..', 'test-results', 'browserstack');
 const localUrl = 'http://localhost:4173/';
 const commercialUrl = new URL('commercial.html', localUrl).href;
+const garageUrl = new URL('garage-doors.html', localUrl).href;
 const resourcesUrl = new URL('resources.html', localUrl).href;
 const hubUrl = 'https://hub-cloud.browserstack.com/wd/hub';
 
@@ -105,6 +106,32 @@ function buildCapabilities(browser, credentials, buildName) {
   return capabilities;
 }
 
+async function setViewportSize(driver, width, height) {
+  const windowManager = driver.manage().window();
+  let requestedRect = { width, height };
+
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    await windowManager.setRect(requestedRect);
+    const viewport = await driver.executeScript(() => ({
+      height: window.innerHeight,
+      width: window.innerWidth
+    }));
+    if (viewport.width === width && viewport.height === height) return;
+
+    const actualRect = await windowManager.getRect();
+    requestedRect = {
+      height: actualRect.height + height - viewport.height,
+      width: actualRect.width + width - viewport.width
+    };
+  }
+
+  const viewport = await driver.executeScript(() => ({
+    height: window.innerHeight,
+    width: window.innerWidth
+  }));
+  assert.deepEqual(viewport, { height, width }, 'browser viewport must match the requested CSS size');
+}
+
 async function setSessionStatus(driver, status, reason) {
   const payload = JSON.stringify({ action: 'setSessionStatus', arguments: { status, reason } });
   await driver.executeScript(`browserstack_executor: ${payload}`);
@@ -132,7 +159,7 @@ async function assertNoSevereConsoleErrors(driver) {
 async function verifyHomepage(driver, browser) {
   console.log('  navigate to local homepage');
   await driver.get(localUrl);
-  await driver.manage().window().setRect({ width: 1280, height: 900 });
+  await setViewportSize(driver, 1280, 900);
   console.log('  verify title');
   await driver.wait(async () => {
     const title = await driver.executeScript('return document.title;');
@@ -193,7 +220,7 @@ async function verifyHomepage(driver, browser) {
   }));
   assert.equal(navTypography, true, 'navigation labels must render uppercase on one line');
 
-  await driver.manage().window().setRect({ width: 1181, height: 900 });
+  await setViewportSize(driver, 1181, 900);
   const boundaryLayout = await driver.executeScript(() => {
     const navItems = Array.from(document.querySelector('.site-nav').children);
     const logoRect = document.querySelector('.site-logo').getBoundingClientRect();
@@ -215,7 +242,7 @@ async function verifyHomepage(driver, browser) {
   });
   assert.equal(dropdownFits, true, 'product dropdown must fit at the desktop breakpoint');
   await productsToggle.sendKeys('\uE00C');
-  await driver.manage().window().setRect({ width: 1280, height: 900 });
+  await setViewportSize(driver, 1280, 900);
 
   console.log('  verify optimized media behavior');
   const heroImage = await driver.executeScript(
@@ -225,12 +252,14 @@ async function verifyHomepage(driver, browser) {
   const heroPresentation = await driver.executeScript(() => {
     const overlay = getComputedStyle(document.querySelector('[data-hero-slide].active .hero-bg'), '::after');
     const panel = document.querySelector('[data-hero-slide].active .hero-content');
+    const copy = document.querySelector('[data-hero-slide].active .hero-copy');
     const panelStyles = getComputedStyle(panel);
     const panelRect = panel.getBoundingClientRect();
     const controlsRect = document.querySelector('.hero-slider-controls').getBoundingClientRect();
     return {
       controlsAligned: Math.abs(panelRect.left - controlsRect.left) < 1 && Math.abs(panelRect.width - controlsRect.width) < 1,
       controlsOnLowerEdge: panelRect.bottom >= controlsRect.top && panelRect.bottom <= controlsRect.bottom,
+      copyBackground: getComputedStyle(copy).backgroundColor,
       descriptionMaxWidth: getComputedStyle(document.querySelector('[data-hero-slide].active .hero-desc')).maxWidth,
       headingMaxWidth: getComputedStyle(document.querySelector('[data-hero-slide].active h1, [data-hero-slide].active h2')).maxWidth,
       overlayColor: overlay.backgroundColor,
@@ -240,14 +269,15 @@ async function verifyHomepage(driver, browser) {
   });
   assert.equal(heroPresentation.controlsAligned, true);
   assert.equal(heroPresentation.controlsOnLowerEdge, true);
+  assert.equal(heroPresentation.copyBackground, 'rgba(0, 0, 0, 0)');
   assert.equal(heroPresentation.descriptionMaxWidth, '540px');
   assert.equal(heroPresentation.headingMaxWidth, '540px');
-  assert.equal(heroPresentation.overlayColor, 'rgba(0, 0, 0, 0.18)');
-  assert.match(heroPresentation.panelBackground, /linear-gradient\(90deg, rgb\(13, 13, 13\) 0%, rgb\(13, 13, 13\) 82%, rgba\(13, 13, 13, 0\.7\) 88%, rgba\(13, 13, 13, 0\.42\) 94%, rgba\(13, 13, 13, 0\.18\) 100%\)/);
+  assert.equal(heroPresentation.overlayColor, 'rgba(0, 0, 0, 0)');
+  assert.match(heroPresentation.panelBackground, /linear-gradient\(90deg, rgba\(0, 0, 0, 0\.7\) 0%, rgba\(0, 0, 0, 0\.13\) 100%\)/);
   assert.equal(heroPresentation.panelBorder, 'rgba(213, 170, 81, 0.72)');
   assert.equal(await driver.findElements(By.css('[data-hero-slide] .hero-eyebrow')).then((items) => items.length), 0);
 
-  await driver.manage().window().setRect({ width: 390, height: 844 });
+  await setViewportSize(driver, 390, 844);
   await driver.sleep(250);
   const mobileHeroPresentation = await driver.executeScript(() => {
     const panelRect = document.querySelector('[data-hero-slide].active .hero-content').getBoundingClientRect();
@@ -255,15 +285,17 @@ async function verifyHomepage(driver, browser) {
     return {
       controlsAligned: Math.abs(panelRect.left - controlsRect.left) < 1 && Math.abs(panelRect.width - controlsRect.width) < 1,
       controlsOnLowerEdge: panelRect.bottom >= controlsRect.top && panelRect.bottom <= controlsRect.bottom,
+      copyBackground: getComputedStyle(document.querySelector('[data-hero-slide].active .hero-copy')).backgroundColor,
       pageOverflows: document.documentElement.scrollWidth > document.documentElement.clientWidth
     };
   });
   assert.deepEqual(mobileHeroPresentation, {
     controlsAligned: true,
     controlsOnLowerEdge: true,
+    copyBackground: 'rgba(0, 0, 0, 0)',
     pageOverflows: false
   });
-  await driver.manage().window().setRect({ width: 1280, height: 900 });
+  await setViewportSize(driver, 1280, 900);
 
   const galleryState = await driver.executeScript(() => {
     const gallery = document.querySelector('.homepage-gallery');
@@ -329,7 +361,7 @@ async function verifyCommercialPage(driver, browser) {
     textAlign: 'center'
   });
 
-  await driver.manage().window().setRect({ width: 320, height: 800 });
+  await setViewportSize(driver, 320, 800);
   const headingLayout = await driver.executeScript(() => {
     const title = document.querySelector('.commercial-page-header h1');
     const container = document.querySelector('.commercial-page-header .container');
@@ -347,7 +379,7 @@ async function verifyCommercialPage(driver, browser) {
   assert.ok(headingLayout.lineCount < 1.2, 'commercial page title must remain on one line');
   assert.equal(headingLayout.fitsContainer, true, 'commercial page title must fit its container');
   assert.equal(headingLayout.pageOverflows, false, 'commercial page must not overflow horizontally');
-  await driver.manage().window().setRect({ width: 1280, height: 900 });
+  await setViewportSize(driver, 1280, 900);
 
   const logoPath = await driver.executeScript(() =>
     new URL(document.querySelector('.site-logo').href).pathname
@@ -405,10 +437,41 @@ async function verifyCommercialPage(driver, browser) {
   }
 }
 
+async function verifyGaragePage(driver, browser) {
+  console.log('  navigate to garage door configurator');
+  await driver.get(garageUrl);
+  await driver.wait(until.elementLocated(By.css('.tmax-color-swatches')), 20_000);
+
+  const finishImages = await driver.findElements(By.css('.tmax-swatch-chip'));
+  assert.equal(finishImages.length, 6);
+  for (const image of finishImages) {
+    await driver.executeScript((element) => element.scrollIntoView({ block: 'center' }), image);
+    await driver.wait(async () => driver.executeScript(
+      (image) => image.naturalWidth > 0 && image.complete,
+      image
+    ), 20_000);
+  }
+  const finishLabels = await driver.executeScript(() => (
+    Array.from(document.querySelectorAll('.tmax-swatch'), (swatch) => swatch.dataset.color)
+  ));
+  assert.deepEqual(finishLabels, ['White', 'Beige', 'Bronze', 'Black', 'Light Wood', 'Dark Wood']);
+
+  await setViewportSize(driver, 390, 844);
+  const mobileState = await driver.executeScript(() => ({
+    columns: getComputedStyle(document.querySelector('.tmax-color-swatches')).gridTemplateColumns.split(' ').length,
+    pageOverflows: document.documentElement.scrollWidth > document.documentElement.clientWidth
+  }));
+  assert.deepEqual(mobileState, { columns: 3, pageOverflows: false });
+
+  if (browser.browserName === 'Chrome' || browser.browserName === 'Edge') {
+    await assertNoSevereConsoleErrors(driver);
+  }
+}
+
 async function verifyResourcesPage(driver, browser) {
   console.log('  navigate to Resources page');
   await driver.get(resourcesUrl);
-  await driver.manage().window().setRect({ width: 1280, height: 900 });
+  await setViewportSize(driver, 1280, 900);
   await driver.wait(until.elementLocated(By.css('form[name="parts-request"]')), 20_000);
 
   const heading = await driver.findElement(By.css('.page-header h1'));
@@ -430,7 +493,7 @@ async function verifyResourcesPage(driver, browser) {
 
   console.log('  verify mobile product dropdown and Resources layout');
   await driver.findElement(By.css('.nav-products summary')).click();
-  await driver.manage().window().setRect({ width: 390, height: 900 });
+  await setViewportSize(driver, 390, 900);
   await driver.findElement(By.css('.menu-toggle')).click();
   await driver.findElement(By.css('.nav-products summary')).click();
   const mobileState = await driver.executeScript(() => ({
@@ -443,7 +506,7 @@ async function verifyResourcesPage(driver, browser) {
     pageOverflows: false,
     productsOpen: true
   });
-  await driver.manage().window().setRect({ width: 1280, height: 900 });
+  await setViewportSize(driver, 1280, 900);
 
   const documentPaths = await driver.executeScript(() => Array.from(
     document.querySelectorAll('a[href*="TMAX-Product-Catalog-2026.pdf"], a[href*="TMAX-Product-Warranty.pdf"]'),
@@ -493,9 +556,10 @@ async function runBrowser(browser, credentials, buildName) {
       .build();
     console.log(`  ${browser.name} session created`);
     await verifyHomepage(driver, browser);
+    await verifyGaragePage(driver, browser);
     await verifyResourcesPage(driver, browser);
     await verifyCommercialPage(driver, browser);
-    await setSessionStatus(driver, 'passed', 'Homepage, Resources, and Commercial smoke checks passed');
+    await setSessionStatus(driver, 'passed', 'Homepage, Garage, Resources, and Commercial smoke checks passed');
     console.log(`PASS ${browser.name}`);
   } catch (error) {
     if (driver) {

@@ -20,10 +20,10 @@ test('invalid garage dimensions are rejected', () => {
 });
 
 test('garage slat and rail colors use separate catalog allowlists', () => {
-  assert.equal(submission.validateGarageColor('Brown'), 'Brown');
+  assert.equal(submission.validateGarageColor('Bronze'), 'Bronze');
   assert.equal(submission.validateGarageColor('Light Wood'), 'Light Wood');
   assert.equal(submission.validateGarageColor('Dark Wood'), 'Dark Wood');
-  assert.throws(() => submission.validateGarageColor('Bronze'), /Invalid garage door color/);
+  assert.throws(() => submission.validateGarageColor('Brown'), /Invalid garage door color/);
   assert.throws(() => submission.validateGarageColor('Custom Color'), /Invalid garage door color/);
 
   assert.equal(submission.validateRailColor('Bronze'), 'Bronze');
