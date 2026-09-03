@@ -264,7 +264,8 @@ async function verifyHomepage(driver, browser) {
       headingMaxWidth: getComputedStyle(document.querySelector('[data-hero-slide].active h1, [data-hero-slide].active h2')).maxWidth,
       overlayBackground: overlay.backgroundImage,
       panelBackground: panelStyles.backgroundImage,
-      panelBorder: panelStyles.borderTopColor
+      panelBorderWidth: panelStyles.borderTopWidth,
+      panelShadow: panelStyles.boxShadow
     };
   });
   assert.equal(heroPresentation.controlsAligned, true);
@@ -272,9 +273,10 @@ async function verifyHomepage(driver, browser) {
   assert.equal(heroPresentation.copyBackground, 'rgba(0, 0, 0, 0)');
   assert.equal(heroPresentation.descriptionMaxWidth, '540px');
   assert.equal(heroPresentation.headingMaxWidth, '540px');
-  assert.match(heroPresentation.overlayBackground, /linear-gradient\(90deg, rgba\(0, 0, 0, 0\.7\) 0%, rgba\(0, 0, 0, 0\) 100%\)/);
+  assert.match(heroPresentation.overlayBackground, /linear-gradient\(90deg, rgba\(0, 0, 0, 0\.7\) 0%, rgba\(0, 0, 0, 0\.5\) 50%, rgba\(0, 0, 0, 0\) 100%\)/);
   assert.equal(heroPresentation.panelBackground, 'none');
-  assert.equal(heroPresentation.panelBorder, 'rgba(213, 170, 81, 0.72)');
+  assert.equal(heroPresentation.panelBorderWidth, '0px');
+  assert.equal(heroPresentation.panelShadow, 'none');
   assert.equal(await driver.findElements(By.css('[data-hero-slide] .hero-eyebrow')).then((items) => items.length), 0);
 
   await setViewportSize(driver, 390, 844);

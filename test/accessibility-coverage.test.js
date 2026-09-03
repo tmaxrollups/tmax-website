@@ -86,7 +86,7 @@ test('pa11y scopes the translucent hero contrast fallback to known carousel text
   }), false);
   assert.doesNotThrow(() => assertHomepageHeroContrastContract(homepage));
   assert.throws(
-    () => assertHomepageHeroContrastContract(homepage.replace('color: #fff; max-width: 540px', 'color: #777; max-width: 540px')),
+    () => assertHomepageHeroContrastContract(homepage.replace('color: #fff; max-width: none', 'color: #777; max-width: none')),
     /contrast contract/
   );
 });

@@ -64,20 +64,21 @@ test('homepage hero cards omit decorative eyebrow labels', () => {
   assert.doesNotMatch(homepage, /<span class="hero-eyebrow">/);
 });
 
-test('homepage hero uses one full-image left-to-right overlay with aligned controls', () => {
+test('homepage hero uses one borderless full-image overlay with single-line copy', () => {
   assert.doesNotMatch(homepage, /hero-panel-frame/);
   assert.equal((homepage.match(/<div class="hero-copy">/g) || []).length, 5);
-  assert.match(homepage, /\.hero-slider \.hero-copy\s*\{[^}]*width:\s*min\(100%,\s*540px\)[^}]*background:\s*transparent[^}]*box-shadow:\s*none[^}]*\}/);
+  assert.match(homepage, /\.hero-slider \.hero-copy\s*\{[^}]*width:\s*calc\(100vw - var\(--hero-panel-left\) - 24px\)[^}]*background:\s*transparent[^}]*box-shadow:\s*none[^}]*\}/);
   assert.doesNotMatch(homepage, /\.hero-slider \.hero-copy::after/);
-  assert.match(homepage, /\.hero-slider \.hero-slide h1,[\s\S]*?\.hero-slider \.hero-slide h2\s*\{[^}]*max-width:\s*540px[^}]*\}/);
-  assert.match(homepage, /\.hero-slider \.hero-desc\s*\{[^}]*max-width:\s*540px[^}]*\}/);
+  assert.match(homepage, /\.hero-slider \.hero-slide h1,[\s\S]*?\.hero-slider \.hero-slide h2\s*\{[^}]*font-size:\s*clamp\([^}]*white-space:\s*nowrap[^}]*\}/);
+  assert.match(homepage, /\.hero-slider \.hero-desc\s*\{[^}]*font-size:\s*clamp\([^}]*white-space:\s*nowrap[^}]*\}/);
   assert.doesNotMatch(homepage, /\.hero \.hero-desc\s*\{[^}]*max-width:\s*720px[^}]*\}/);
   assert.match(homepage, /\.hero:not\(\.hero-slider\) \.hero-desc\s*\{[^}]*max-width:\s*720px[^}]*\}/);
   assert.match(
     homepage,
-    /\.hero-slider \.hero-content\s*\{[^}]*position:\s*absolute[^}]*left:\s*var\(--hero-panel-left\)[^}]*width:\s*var\(--hero-panel-width\)[^}]*border:\s*1px solid rgba\(213,\s*170,\s*81,\s*\.72\)[^}]*background:\s*transparent[^}]*z-index:\s*2[^}]*\}/
+    /\.hero-slider \.hero-content\s*\{[^}]*position:\s*absolute[^}]*left:\s*var\(--hero-panel-left\)[^}]*width:\s*var\(--hero-panel-width\)[^}]*border:\s*0[^}]*background:\s*transparent[^}]*box-shadow:\s*none[^}]*z-index:\s*2[^}]*\}/
   );
   assert.match(homepage, /\.hero-slider-controls\s*\{[^}]*left:\s*var\(--hero-panel-left\)[^}]*width:\s*var\(--hero-panel-width\)[^}]*justify-content:\s*center[^}]*\}/);
   assert.match(homepage, /@media \(max-width:\s*720px\)[^{]*\{[^}]*\.hero-slider\s*\{[^}]*--hero-panel-left:\s*12px[^}]*--hero-panel-width:\s*calc\(100% - 24px\)[^}]*\}/);
-  assert.match(homepage, /\.hero-slider \.hero-bg::after\s*\{[^}]*background:\s*linear-gradient\(90deg,\s*rgba\(0,\s*0,\s*0,\s*\.7\)\s*0%,\s*rgba\(0,\s*0,\s*0,\s*0\)\s*100%\)[^}]*\}/);
+  assert.match(homepage, /@media \(max-width:\s*720px\)[\s\S]*?\.hero-slider \.hero-copy\s*\{[^}]*width:\s*100%[^}]*\}[\s\S]*?\.hero-slider \.hero-slide h1,[^}]*white-space:\s*normal[^}]*\}[\s\S]*?\.hero-slider \.hero-desc\s*\{[^}]*white-space:\s*normal[^}]*\}/);
+  assert.match(homepage, /\.hero-slider \.hero-bg::after\s*\{[^}]*background:\s*linear-gradient\(90deg,\s*rgba\(0,\s*0,\s*0,\s*\.7\)\s*0%,\s*rgba\(0,\s*0,\s*0,\s*\.5\)\s*50%,\s*rgba\(0,\s*0,\s*0,\s*0\)\s*100%\)[^}]*\}/);
 });

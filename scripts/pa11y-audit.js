@@ -83,8 +83,8 @@ function isExpectedHeroContrastFalsePositive(pageName, issue) {
 
 function assertHomepageHeroContrastContract(homepage) {
   const requirements = [
-    /\.hero-slider \.hero-bg::after\s*\{[^}]*background:\s*linear-gradient\(90deg,\s*rgba\(0,0,0,\.7\)\s*0%,\s*rgba\(0,0,0,0\)\s*100%\)/,
-    /\.hero-slider \.hero-content\s*\{[^}]*background:\s*transparent/,
+    /\.hero-slider \.hero-bg::after\s*\{[^}]*background:\s*linear-gradient\(90deg,\s*rgba\(0,0,0,\.7\)\s*0%,\s*rgba\(0,0,0,\.5\)\s*50%,\s*rgba\(0,0,0,0\)\s*100%\)/,
+    /\.hero-slider \.hero-content\s*\{[^}]*border:\s*0;[^}]*background:\s*transparent;[^}]*box-shadow:\s*none/,
     /\.hero-slider \.hero-copy\s*\{[^}]*background:\s*transparent;[^}]*box-shadow:\s*none;/,
     /\.hero-slider \.hero-slide h1,[\s\S]*?\.hero-slider \.hero-slide h2\s*\{[^}]*color:\s*#fff;/,
     /\.hero-desc\s*\{[^}]*color:\s*#e5e5e5;/,
