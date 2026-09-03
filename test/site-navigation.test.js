@@ -34,6 +34,15 @@ test('desktop navigation labels stay on one line on every page', () => {
   }
 });
 
+test('all navigation labels use uppercase styling and never wrap', () => {
+  const labelRule = navigationStyles.match(/\.site-nav\s*>\s*a,[\s\S]*?\.nav-products-menu a\s*\{[^}]*\}/)?.[0] || '';
+
+  assert.match(labelRule, /text-transform:\s*uppercase/);
+  assert.match(labelRule, /letter-spacing:\s*0\.055em/);
+  assert.match(labelRule, /white-space:\s*nowrap/);
+  assert.match(navigationStyles, /@media\s*\(min-width:\s*1181px\)[\s\S]*?\.site-nav\s*\{[^}]*flex-wrap:\s*nowrap[^}]*\}/);
+});
+
 test('desktop navigation keeps labels compact and centered without moving the quote button', () => {
   const pages = fs.readdirSync(publicDir).filter((name) => name.endsWith('.html'));
 

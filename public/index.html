@@ -303,22 +303,27 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .hero-slider .hero-slide { position: absolute; inset: 0; display: flex; align-items: center; padding: 64px 0 82px; opacity: 0; visibility: hidden; transition: opacity .65s ease, visibility .65s ease; }
 .hero-slider .hero-slide.active { opacity: 1; visibility: visible; z-index: 1; }
 .hero-slider .hero-bg { opacity: .94; }
-.hero-slider .hero-bg::after { background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 50%); }
+.hero-slider .hero-bg::after { background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 50%); }
 .hero-slider .hero-content { position: relative; z-index: 2; }
-.hero-slider .btn-primary { border-color: #000; }
-.hero-slider .btn-ghost-dark { background: rgba(0, 0, 0, .82); color: var(--tmax-gold); border-color: var(--tmax-gold); font-weight: 700; transition: background .15s, border-color .15s; }
-.hero-slider .btn-ghost-dark:hover { background: rgba(0, 0, 0, .9); color: var(--tmax-gold); border-color: var(--tmax-gold); }
+.hero-slider .hero-btns { align-items: stretch; gap: 12px; }
+.hero-slider .hero-btns .btn-primary,
+.hero-slider .hero-btns .btn-ghost-dark { min-height: 54px; padding: 14px 24px; border-radius: 3px; font-size: 13px; font-weight: 700; letter-spacing: 0.055em; text-transform: uppercase; box-shadow: 0 6px 18px rgba(0,0,0,.3); transition: background .15s, color .15s, border-color .15s, box-shadow .15s; }
+.hero-slider .btn-primary { background: var(--tmax-gold); color: #000; border-color: #000; }
+.hero-slider .btn-primary:hover { background: #f0c765; color: #000; border-color: #000; box-shadow: 0 8px 22px rgba(0,0,0,.38); }
+.hero-slider .btn-ghost-dark { background: rgba(0, 0, 0, .88); color: var(--tmax-gold); border-color: var(--tmax-gold); }
+.hero-slider .btn-ghost-dark:hover { background: #000; color: #f0c765; border-color: #f0c765; box-shadow: 0 8px 22px rgba(0,0,0,.38); }
+.hero-slider .hero-btns a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 .hero-slider .hero-slide h1,
-.hero-slider .hero-slide h2 { font-size: 60px; color: #fff; max-width: 720px; margin: 0 0 18px 0; line-height: 1.05; }
+.hero-slider .hero-slide h2 { font-size: 60px; color: #fff; max-width: 540px; margin: 0 0 18px 0; line-height: 1.05; }
 .hero-slider .hero-slide h2 { font-weight: 700; }
-.hero-slider .hero-desc { max-width: 650px; }
+.hero-slider .hero-desc { max-width: 540px; }
 .hero-slider-controls { position: absolute; z-index: 4; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 13px; }
 .hero-dots { display: flex; gap: 9px; }
 .hero-dot { width: 10px; height: 10px; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.85); background: rgba(255,255,255,.25); cursor: pointer; }
 .hero-dot.active { background: #fff; transform: scale(1.2); }
 .hero-arrow { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(255,255,255,.55); background: rgba(0,0,0,.28); color: #fff; font-size: 27px; line-height: 1; cursor: pointer; }
 .hero-arrow:hover, .hero-arrow:focus-visible { background: rgba(0,0,0,.55); }
-@media (max-width: 720px) { .hero-slider { min-height: 540px; } .hero-slider .hero-slide { padding: 54px 0 88px; } .hero-slider .hero-bg { background-position: center center !important; } .hero-slider .hero-bg::after { background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 50%); } .hero-slider .hero-slide h1, .hero-slider .hero-slide h2 { font-size: 38px; } .hero-slider .hero-meta { max-width: 300px; } }
+@media (max-width: 720px) { .hero-slider { min-height: 540px; } .hero-slider .hero-slide { padding: 54px 0 88px; } .hero-slider .hero-bg { background-position: center center !important; } .hero-slider .hero-bg::after { background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.82) 55%, rgba(0,0,0,0) 100%); } .hero-slider .hero-slide h1, .hero-slider .hero-slide h2 { font-size: 38px; } .hero-slider .hero-meta { max-width: 300px; } }
 @media (prefers-reduced-motion: reduce) { .hero-slider .hero-slide { transition: none; } }
 </style>
 <style>
@@ -328,7 +333,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .page-header .page-header-desc { display: block !important; max-width: 760px; margin: 0 auto; color: #f2f2f2; font-size: 18px; line-height: 1.5; }
 .page-header-actions { justify-content: center; margin-top: 22px; }
 .hero .hero-content { width: 100%; }
-.hero .hero-desc { max-width: 720px; color: #f4f4f4; }
+.hero:not(.hero-slider) .hero-desc { max-width: 720px; color: #f4f4f4; }
 @media (max-width: 720px) {
   .page-header-content { max-width: 100%; padding: 0 4px; }
   .page-header .page-header-desc { font-size: 16px; max-width: 92%; }
@@ -358,7 +363,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <div class="hero-slide active" data-hero-slide="">
 <div class="hero-bg" style="--hero-image: image-set(url('/images/feeling-the-heat.webp') type('image/webp'), url('/images/feeling-the-heat.jpg') type('image/jpeg')); background-position: center center;"></div>
 <div class="hero-content">
-<span class="hero-eyebrow">EXTERIOR SHADES &amp; SCREENS</span>
 <h1><span class="hero-title-text">Feeling the Heat?</span></h1>
 <p class="hero-desc">Reduce sun and glare, add privacy, or help keep insects out with retractable exterior shades and screens.</p>
 <div class="hero-btns"><a class="btn-primary" href="/exterior-shades/">Explore Exterior Shades</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
@@ -367,7 +371,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <div aria-hidden="true" class="hero-slide" data-hero-slide="">
 <div class="hero-bg" style="--hero-image: url('/images/v7/garage-hero.webp'); background-position: center 52%;"></div>
 <div class="hero-content">
-<span class="hero-eyebrow">ROLL-UP GARAGE DOORS</span>
 <h2><span class="hero-title-text">Reclaim Your Space</span></h2>
 <p class="hero-desc">Roll-up garage doors free overhead ceiling space and can be custom-built in widths up to 18.5 feet.</p>
 <div class="hero-btns"><a class="btn-primary" href="/garage-doors/">Explore Garage Doors</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
@@ -376,7 +379,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <div aria-hidden="true" class="hero-slide" data-hero-slide="">
 <div class="hero-bg" style="--hero-image: url('/images/v7/interior-hero.webp'); background-position: center 48%;"></div>
 <div class="hero-content">
-<span class="hero-eyebrow">INTERIOR SHADES</span>
 <h2><span class="hero-title-text">Control Light &amp; Privacy</span></h2>
 <p class="hero-desc">Manage daylight and privacy with manual or automated interior shades, including dim-out and blackout options.</p>
 <div class="hero-btns"><a class="btn-primary" href="/interior-shades/">Explore Interior Shades</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
@@ -385,7 +387,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <div aria-hidden="true" class="hero-slide" data-hero-slide="">
 <div class="hero-bg" style="--hero-image: url('/images/v7/shutter-hero.webp'); background-position: center 46%;"></div>
 <div class="hero-content">
-<span class="hero-eyebrow">ROLL-UP SHUTTERS</span>
 <h2><span class="hero-title-text">Protect What Matters</span></h2>
 <p class="hero-desc">Add a compact physical barrier for windows and doors with roll-up shutters for residential and commercial use.</p>
 <div class="hero-btns"><a class="btn-primary" href="/shutters/">Explore Shutters</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
@@ -394,7 +395,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 <div aria-hidden="true" class="hero-slide" data-hero-slide="">
 <div class="hero-bg" style="--hero-image: url('/images/v7/commercial-foodmart.webp'); background-position: center 50%;"></div>
 <div class="hero-content">
-<span class="hero-eyebrow">COMMERCIAL SYSTEMS</span>
 <h2><span class="hero-title-text">Secure Your Business</span></h2>
 <p class="hero-desc">Protect storefronts, service counters and access points with compact roll-up systems for commercial applications.</p>
 <div class="hero-btns"><a class="btn-primary" href="/commercial/">Explore Commercial Systems</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>

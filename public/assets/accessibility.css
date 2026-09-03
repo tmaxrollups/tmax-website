@@ -41,6 +41,31 @@
   opacity: 1;
 }
 
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  padding: 56px 0;
+}
+
+.page-header > .container {
+  width: 100%;
+}
+
+.page-header-content,
+.hero:not(.hero-slider) .hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero:not(.hero-slider) .hero-btns {
+  justify-content: center;
+}
+
 .page-header-bg::before {
   opacity: 0.22;
 }
@@ -96,4 +121,11 @@
 .tmax-price-display .tmax-price-config,
 .tmax-price-display .tmax-price-note {
   color: #1a1a1a !important;
+}
+
+@media (max-width: 720px) {
+  .page-header {
+    min-height: 220px;
+    padding: 34px 0;
+  }
 }

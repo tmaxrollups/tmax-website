@@ -3,6 +3,14 @@
   flex-shrink: 0;
 }
 
+.site-nav > a,
+.nav-products summary,
+.nav-products-menu a {
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .nav-products summary {
   display: flex;
   align-items: center;
@@ -71,6 +79,7 @@
 @media (min-width: 1181px) {
   .site-nav {
     position: relative;
+    flex-wrap: nowrap;
     justify-content: center;
     gap: clamp(16px, 1.5vw, 24px);
     padding-left: 0;

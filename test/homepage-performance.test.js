@@ -40,28 +40,38 @@ test('homepage Our Work section contains only a centered installation carousel',
   assert.match(homepage, /\.homepage-gallery\s*\{[^}]*max-width:\s*900px[^}]*margin:\s*0 auto[^}]*\}/);
 });
 
-test('carousel quote buttons have a high-contrast translucent background', () => {
+test('carousel actions use aligned high-contrast TMAX button styling', () => {
   const quoteButtons = homepage.match(/<a class="btn-ghost-dark" href="\/contact-us\/">Request a Quote<\/a>/g) || [];
 
   assert.equal(quoteButtons.length, 5);
   assert.match(
     homepage,
-    /\.hero-slider \.btn-primary\s*\{[^}]*border-color:\s*#000[^}]*\}/
+    /\.hero-slider \.hero-btns\s*\{[^}]*align-items:\s*stretch[^}]*gap:\s*12px[^}]*\}/
   );
   assert.match(
     homepage,
-    /\.hero-slider \.btn-ghost-dark\s*\{[^}]*background:\s*rgba\(0,\s*0,\s*0,\s*\.82\)[^}]*color:\s*var\(--tmax-gold\)[^}]*border-color:\s*var\(--tmax-gold\)[^}]*font-weight:\s*700[^}]*\}/
+    /\.hero-slider \.hero-btns \.btn-primary,[\s\S]*?\.hero-slider \.hero-btns \.btn-ghost-dark\s*\{[^}]*min-height:\s*54px[^}]*padding:\s*14px 24px[^}]*border-radius:\s*3px[^}]*font-size:\s*13px[^}]*font-weight:\s*700[^}]*letter-spacing:\s*0\.055em[^}]*text-transform:\s*uppercase[^}]*\}/
   );
   assert.match(
     homepage,
-    /\.hero-slider \.btn-ghost-dark:hover\s*\{[^}]*background:\s*rgba\(0,\s*0,\s*0,\s*\.9\)[^}]*color:\s*var\(--tmax-gold\)[^}]*border-color:\s*var\(--tmax-gold\)[^}]*\}/
+    /\.hero-slider \.btn-primary\s*\{[^}]*background:\s*var\(--tmax-gold\)[^}]*color:\s*#000[^}]*border-color:\s*#000[^}]*\}/
   );
+  assert.match(homepage, /\.hero-slider \.btn-ghost-dark\s*\{[^}]*background:\s*rgba\(0,\s*0,\s*0,\s*\.88\)[^}]*color:\s*var\(--tmax-gold\)[^}]*border-color:\s*var\(--tmax-gold\)[^}]*\}/);
+  assert.match(homepage, /\.hero-slider \.hero-btns a:focus-visible\s*\{[^}]*outline:\s*3px solid #fff[^}]*outline-offset:\s*3px[^}]*\}/);
 });
 
-test('homepage hero overlay fades from opaque black to transparent by the center', () => {
+test('homepage hero cards omit decorative eyebrow labels', () => {
+  assert.doesNotMatch(homepage, /<span class="hero-eyebrow">/);
+});
+
+test('homepage hero overlay covers the first third and fades out by the center', () => {
   assert.match(
     homepage,
-    /\.hero-slider \.hero-bg::after\s*\{[^}]*background:\s*linear-gradient\(90deg,\s*rgba\(0,\s*0,\s*0,\s*1\)\s*0%,\s*rgba\(0,\s*0,\s*0,\s*0\)\s*50%\)[^}]*\}/
+    /\.hero-slider \.hero-bg::after\s*\{[^}]*background:\s*linear-gradient\(90deg,\s*rgba\(0,\s*0,\s*0,\s*1\)\s*0%,\s*rgba\(0,\s*0,\s*0,\s*1\)\s*30%,\s*rgba\(0,\s*0,\s*0,\s*0\)\s*50%\)[^}]*\}/
   );
+  assert.match(homepage, /\.hero-slider \.hero-slide h1,[\s\S]*?\.hero-slider \.hero-slide h2\s*\{[^}]*max-width:\s*540px[^}]*\}/);
+  assert.match(homepage, /\.hero-slider \.hero-desc\s*\{[^}]*max-width:\s*540px[^}]*\}/);
+  assert.doesNotMatch(homepage, /\.hero \.hero-desc\s*\{[^}]*max-width:\s*720px[^}]*\}/);
+  assert.match(homepage, /\.hero:not\(\.hero-slider\) \.hero-desc\s*\{[^}]*max-width:\s*720px[^}]*\}/);
   assert.match(homepage, /\.hero-slider \.hero-content\s*\{[^}]*position:\s*relative[^}]*z-index:\s*2[^}]*\}/);
 });

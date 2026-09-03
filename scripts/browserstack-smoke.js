@@ -185,6 +185,13 @@ async function verifyHomepage(driver, browser) {
   assert.equal(navLayout.logoAtLeft, true, 'logo must remain at the left edge');
   assert.equal(navLayout.quoteAtRight, true, 'quote button must remain at the right edge');
   assert.equal(navLayout.quoteFitsHeader, true, 'quote button must remain inside the header');
+  const navTypography = await driver.executeScript(() => Array.from(document.querySelectorAll(
+    '.site-nav > a, .nav-products summary, .nav-products-menu a'
+  )).every((item) => {
+    const styles = getComputedStyle(item);
+    return styles.textTransform === 'uppercase' && styles.whiteSpace === 'nowrap';
+  }));
+  assert.equal(navTypography, true, 'navigation labels must render uppercase on one line');
 
   await driver.manage().window().setRect({ width: 1181, height: 900 });
   const boundaryLayout = await driver.executeScript(() => {
@@ -217,10 +224,18 @@ async function verifyHomepage(driver, browser) {
   assert.match(heroImage, /feeling-the-heat\.(webp|jpg)/);
   const heroOverlay = await driver.executeScript(() => {
     const styles = getComputedStyle(document.querySelector('[data-hero-slide].active .hero-bg'), '::after');
-    return { backgroundImage: styles.backgroundImage, opacity: styles.opacity };
+    return {
+      backgroundImage: styles.backgroundImage,
+      descriptionMaxWidth: getComputedStyle(document.querySelector('[data-hero-slide].active .hero-desc')).maxWidth,
+      headingMaxWidth: getComputedStyle(document.querySelector('[data-hero-slide].active h1, [data-hero-slide].active h2')).maxWidth,
+      opacity: styles.opacity
+    };
   });
   assert.equal(heroOverlay.opacity, '1');
-  assert.match(heroOverlay.backgroundImage, /linear-gradient\(90deg, rgb\(0, 0, 0\) 0%, rgba\(0, 0, 0, 0\) 50%\)/);
+  assert.equal(heroOverlay.descriptionMaxWidth, '540px');
+  assert.equal(heroOverlay.headingMaxWidth, '540px');
+  assert.match(heroOverlay.backgroundImage, /linear-gradient\(90deg, rgb\(0, 0, 0\) 0%, rgb\(0, 0, 0\) 30%, rgba\(0, 0, 0, 0\) 50%\)/);
+  assert.equal(await driver.findElements(By.css('[data-hero-slide] .hero-eyebrow')).then((items) => items.length), 0);
 
   const galleryState = await driver.executeScript(() => {
     const gallery = document.querySelector('.homepage-gallery');
@@ -262,6 +277,29 @@ async function verifyCommercialPage(driver, browser) {
 
   const heading = await driver.findElement(By.css('.page-header h1'));
   assert.equal(await heading.getText(), 'Commercial Systems');
+
+  const heroAlignment = await driver.executeScript(() => {
+    const hero = document.querySelector('.commercial-page-header');
+    const content = hero.querySelector('.page-header-content');
+    const heroRect = hero.getBoundingClientRect();
+    const contentRect = content.getBoundingClientRect();
+    return {
+      centeredHorizontally: Math.abs(
+        (contentRect.left + contentRect.right) / 2 - (heroRect.left + heroRect.right) / 2
+      ) < 2,
+      centeredVertically: Math.abs(
+        (contentRect.top + contentRect.bottom) / 2 - (heroRect.top + heroRect.bottom) / 2
+      ) < 3,
+      eyebrowPresent: Boolean(hero.querySelector('.hero-eyebrow')),
+      textAlign: getComputedStyle(content).textAlign
+    };
+  });
+  assert.deepEqual(heroAlignment, {
+    centeredHorizontally: true,
+    centeredVertically: true,
+    eyebrowPresent: false,
+    textAlign: 'center'
+  });
 
   await driver.manage().window().setRect({ width: 320, height: 800 });
   const headingLayout = await driver.executeScript(() => {
