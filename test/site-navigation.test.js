@@ -7,6 +7,7 @@ const path = require('node:path');
 
 const publicDir = path.join(__dirname, '..', 'public');
 const siteScript = fs.readFileSync(path.join(publicDir, 'assets', 'site.js'), 'utf8');
+const navigationStyles = fs.readFileSync(path.join(publicDir, 'assets', 'navigation.css'), 'utf8');
 const productLinks = [
   ['/garage-doors/', 'Garage Doors'],
   ['/exterior-shades/', 'Exterior Shades'],
@@ -33,22 +34,28 @@ test('desktop navigation labels stay on one line on every page', () => {
   }
 });
 
-test('desktop navigation fills the header and spaces links evenly on every page', () => {
+test('desktop navigation keeps labels compact and centered without moving the quote button', () => {
   const pages = fs.readdirSync(publicDir).filter((name) => name.endsWith('.html'));
 
   for (const pageName of pages) {
     const page = fs.readFileSync(path.join(publicDir, pageName), 'utf8');
     if (!page.includes('class="site-nav"')) continue;
 
-    const [navRule] = page.match(/\.site-nav\s*\{[^}]*\}/) || [];
-    assert.ok(navRule, `${pageName} must define desktop navigation layout`);
-    assert.match(navRule, /\bflex:\s*1\b/, `${pageName} navigation must fill available header space`);
-    assert.match(
-      navRule,
-      /justify-content:\s*space-between/,
-      `${pageName} navigation links must be evenly distributed`
-    );
+    assert.match(page, /\.site-nav\s*\{[^}]*\bflex:\s*1\b[^}]*\}/, `${pageName} navigation must fill available header space`);
   }
+
+  const desktopRules = navigationStyles.match(/@media\s*\(min-width:\s*1181px\)\s*\{([\s\S]*?)\n\}/)?.[1] || '';
+  const navRule = desktopRules.match(/\.site-nav\s*\{[^}]*\}/)?.[0] || '';
+  assert.match(navRule, /justify-content:\s*center/, 'desktop labels must be centered');
+  assert.match(navRule, /gap:\s*clamp\(/, 'desktop labels must have a compact responsive gap');
+  assert.match(navRule, /padding-left:\s*0/, 'desktop labels must not reserve space beside the logo');
+  assert.match(navRule, /padding-right:\s*158px/, 'desktop labels must balance the logo footprint');
+  assert.match(navRule, /position:\s*relative/, 'desktop navigation must anchor the quote button');
+  assert.match(
+    desktopRules,
+    /\.site-nav\s*>\s*\.btn-primary\s*\{[^}]*position:\s*absolute[^}]*right:\s*0[^}]*\}/,
+    'the quote button must remain anchored at the right edge'
+  );
 });
 
 test('every primary navigation groups the four product pages under Our Products', () => {

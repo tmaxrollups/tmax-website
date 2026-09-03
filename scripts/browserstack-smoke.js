@@ -147,31 +147,80 @@ async function verifyHomepage(driver, browser) {
   const initialSlide = await driver.findElement(By.css('[data-hero-slide].active'));
   assert.match(await initialSlide.getText(), /Feeling the Heat\?/);
 
-  console.log('  verify evenly spaced desktop navigation');
+  console.log('  verify compact centered desktop navigation');
   const navLayout = await driver.executeScript(() => {
     const header = document.querySelector('.header-inner');
+    const logo = document.querySelector('.site-logo');
     const nav = document.querySelector('.site-nav');
     const items = Array.from(nav.children);
+    const labels = items.slice(0, -1);
+    const quote = items.at(-1);
+    const navRect = nav.getBoundingClientRect();
+    const labelRects = labels.map((item) => item.getBoundingClientRect());
     const itemRects = items.map((item) => item.getBoundingClientRect());
-    const gaps = itemRects.slice(1).map((rect, index) => rect.left - itemRects[index].right);
+    const gaps = labelRects.slice(1).map((rect, index) => rect.left - labelRects[index].right);
     const styles = getComputedStyle(nav);
+    const headerStyles = getComputedStyle(header);
+    const headerContentLeft = header.getBoundingClientRect().left + parseFloat(headerStyles.paddingLeft);
+    const headerContentRight = header.getBoundingClientRect().right - parseFloat(headerStyles.paddingRight);
     return {
       flexGrow: styles.flexGrow,
       gapSpread: Math.max(...gaps) - Math.min(...gaps),
+      largestGap: Math.max(...gaps),
       justifyContent: styles.justifyContent,
-      quoteFitsHeader: itemRects.at(-1).right <= header.getBoundingClientRect().right + 1
+      labelsCentered: Math.abs(
+        (labelRects[0].left + labelRects.at(-1).right) / 2
+          - (header.getBoundingClientRect().left + header.getBoundingClientRect().right) / 2
+      ) < 4,
+      logoAtLeft: Math.abs(logo.getBoundingClientRect().left - headerContentLeft) < 2,
+      quoteAtRight: Math.abs(quote.getBoundingClientRect().right - headerContentRight) < 2,
+      quoteFitsHeader: itemRects.at(-1).right <= headerContentRight + 1
     };
   });
   assert.equal(navLayout.flexGrow, '1');
-  assert.equal(navLayout.justifyContent, 'space-between');
-  assert.ok(navLayout.gapSpread < 2, 'desktop navigation gaps must be evenly distributed');
+  assert.equal(navLayout.justifyContent, 'center');
+  assert.ok(navLayout.gapSpread < 2, 'desktop navigation label gaps must be consistent');
+  assert.ok(navLayout.largestGap <= 25, 'desktop navigation labels must stay close together');
+  assert.equal(navLayout.labelsCentered, true, 'desktop navigation labels must be centered');
+  assert.equal(navLayout.logoAtLeft, true, 'logo must remain at the left edge');
+  assert.equal(navLayout.quoteAtRight, true, 'quote button must remain at the right edge');
   assert.equal(navLayout.quoteFitsHeader, true, 'quote button must remain inside the header');
+
+  await driver.manage().window().setRect({ width: 1181, height: 900 });
+  const boundaryLayout = await driver.executeScript(() => {
+    const navItems = Array.from(document.querySelector('.site-nav').children);
+    const logoRect = document.querySelector('.site-logo').getBoundingClientRect();
+    const firstLabelRect = navItems[0].getBoundingClientRect();
+    const lastLabelRect = navItems.at(-2).getBoundingClientRect();
+    const quoteRect = navItems.at(-1).getBoundingClientRect();
+    return {
+      clearsLogo: firstLabelRect.left >= logoRect.right + 12,
+      clearsQuote: lastLabelRect.right <= quoteRect.left - 12
+    };
+  });
+  assert.deepEqual(boundaryLayout, { clearsLogo: true, clearsQuote: true });
+
+  const productsToggle = await driver.findElement(By.css('.nav-products summary'));
+  await productsToggle.click();
+  const dropdownFits = await driver.executeScript(() => {
+    const menu = document.querySelector('.nav-products-menu').getBoundingClientRect();
+    return menu.left >= 0 && menu.right <= window.innerWidth;
+  });
+  assert.equal(dropdownFits, true, 'product dropdown must fit at the desktop breakpoint');
+  await productsToggle.sendKeys('\uE00C');
+  await driver.manage().window().setRect({ width: 1280, height: 900 });
 
   console.log('  verify optimized media behavior');
   const heroImage = await driver.executeScript(
     'return getComputedStyle(document.querySelector("[data-hero-slide].active .hero-bg"), "::before").backgroundImage;'
   );
   assert.match(heroImage, /feeling-the-heat\.(webp|jpg)/);
+  const heroOverlay = await driver.executeScript(() => {
+    const styles = getComputedStyle(document.querySelector('[data-hero-slide].active .hero-bg'), '::after');
+    return { backgroundImage: styles.backgroundImage, opacity: styles.opacity };
+  });
+  assert.equal(heroOverlay.opacity, '1');
+  assert.match(heroOverlay.backgroundImage, /linear-gradient\(90deg, rgb\(0, 0, 0\) 0%, rgba\(0, 0, 0, 0\) 50%\)/);
 
   const galleryState = await driver.executeScript(() => {
     const gallery = document.querySelector('.homepage-gallery');

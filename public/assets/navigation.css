@@ -68,6 +68,21 @@
   color: var(--tmax-gold);
 }
 
+@media (min-width: 1181px) {
+  .site-nav {
+    position: relative;
+    justify-content: center;
+    gap: clamp(16px, 1.5vw, 24px);
+    padding-left: 0;
+    padding-right: 158px;
+  }
+
+  .site-nav > .btn-primary {
+    position: absolute;
+    right: 0;
+  }
+}
+
 @media (max-width: 1180px) {
   .nav-products {
     width: 100%;

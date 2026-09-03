@@ -43,6 +43,7 @@ test('shared styles preserve readable text and controls', () => {
   const css = fs.readFileSync(path.join(publicDir, 'assets', 'accessibility.css'), 'utf8');
   assert.match(css, /--tmax-gold-dark:\s*#7a591c/i);
   assert.match(css, /\.site-nav \.btn-primary\s*{[^}]*color:\s*#000/is);
+  assert.match(css, /\.hero-slider \.hero-bg::after\s*{[^}]*opacity:\s*1[^}]*\}/is);
   assert.match(css, /\.media-video\s*{[^}]*color:\s*#fff/is);
   assert.match(css, /\.hero h1,[^}]*\.page-header h1\s*{[^}]*background:\s*transparent[^}]*box-shadow:\s*none[^}]*text-shadow:\s*[^;}]*rgba\(0, 0, 0, 0\.98\)[^;}]*rgba\(0, 0, 0, 0\.72\)/is);
   assert.match(css, /\.hero \.hero-desc,[^}]*\.page-header-desc\s*{[^}]*text-shadow:\s*[^;}]*rgba\(0, 0, 0, 0\.96\)[^;}]*rgba\(0, 0, 0, 0\.78\)/is);

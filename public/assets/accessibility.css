@@ -33,9 +33,12 @@
   opacity: 0.82;
 }
 
-.hero-slider .hero-bg::before,
-.hero-slider .hero-bg::after {
+.hero-slider .hero-bg::before {
   opacity: 0.94;
+}
+
+.hero-slider .hero-bg::after {
+  opacity: 1;
 }
 
 .page-header-bg::before {

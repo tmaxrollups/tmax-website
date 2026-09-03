@@ -57,3 +57,11 @@ test('carousel quote buttons have a high-contrast translucent background', () =>
     /\.hero-slider \.btn-ghost-dark:hover\s*\{[^}]*background:\s*rgba\(0,\s*0,\s*0,\s*\.9\)[^}]*color:\s*var\(--tmax-gold\)[^}]*border-color:\s*var\(--tmax-gold\)[^}]*\}/
   );
 });
+
+test('homepage hero overlay fades from opaque black to transparent by the center', () => {
+  assert.match(
+    homepage,
+    /\.hero-slider \.hero-bg::after\s*\{[^}]*background:\s*linear-gradient\(90deg,\s*rgba\(0,\s*0,\s*0,\s*1\)\s*0%,\s*rgba\(0,\s*0,\s*0,\s*0\)\s*50%\)[^}]*\}/
+  );
+  assert.match(homepage, /\.hero-slider \.hero-content\s*\{[^}]*position:\s*relative[^}]*z-index:\s*2[^}]*\}/);
+});
