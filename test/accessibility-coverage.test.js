@@ -130,6 +130,7 @@ test('every hero title and image uses the deterministic contrast layers', () => 
 test('BrowserStack verifies the hero image on its rendered pseudo-element', () => {
   const smokeScript = fs.readFileSync(path.join(rootDir, 'scripts', 'browserstack-smoke.js'), 'utf8');
   assert.match(smokeScript, /getComputedStyle\([^,]+,\s*["']::before["']\)\.backgroundImage/);
+  assert.match(smokeScript, /overlayBackground:\s*overlay\.backgroundImage/);
 });
 
 test('decorative warranty checkmarks are hidden from assistive technology', () => {

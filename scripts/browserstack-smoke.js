@@ -262,7 +262,7 @@ async function verifyHomepage(driver, browser) {
       copyBackground: getComputedStyle(copy).backgroundColor,
       descriptionMaxWidth: getComputedStyle(document.querySelector('[data-hero-slide].active .hero-desc')).maxWidth,
       headingMaxWidth: getComputedStyle(document.querySelector('[data-hero-slide].active h1, [data-hero-slide].active h2')).maxWidth,
-      overlayColor: overlay.backgroundColor,
+      overlayBackground: overlay.backgroundImage,
       panelBackground: panelStyles.backgroundImage,
       panelBorder: panelStyles.borderTopColor
     };
@@ -272,8 +272,8 @@ async function verifyHomepage(driver, browser) {
   assert.equal(heroPresentation.copyBackground, 'rgba(0, 0, 0, 0)');
   assert.equal(heroPresentation.descriptionMaxWidth, '540px');
   assert.equal(heroPresentation.headingMaxWidth, '540px');
-  assert.equal(heroPresentation.overlayColor, 'rgba(0, 0, 0, 0)');
-  assert.match(heroPresentation.panelBackground, /linear-gradient\(90deg, rgba\(0, 0, 0, 0\.7\) 0%, rgba\(0, 0, 0, 0\.13\) 100%\)/);
+  assert.match(heroPresentation.overlayBackground, /linear-gradient\(90deg, rgba\(0, 0, 0, 0\.7\) 0%, rgba\(0, 0, 0, 0\) 100%\)/);
+  assert.equal(heroPresentation.panelBackground, 'none');
   assert.equal(heroPresentation.panelBorder, 'rgba(213, 170, 81, 0.72)');
   assert.equal(await driver.findElements(By.css('[data-hero-slide] .hero-eyebrow')).then((items) => items.length), 0);
 
