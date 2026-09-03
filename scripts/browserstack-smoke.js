@@ -222,20 +222,48 @@ async function verifyHomepage(driver, browser) {
     'return getComputedStyle(document.querySelector("[data-hero-slide].active .hero-bg"), "::before").backgroundImage;'
   );
   assert.match(heroImage, /feeling-the-heat\.(webp|jpg)/);
-  const heroOverlay = await driver.executeScript(() => {
-    const styles = getComputedStyle(document.querySelector('[data-hero-slide].active .hero-bg'), '::after');
+  const heroPresentation = await driver.executeScript(() => {
+    const overlay = getComputedStyle(document.querySelector('[data-hero-slide].active .hero-bg'), '::after');
+    const panel = document.querySelector('[data-hero-slide].active .hero-content');
+    const panelStyles = getComputedStyle(panel);
+    const panelRect = panel.getBoundingClientRect();
+    const controlsRect = document.querySelector('.hero-slider-controls').getBoundingClientRect();
     return {
-      backgroundImage: styles.backgroundImage,
+      controlsAligned: Math.abs(panelRect.left - controlsRect.left) < 1 && Math.abs(panelRect.width - controlsRect.width) < 1,
+      controlsOnLowerEdge: panelRect.bottom >= controlsRect.top && panelRect.bottom <= controlsRect.bottom,
       descriptionMaxWidth: getComputedStyle(document.querySelector('[data-hero-slide].active .hero-desc')).maxWidth,
       headingMaxWidth: getComputedStyle(document.querySelector('[data-hero-slide].active h1, [data-hero-slide].active h2')).maxWidth,
-      opacity: styles.opacity
+      overlayColor: overlay.backgroundColor,
+      panelBackground: panelStyles.backgroundImage,
+      panelBorder: panelStyles.borderTopColor
     };
   });
-  assert.equal(heroOverlay.opacity, '1');
-  assert.equal(heroOverlay.descriptionMaxWidth, '540px');
-  assert.equal(heroOverlay.headingMaxWidth, '540px');
-  assert.match(heroOverlay.backgroundImage, /linear-gradient\(90deg, rgb\(0, 0, 0\) 0%, rgb\(0, 0, 0\) 30%, rgba\(0, 0, 0, 0\) 50%\)/);
+  assert.equal(heroPresentation.controlsAligned, true);
+  assert.equal(heroPresentation.controlsOnLowerEdge, true);
+  assert.equal(heroPresentation.descriptionMaxWidth, '540px');
+  assert.equal(heroPresentation.headingMaxWidth, '540px');
+  assert.equal(heroPresentation.overlayColor, 'rgba(0, 0, 0, 0.18)');
+  assert.match(heroPresentation.panelBackground, /linear-gradient\(90deg, rgb\(13, 13, 13\) 0%, rgb\(13, 13, 13\) 82%, rgba\(13, 13, 13, 0\.7\) 88%, rgba\(13, 13, 13, 0\.42\) 94%, rgba\(13, 13, 13, 0\.18\) 100%\)/);
+  assert.equal(heroPresentation.panelBorder, 'rgba(213, 170, 81, 0.72)');
   assert.equal(await driver.findElements(By.css('[data-hero-slide] .hero-eyebrow')).then((items) => items.length), 0);
+
+  await driver.manage().window().setRect({ width: 390, height: 844 });
+  await driver.sleep(250);
+  const mobileHeroPresentation = await driver.executeScript(() => {
+    const panelRect = document.querySelector('[data-hero-slide].active .hero-content').getBoundingClientRect();
+    const controlsRect = document.querySelector('.hero-slider-controls').getBoundingClientRect();
+    return {
+      controlsAligned: Math.abs(panelRect.left - controlsRect.left) < 1 && Math.abs(panelRect.width - controlsRect.width) < 1,
+      controlsOnLowerEdge: panelRect.bottom >= controlsRect.top && panelRect.bottom <= controlsRect.bottom,
+      pageOverflows: document.documentElement.scrollWidth > document.documentElement.clientWidth
+    };
+  });
+  assert.deepEqual(mobileHeroPresentation, {
+    controlsAligned: true,
+    controlsOnLowerEdge: true,
+    pageOverflows: false
+  });
+  await driver.manage().window().setRect({ width: 1280, height: 900 });
 
   const galleryState = await driver.executeScript(() => {
     const gallery = document.querySelector('.homepage-gallery');

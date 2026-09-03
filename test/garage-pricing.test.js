@@ -70,3 +70,37 @@ test('garage quote-only heights are marked for manual quote', () => {
   assert.equal(validated.data.server_verified_estimate, 'Request quote');
   assert.equal(Object.hasOwn(validated.data, 'calculated_price'), false);
 });
+
+test('garage requests without a complete configuration remain manual quotes', () => {
+  const validated = submission.validateSubmission({
+    form_name: 'quote-garage-doors',
+    data: {
+      email: 'customer@example.com',
+      selected_color: '',
+      rail_housing_color: 'Black',
+      selected_width: '',
+      selected_height: ''
+    }
+  });
+
+  assert.equal(validated.data.selected_color, '');
+  assert.equal(validated.data.rail_housing_color, 'Black');
+  assert.equal(validated.data.selected_width, '');
+  assert.equal(validated.data.selected_height, '');
+  assert.equal(validated.data.server_verified_estimate, 'Request quote');
+});
+
+test('garage dimensions without both colors remain a manual quote', () => {
+  const validated = submission.validateSubmission({
+    form_name: 'quote-garage-doors',
+    data: {
+      email: 'customer@example.com',
+      selected_color: '',
+      rail_housing_color: 'Black',
+      selected_width: '10',
+      selected_height: '8'
+    }
+  });
+
+  assert.equal(validated.data.server_verified_estimate, 'Request quote');
+});

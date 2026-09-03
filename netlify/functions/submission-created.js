@@ -112,9 +112,18 @@ function validateSubmission(payload) {
   if (data.email && !EMAIL_RE.test(String(data.email)) ) throw new Error('Invalid email');
   if (data.phone && String(data.phone).replace(/\D/g, '').length > 15) throw new Error('Invalid phone');
   if (formName === 'quote-garage-doors') {
-    data.selected_color = validateGarageColor(data.selected_color);
-    data.rail_housing_color = validateRailColor(data.rail_housing_color);
-    const verifiedPrice = calculateGarageEstimate(data.selected_width, data.selected_height);
+    data.selected_color = cleanValue(data.selected_color);
+    data.rail_housing_color = cleanValue(data.rail_housing_color);
+    data.selected_width = cleanValue(data.selected_width);
+    data.selected_height = cleanValue(data.selected_height);
+    if (data.selected_color) data.selected_color = validateGarageColor(data.selected_color);
+    if (data.rail_housing_color) data.rail_housing_color = validateRailColor(data.rail_housing_color);
+    if (data.selected_width && !GARAGE_WIDTHS.includes(data.selected_width)) throw new Error('Invalid garage width');
+    if (data.selected_height && !GARAGE_HEIGHTS.includes(data.selected_height)) throw new Error('Invalid garage height');
+    const hasCompleteConfiguration = data.selected_color && data.rail_housing_color && data.selected_width && data.selected_height;
+    const verifiedPrice = hasCompleteConfiguration
+      ? calculateGarageEstimate(data.selected_width, data.selected_height)
+      : null;
     data.server_verified_estimate = verifiedPrice === null ? 'Request quote' : formatCurrency(verifiedPrice);
     data.pricing_table_version = GARAGE_PRICING_VERSION;
   }
