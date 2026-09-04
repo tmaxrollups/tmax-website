@@ -10,7 +10,8 @@ const page = fs.readFileSync(path.join(publicDir, 'interior-shades.html'), 'utf8
 const galleryImages = [
   'interior-bedroom-shades.webp',
   'interior-coordinated-shades.webp',
-  'interior-neolux-dual-shades.webp'
+  'interior-neolux-dual-shades.webp',
+  'interior-shade-blue-sofa.webp'
 ];
 
 test('interior gallery uses the approved replacement photos', () => {

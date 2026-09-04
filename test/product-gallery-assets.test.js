@@ -56,14 +56,18 @@ test('each product carousel contains unique image sources', () => {
 test('high-resolution interior shade photo replaces both headers but is not repeated in its carousel', () => {
   const homepage = fs.readFileSync(path.join(publicDir, 'index.html'), 'utf8');
   const interior = fs.readFileSync(path.join(publicDir, 'interior-shades.html'), 'utf8');
-  const imageName = 'interior-light-filtering-window.webp';
+  const imageName = 'interior-shade-modern-living-room.webp';
+  const carouselImageName = 'interior-shade-blue-sofa.webp';
 
   assert.match(homepage, new RegExp(`--hero-image: url\\('/images/${imageName}'\\)`));
   assert.match(interior, new RegExp(`--hero-image: url\\('/images/${imageName}'\\)`));
   assert.doesNotMatch(galleryMarkup(interior), new RegExp(imageName));
+  assert.match(galleryMarkup(interior), new RegExp(`src="/images/${carouselImageName}"`));
   assert.doesNotMatch(galleryMarkup(interior), /interior-hallway-shades\.webp/);
 
-  const imagePath = path.join(imagesDir, imageName);
-  assert.ok(fs.existsSync(imagePath), `${imageName} must exist`);
-  assert.ok(fs.statSync(imagePath).size < 500_000, `${imageName} must stay below 500 KB`);
+  for (const optimizedImage of [imageName, carouselImageName]) {
+    const imagePath = path.join(imagesDir, optimizedImage);
+    assert.ok(fs.existsSync(imagePath), `${optimizedImage} must exist`);
+    assert.ok(fs.statSync(imagePath).size < 500_000, `${optimizedImage} must stay below 500 KB`);
+  }
 });
