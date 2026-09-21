@@ -106,3 +106,20 @@
   dots.forEach((dot, i) => dot.addEventListener('click', () => { show(i); }));
   show(0);
 })();
+
+(() => {
+  'use strict';
+  if (window.__tmaxGoogleAnalyticsLoaded) return;
+  window.__tmaxGoogleAnalyticsLoaded = true;
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-B1NX9HZ8S6');
+
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-B1NX9HZ8S6';
+  document.head.appendChild(script);
+})();
