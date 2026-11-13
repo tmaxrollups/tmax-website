@@ -5,6 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="/favicon.ico" rel="icon" type="image/x-icon"/>
 <title>TMAX Roll Ups | Custom Shades, Screens, Doors &amp; Shutters</title>
+<link rel="canonical" href="https://tmaxrollups.com/"/>
 <meta content="Custom shades, screens, roll-up garage doors, shutters and commercial systems for homes and businesses, including garage doors up to 18.5 ft wide." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -298,6 +299,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .homepage-gallery { max-width:900px; margin:0 auto; }
 @media (max-width:860px) { .direct-source-inner { flex-direction:column; align-items:flex-start; } }
 
+
 /* Homepage cycling product hero */
 .hero-slider { --hero-panel-left: max(24px, calc((100% - 1200px) / 2 + 8px)); --hero-panel-width: min(680px, calc(100% - 48px)); position: relative; min-height: 500px; padding: 0; }
 .hero-slider .hero-slide { position: absolute; inset: 0; display: flex; align-items: center; padding: 64px 0 82px; opacity: 0; visibility: hidden; transition: opacity .65s ease, visibility .65s ease; }
@@ -307,6 +309,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .hero-slider .hero-content { position: absolute; top: 22px; bottom: 22px; left: var(--hero-panel-left); width: var(--hero-panel-width); max-width: none; margin: 0; padding: 44px 16px 72px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; overflow: visible; border: 0; border-radius: 0; background: transparent; box-shadow: none; z-index: 2; }
 .hero-slider .hero-copy { position: relative; width: calc(100vw - var(--hero-panel-left) - 24px); max-width: 1152px; padding: 18px 0; background: transparent; box-shadow: none; z-index: 1; }
 .hero-slider .hero-btns { align-items: stretch; gap: 12px; }
+/* Shared rows keep every slide aligned with the first slide's content. */
+.hero-slider .hero-copy { display: grid; grid-template-rows: var(--hero-label-height, 0px) var(--hero-title-height, auto) var(--hero-description-height, auto) var(--hero-actions-height, auto); }
+.hero-slider .hero-copy > * { align-self: start; }
+.hero-slider .hero-seasonal-label { grid-row: 1; }
+.hero-slider .hero-copy > :is(h1, h2) { grid-row: 2; }
+.hero-slider .hero-copy > .hero-desc { grid-row: 3; max-width: 620px; }
+.hero-slider .hero-copy > .hero-btns { grid-row: 4; display: grid; grid-template-columns: var(--hero-primary-width, max-content) var(--hero-secondary-width, max-content); width: max-content; max-width: 100%; grid-auto-rows: var(--hero-button-height, auto); }
+.hero-slider .hero-btns a { justify-content: center; }
+
 .hero-slider .hero-btns .btn-primary,
 .hero-slider .hero-btns .btn-ghost-dark { min-height: 54px; padding: 14px 24px; border-radius: 3px; font-size: 13px; font-weight: 700; letter-spacing: 0.055em; text-transform: uppercase; box-shadow: 0 6px 18px rgba(0,0,0,.3); transition: background .15s, color .15s, border-color .15s, box-shadow .15s; }
 .hero-slider .btn-primary { background: var(--tmax-gold); color: #000; border-color: #000; }
@@ -315,22 +326,33 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .hero-slider .btn-ghost-dark:hover { background: #000; color: #f0c765; border-color: #f0c765; box-shadow: 0 8px 22px rgba(0,0,0,.38); }
 .hero-slider .hero-btns a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 .hero-slider .hero-slide h1,
-.hero-slider .hero-slide h2 { font-size: clamp(44px, 4.2vw, 60px); color: #fff; max-width: none; margin: 0 0 18px 0; line-height: 1.05; white-space: nowrap; }
+.hero-slider .hero-slide h2 { font-size: clamp(44px, 4.2vw, 60px); color: #fff; max-width: none; margin: 0 0 18px 0; line-height: 1.05; white-space: normal; }
 .hero-slider .hero-slide h2 { font-weight: 700; }
-.hero-slider .hero-desc { max-width: none; font-size: clamp(16px, 1.5vw, 19px); white-space: nowrap; }
-.hero-slider-controls { position: absolute; z-index: 4; left: 0; bottom: 24px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 13px; }
-.hero-dots { display: flex; gap: 9px; }
-.hero-dot { width: 10px; height: 10px; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.85); background: rgba(255,255,255,.25); cursor: pointer; }
-.hero-dot.active { background: #fff; transform: scale(1.2); }
-.hero-arrow { width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.55); background: rgba(0,0,0,.28); color: #fff; font-size: 27px; line-height: 1; cursor: pointer; }
-.hero-arrow:hover, .hero-arrow:focus-visible { background: rgba(0,0,0,.55); }
+.hero-slider .hero-desc { max-width: 720px; font-size: clamp(16px, 1.5vw, 19px); white-space: normal; }
+/* Fall copy uses the established brand palette. */
+.hero-slide-fall .hero-seasonal-label { color: var(--tmax-gold); font-size: 12px; font-weight: 700; letter-spacing: .12em; margin: 0 0 18px; }
+.hero-slider .hero-slide-fall h1, .hero-slider .hero-slide-fall .hero-desc { white-space: normal; }
+.hero-slider .hero-slide-fall .hero-desc { max-width: 620px; }
+.hero-slide-fall .hero-btns a { gap: 10px; }
+.hero-leaf { width: 20px; height: 20px; flex: 0 0 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.hero-slider-controls { position: absolute; z-index: 4; left: 50%; bottom: 24px; width: max-content; max-width: calc(100% - 24px); transform: translateX(-50%); display: grid; grid-template-columns: 44px auto 44px; align-items: center; gap: 12px; }
+.hero-dots { display: flex; align-items: center; justify-content: center; gap: 0; }
+.hero-dot { width: 24px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.hero-dot::before { content: ''; width: 8px; height: 8px; box-sizing: border-box; border-radius: 50%; border: 1px solid rgba(255,255,255,.85); background: rgba(255,255,255,.25); }
+.hero-dot.active::before { background: #fff; transform: scale(1.2); }
+.hero-arrow { width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,.55); background: rgba(0,0,0,.28); color: #fff; cursor: pointer; }
+.hero-arrow svg { display: block; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.hero-arrow:hover { background: rgba(0,0,0,.55); border-color: #fff; }
+.hero-arrow:focus-visible, .hero-dot:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 22px; }
 @media (max-width: 720px) {
   .hero-slider { --hero-panel-left: 12px; --hero-panel-width: calc(100% - 24px); min-height: 540px; }
   .hero-slider .hero-slide { padding: 54px 0 88px; }
   .hero-slider .hero-bg { background-position: center center !important; }
+  .hero-slider .hero-slide-fall .hero-bg { --hero-image: url('/.netlify/images?url=/images/customer-patio-fall-hero.jpg&w=960&q=75&fm=webp') !important; }
   .hero-slider .hero-bg::after { background: linear-gradient(90deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,.5) 50%, rgba(0,0,0,0) 100%); }
   .hero-slider .hero-content { top: 12px; bottom: 12px; padding: 30px 12px 74px; }
   .hero-slider .hero-copy { width: 100%; }
+  .hero-slider .hero-copy > .hero-btns { width: 100%; grid-template-columns: minmax(0, 1fr); }
   .hero-slider .hero-slide h1, .hero-slider .hero-slide h2 { font-size: 38px; white-space: normal; }
   .hero-slider .hero-desc { font-size: 17px; white-space: normal; }
   .hero-slider .hero-meta { max-width: 300px; }
@@ -351,8 +373,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .hero .hero-desc { font-size: 16px; max-width: 94%; }
 }
 </style>
-<link href="/assets/navigation.css?v=20260902-1" rel="stylesheet"/>
-<link href="/assets/accessibility.css?v=20260902-1" rel="stylesheet"/>
+<link href="/assets/navigation.css?v=20261113-1" rel="stylesheet"/>
+<link href="/assets/accessibility.css?v=20261113-1" rel="stylesheet"/>
 </head>
 <body>
 <!-- ═════════════════════════════════════════════════════════════════════
@@ -371,13 +393,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
      HERO
      ═════════════════════════════════════════════════════════════════════ -->
 <section aria-label="Featured TMAX products" class="hero hero-slider" data-hero-slider="">
-<div class="hero-slide active" data-hero-slide="">
-<div class="hero-bg" style="--hero-image: image-set(url('/images/feeling-the-heat.webp') type('image/webp'), url('/images/feeling-the-heat.jpg') type('image/jpeg')); background-position: center center;"></div>
+<div class="hero-slide hero-slide-fall active" data-hero-slide="">
+<div class="hero-bg" style="--hero-image: url('/.netlify/images?url=/images/customer-patio-fall-hero.jpg&amp;w=1920&amp;q=75&amp;fm=webp'); background-position: center 50%;"></div>
 <div class="hero-content">
 <div class="hero-copy">
-<h1><span class="hero-title-text">Feeling the Heat?</span></h1>
-<p class="hero-desc">Reduce sun and glare, add privacy, or help keep insects out with retractable exterior shades and screens.</p>
-<div class="hero-btns"><a class="btn-primary" href="/exterior-shades/">Explore Exterior Shades</a><a class="btn-ghost-dark" href="/contact-us/">Request a Quote</a></div>
+<p class="hero-seasonal-label">MAKE THE MOST OF FALL</p>
+<h1><span class="hero-title-text">Fresh Air. <em>Favorite Chair.</em></span></h1>
+<p class="hero-desc">Enjoy crisp days with TMAX retractable screens.</p>
+<div class="hero-btns"><a class="btn-primary" href="/exterior-shades/"><svg aria-hidden="true" focusable="false" class="hero-leaf" viewBox="0 0 24 24"><path d="m12 2 2.5 5 3-1-.5 4 4 1-3 4 1 3-6 1-1.5 3-1.5-3-6-1 1-3-3-4 4-1-.5-4 3 1Z"/><path d="M12 8v14m0-8-4-3m4 6 4-3"/></svg>Explore Exterior Shades</a><a class="btn-ghost-dark" href="/contact-us/"><svg aria-hidden="true" focusable="false" class="hero-leaf" viewBox="0 0 24 24"><path d="m12 2 2.5 5 3-1-.5 4 4 1-3 4 1 3-6 1-1.5 3-1.5-3-6-1 1-3-3-4 4-1-.5-4 3 1Z"/><path d="M12 8v14m0-8-4-3m4 6 4-3"/></svg>Request a Quote</a></div>
 </div>
 </div>
 </div>
@@ -422,15 +445,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 </div>
 <div aria-label="Choose featured product" class="hero-slider-controls" role="group">
-<button aria-label="Previous slide" class="hero-arrow hero-prev" type="button">‹</button>
+<button aria-label="Previous slide" class="hero-arrow hero-prev" type="button"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg></button>
 <div class="hero-dots">
-<button aria-label="Exterior shades and screens" class="hero-dot active" data-hero-dot="0" type="button"></button>
+<button aria-label="Exterior shades and screens" aria-current="true" class="hero-dot active" data-hero-dot="0" type="button"></button>
 <button aria-label="Garage doors" class="hero-dot" data-hero-dot="1" type="button"></button>
 <button aria-label="Interior shades" class="hero-dot" data-hero-dot="2" type="button"></button>
 <button aria-label="Roll-up shutters" class="hero-dot" data-hero-dot="3" type="button"></button>
 <button aria-label="Commercial systems" class="hero-dot" data-hero-dot="4" type="button"></button>
 </div>
-<button aria-label="Next slide" class="hero-arrow hero-next" type="button">›</button>
+<button aria-label="Next slide" class="hero-arrow hero-next" type="button"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></button>
 </div>
 </section>
 <section class="intro-section">
@@ -750,5 +773,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 </div>
 </div>
 </footer>
-<script defer="True" src="/assets/site.js?v=20260902-1"></script><script defer="True" src="/assets/gallery.js?v=20260902-1"></script></body>
+<script defer="True" src="/assets/site.js?v=20261113-1"></script><script defer="True" src="/assets/gallery.js?v=20261113-1"></script>
+</body>
 </html>

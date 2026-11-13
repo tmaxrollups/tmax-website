@@ -27,6 +27,6 @@ test('public pages and sitemap no longer reference Accessories URLs', () => {
   }
 
   const sitemap = fs.readFileSync(path.join(publicDir, 'sitemap.xml'), 'utf8');
-  const resourcesEntries = sitemap.match(/<loc>https:\/\/tmax-rollups\.netlify\.app\/resources(?:\.html|\/)?<\/loc>/g) || [];
+  const resourcesEntries = sitemap.match(/<loc>https:\/\/tmaxrollups\.com\/resources(?:\.html|\/)?<\/loc>/g) || [];
   assert.equal(resourcesEntries.length, 1, 'sitemap must contain one canonical Resources entry');
 });

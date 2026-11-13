@@ -9,7 +9,7 @@
     '9': {'3':3730,'4':3865,'5':3995,'6':4135,'7':4265,'8':4265,'9':4395,'10':4660,'11':5195,'12':5195,'13':5595,'14':5595,'15':5595,'16':5595,'17':5730,'18.5':5860}
   };
   const quoteOnlyHeights = ['10','11','12'];
-  const swatches = document.querySelectorAll('.tmax-swatch');
+  const swatches = Array.from(document.querySelectorAll('.tmax-swatch'));
   const widthSel = document.getElementById('cfg-width');
   const heightSel = document.getElementById('cfg-height');
   const railSel = document.getElementById('cfg-rail-color');
@@ -119,7 +119,7 @@
     });
   });
 
-  syncSwatchState(swatches[0]);
+  if (swatches.length) selectSwatch(swatches[0]);
 
   widthSel.addEventListener('change', update);
   heightSel.addEventListener('change', update);
