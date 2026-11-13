@@ -8,7 +8,7 @@ const path = require('node:path');
 const rootDir = path.join(__dirname, '..');
 const publicDir = path.join(rootDir, 'public');
 const auditScript = path.join(rootDir, 'scripts', 'pa11y-audit.js');
-const sharedStylesheet = '/assets/accessibility.css?v=20260902-1';
+const sharedStylesheet = '/assets/accessibility.css?v=20261113-1';
 const escapedSharedStylesheet = sharedStylesheet.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 test('pa11y command audits every public page at desktop and mobile sizes', () => {

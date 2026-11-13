@@ -7,7 +7,7 @@ const path = require('node:path');
 
 const rootDir = path.join(__dirname, '..');
 const publicDir = path.join(rootDir, 'public');
-const assetVersion = '20260902-1';
+const assetVersion = '20261113-1';
 
 test('every shared CSS and JavaScript reference uses the current cache-reset version', () => {
   for (const pageName of fs.readdirSync(publicDir).filter((name) => name.endsWith('.html'))) {
